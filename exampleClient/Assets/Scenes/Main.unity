@@ -145,6 +145,8 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 4058419468009239722, guid: 9f47bf1bfc560ad409b4400595713ae8,
     type: 3}
+  obstaclePrefab: {fileID: 8741390336517382331, guid: e150fdc558e0ec9408c30562d4d1612d,
+    type: 3}
 --- !u!4 &10714616
 Transform:
   m_ObjectHideFlags: 0

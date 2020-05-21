@@ -61,4 +61,12 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.players[_id].SetCollisions(_collisions);
     }
+
+    public static void ObstacleSpawned(Packet _packet)
+    {
+        Vector3 _position = _packet.ReadVector3();
+
+        GameManager.instance.SpawnObstacle(_position);
+
+    }
 }

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject obstaclePrefab;
 
     public void Awake()
     {
@@ -39,5 +40,10 @@ public class GameManager : MonoBehaviour
 
         _player.GetComponent<PlayerManager>().Initialize(_id, _username);
         players.Add(_id, _player.GetComponent<PlayerManager>());
+    }
+
+    public void SpawnObstacle(Vector3 _position)
+    {
+        Instantiate(obstaclePrefab, _position, obstaclePrefab.transform.rotation);
     }
 }
