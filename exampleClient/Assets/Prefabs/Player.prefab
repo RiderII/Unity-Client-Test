@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   username: 
+  collisions: 0
+  traveled_kilometers: 0
+  burned_calories: 0
 --- !u!1 &5881039852076672224
 GameObject:
   m_ObjectHideFlags: 0
