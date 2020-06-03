@@ -42,6 +42,16 @@ public class ClientSend : MonoBehaviour
             SendUDPData(_packet);
         }
     }
+
+    public static void RequestGameRestart()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.restartScene))
+        {
+            _packet.Write(Client.instance.myId);
+
+            SendTCPData(_packet);
+        }
+    }
         
     #endregion
 }

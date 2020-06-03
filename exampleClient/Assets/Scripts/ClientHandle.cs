@@ -37,6 +37,16 @@ public class ClientHandle : MonoBehaviour
         GameManager.players[_id].transform.position = _position;
     }
 
+    public static void RestartPlayerPosition(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        Vector3 _position = _packet.ReadVector3();
+
+        GameManager.players[_id].transform.position = _position;
+        GameManager.players[_id].RestartProperties();
+        Debug.Log($"Player>: {GameManager.players[_id].username} sent to position { GameManager.players[_id].transform.position}");
+    }
+
     public static void PlayerRotation(Packet _packet)
     {
         int _id = _packet.ReadInt();
@@ -56,7 +66,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerCollided(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        float _collisions = _packet.ReadFloat();
+        int _collisions = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
 
         GameManager.players[_id].SetCollisions(_collisions);
@@ -68,5 +78,12 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.instance.SpawnObstacle(_position);
 
+    }
+
+    public static void PlayerFinishedGame(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+
+        GameManager.players[_id].finishedGame = true;
     }
 }

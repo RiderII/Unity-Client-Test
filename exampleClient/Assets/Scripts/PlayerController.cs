@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         bool[] _inputs = new bool[]
         {
-            Input.GetKey(KeyCode.W),
+            Input.GetKey(KeyCode.UpArrow),
             Input.GetKey(KeyCode.S),
             Input.GetKey(KeyCode.A),
             Input.GetKey(KeyCode.D)

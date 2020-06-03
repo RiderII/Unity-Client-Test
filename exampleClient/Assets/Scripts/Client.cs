@@ -291,6 +291,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.playerCollided, ClientHandle.PlayerCollided },
             { (int)ServerPackets.obstacleSpawned, ClientHandle.ObstacleSpawned },
+            { (int)ServerPackets.playerFinishedGame, ClientHandle.PlayerFinishedGame },
+            { (int)ServerPackets.restartPlayerPosition, ClientHandle.RestartPlayerPosition }
         };
         Debug.Log("Initialized packets!");
     }
