@@ -44,7 +44,7 @@ public class CameraController : MonoBehaviour
         player.transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
     }
 
-    private void ToggleCursorMode()
+    public void ToggleCursorMode()
     {
         Cursor.visible = !Cursor.visible;
 

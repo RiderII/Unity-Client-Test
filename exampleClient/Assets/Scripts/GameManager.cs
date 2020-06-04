@@ -46,4 +46,5 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(obstaclePrefab, _position, obstaclePrefab.transform.rotation);
     }
+    
 }
