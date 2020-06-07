@@ -378,6 +378,11 @@ MonoBehaviour:
   player: {fileID: 8896286456517972869}
   sensitivity: 100
   clamAngle: 85
+  playPedaleo: 0
+  vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
+  pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
+  audioSourceVaquita: {fileID: 0}
+  audioSourcePedalo: {fileID: 0}
 --- !u!1 &8166826683060554487
 GameObject:
   m_ObjectHideFlags: 0
