@@ -12,6 +12,8 @@ public class CameraController : MonoBehaviour
     private float horizontalRotation;
 
     public bool playPedaleo = false;
+    public static bool playVaquitaMu = false;
+    public static Vector3 collisionPosition;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
     public AudioSource audioSourceVaquita;
@@ -69,6 +71,17 @@ public class CameraController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W))
         {
             playPedaleo = false;
+        }
+
+        if (playVaquitaMu)
+        {
+            playVaquitaMu = false;
+            float soundVolume = Mathf.Sqrt(Mathf.Pow((Mathf.Round(player.transform.position.x) - Mathf.Round(collisionPosition.x)), 2) + Mathf.Pow(Mathf.Round((player.transform.position.z) - Mathf.Round(collisionPosition.z)), 2));
+            soundVolume = soundVolume / 80f;
+            Debug.Log($"Volume {soundVolume}");
+            audioSourceVaquita.volume = 1.0f - soundVolume;
+            audioSourceVaquita.clip = vaquitamu;
+            audioSourceVaquita.Play();
         }
     }
 

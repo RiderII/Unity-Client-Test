@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             _inputs = new bool[] { false, false, false, true };
         }
-        ClientSend.PlayerMovement(_inputs);
+        PacketSend.PlayerMovement(_inputs);
     }
 
     private void SendInputToServer()
@@ -63,6 +63,6 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.D)
         };
 
-        ClientSend.PlayerMovement(_inputs);
+        PacketSend.PlayerMovement(_inputs);
     }
 }

@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     public void SetCollisions(int _collision)
     {
         collisions = _collision;
+        Debug.Log($"player {username} collided {collisions}");
     }
 
     private void FixedUpdate()
@@ -40,7 +41,7 @@ public class PlayerManager : MonoBehaviour
             if (gameOverTimer <= 0f)
             {
                 if (!reloadRequestSent) {
-                    ClientSend.RequestGameRestart();
+                    PacketSend.RequestGameRestart();
                     reloadRequestSent = true;
                 }
             }

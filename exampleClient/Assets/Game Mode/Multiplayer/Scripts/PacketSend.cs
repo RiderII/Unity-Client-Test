@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClientSend : MonoBehaviour
+public class PacketSend : MonoBehaviour
 {
     private static void SendTCPData(Packet _packet)
     {

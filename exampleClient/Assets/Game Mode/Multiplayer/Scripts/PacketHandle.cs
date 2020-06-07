@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class ClientHandle : MonoBehaviour
+public class PacketHandle : MonoBehaviour
 {
     public static void Welcome(Packet _packet) //read the value of the packets send from the server in the same order they were send
     {
@@ -14,7 +14,7 @@ public class ClientHandle : MonoBehaviour
         Client.instance.myId = _myId;
 
         // Send packet back to the server
-        ClientSend.WelcomeReceived();
+        PacketSend.WelcomeReceived();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
@@ -70,6 +70,8 @@ public class ClientHandle : MonoBehaviour
         Vector3 _position = _packet.ReadVector3();
 
         GameManager.players[_id].SetCollisions(_collisions);
+        CameraController.collisionPosition = _position;
+        CameraController.playVaquitaMu = true;
     }
 
     public static void ObstacleSpawned(Packet _packet)
