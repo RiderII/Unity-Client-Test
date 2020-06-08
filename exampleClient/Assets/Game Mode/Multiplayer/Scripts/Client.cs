@@ -302,8 +302,15 @@ public class Client : MonoBehaviour
         if (isConnected)
         {
             isConnected = false;
-            tcp.socket.Close();
-            udp.socket.Close();
+
+            if (tcp != null)
+            {
+                tcp.socket.Close();
+            }
+            if (udp != null)
+            {
+                udp.socket.Close();
+            }
 
             Debug.Log("Disconnected from server.");
         }

@@ -36,7 +36,10 @@ public class PlayerManager : MonoBehaviour
         if (finishedGame)
         {
             finalTime = gameTimer;
-            infoText.text = "Ruta finalizada\n Tu tiempo:" + Mathf.FloorToInt(finalTime);
+            if (infoText)
+            {
+                infoText.text = "Ruta finalizada\n Tu tiempo:" + Mathf.FloorToInt(finalTime);
+            } 
             gameOverTimer -= Time.deltaTime;
             if (gameOverTimer <= 0f)
             {
@@ -48,7 +51,10 @@ public class PlayerManager : MonoBehaviour
         }
         else {
             gameTimer += Time.deltaTime;
-            infoText.text = "Tiempo: " + Mathf.FloorToInt(gameTimer);
+            if (infoText)
+            {
+                infoText.text = "Tiempo: " + Mathf.FloorToInt(gameTimer);
+            }
         }
     }
 

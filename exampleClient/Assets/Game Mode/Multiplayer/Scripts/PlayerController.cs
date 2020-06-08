@@ -9,26 +9,26 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        sp.Open();
-        sp.ReadTimeout = 1;
+        //sp.Open();
+        //sp.ReadTimeout = 1;
     }
 
     private void FixedUpdate()
     {
         SendInputToServer();
        
-        if (sp.IsOpen)
-        {
-            try
-            {
-                SendInputIot(sp.ReadByte());
+        //if (sp.IsOpen)
+        //{
+        //    try
+        //    {
+        //        SendInputIot(sp.ReadByte());
 
-            }
-            catch (System.Exception)
-            {
+        //    }
+        //    catch (System.Exception)
+        //    {
 
-            }
-        }
+        //    }
+        //}
     }
 
     private void SendInputIot(int direction)

@@ -1580,7 +1580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b313fb7a5d288f7419f0500bf05f18dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ip: 3.17.9.131
+  ip: 127.0.0.1
   port: 26950
   myId: 0
   userName: user
@@ -1647,7 +1647,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647901874}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b19541515fa47214996c2e968a548c1a, type: 3}
