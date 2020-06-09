@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float mouseSensitivity = 100.0f;
+    public float clampAngle = 80.0f;
+    private float rotY = 0.0f; // rotation around the up/y axis
+
     public float acceleration = 0.6f;
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
@@ -20,6 +24,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
+        Vector3 rot = transform.localRotation.eulerAngles;
+        rotY = rot.y;
+
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
@@ -37,6 +44,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float _mouseVertical = -Input.GetAxis("Mouse Y");
+        rotY += _mouseVertical * mouseSensitivity * Time.deltaTime;
+        rotY = Mathf.Clamp(rotY, -clampAngle, clampAngle);
+        transform.localRotation = Quaternion.Euler(rotY, 0f, 0f);
+
         //pause event
         if (Input.GetKeyUp(KeyCode.Escape))
         {
