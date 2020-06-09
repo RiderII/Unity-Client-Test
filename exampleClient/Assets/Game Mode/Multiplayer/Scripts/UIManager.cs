@@ -51,7 +51,19 @@ public class UIManager : MonoBehaviour
 
     public void GoMenu()
     {
+        for (int i = 1; i < GameManager.players.Count; i++)
+        {
+            if (GameManager.players.ContainsKey(i))
+            {
+                Destroy(GameManager.players[i].gameObject);
+                
+            }
+        }
+
+        GameManager.players.Clear();
+
         Client.instance.Disconnect();
+
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }

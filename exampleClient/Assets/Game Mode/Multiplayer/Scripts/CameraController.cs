@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     public PlayerManager player;
     public float sensitivity = 100f;
     public float clamAngle = 85f;
+    public float defaultVolumeCollision = 1.0f;
 
     private float verticalRotation;
     private float horizontalRotation;
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour
     {
         verticalRotation = transform.localEulerAngles.x;
         horizontalRotation = player.transform.eulerAngles.y;
-        audioSourceVaquita = AddAudio(false, false, 1.0f);
+        audioSourceVaquita = AddAudio(false, false, defaultVolumeCollision);
         audioSourcePedalo = AddAudio(true, false, 0.5f);
     }
 
@@ -77,9 +78,10 @@ public class CameraController : MonoBehaviour
         {
             playVaquitaMu = false;
             float soundVolume = Mathf.Sqrt(Mathf.Pow((Mathf.Round(player.transform.position.x) - Mathf.Round(collisionPosition.x)), 2) + Mathf.Pow(Mathf.Round((player.transform.position.z) - Mathf.Round(collisionPosition.z)), 2));
-            soundVolume = soundVolume / 80f;
+            soundVolume = soundVolume / 20f;
+            //if (soundVolume != 0) defaultVolumeCollision = 0.5f;
             Debug.Log($"Volume {soundVolume}");
-            audioSourceVaquita.volume = 1.0f - soundVolume;
+            audioSourceVaquita.volume = defaultVolumeCollision - soundVolume;
             audioSourceVaquita.clip = vaquitamu;
             audioSourceVaquita.Play();
         }
