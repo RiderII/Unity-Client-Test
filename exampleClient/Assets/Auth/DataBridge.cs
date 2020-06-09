@@ -4,6 +4,7 @@ using UnityEngine;
 using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
+using System.Threading.Tasks;
 
 public class DataBridge : MonoBehaviour
 {
@@ -13,9 +14,9 @@ public class DataBridge : MonoBehaviour
 
     private void Start()
     {
-        //FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
 
-        //dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
         //LoadData();
     }
 
@@ -54,5 +55,38 @@ public class DataBridge : MonoBehaviour
                 }
         }));
     }
+
+    
+    public async Task<List<Challenge>> LoadDataChallenges()
+    {
+        List<Challenge> lista = new List<Challenge>();
+        await FirebaseDatabase.DefaultInstance.GetReferenceFromUrl(DATA_URL).GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
+                    
+                }
+                if (task.IsFaulted)
+                {
+                    
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    string challData = snapshot.GetRawJsonValue();
+                    foreach (var child in snapshot.Children)
+                    {
+                        string t = child.GetRawJsonValue();
+                        Challenge data = JsonUtility.FromJson<Challenge>(t);
+                        lista.Add(data);
+                    }
+                }
+            }));
+
+        
+        return lista; 
+        
+    }
+
 
 }
