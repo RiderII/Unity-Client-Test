@@ -10,6 +10,18 @@ public class Player : MonoBehaviour
 
     public CharacterController controller;
 
+    public int id;
+    public int dbId;
+    public string username = "diego";
+    public string email = "test@test.com";
+    public int collisions = 0;
+    public float traveled_kilometers = 0f;
+    public float burned_calories = 0f;
+    public float totalGameTime = 0f;
+    public List<Medal> medals = new List<Medal>();
+    public List<MapReport> mapReport;
+    public float totalScore = 0;
+
     private float yVelocity = 0;
     public float gravity = -9.81f;
     public float acceleration = 0.6f;
@@ -114,7 +126,7 @@ public class Player : MonoBehaviour
         // Vector3 direction = new Vector3(transform.parent.forward.x, 0, transform.parent.forward.z);
         // transform.parent.position += direction.normalized * speed * Time.deltaTime;
 
-        if (Input.GetKey("up")) {
+        if (Input.GetKey("w")) {
 
             if (!playPedaleo) {
                 audioSourcePedalo.clip = pedaleo;
@@ -130,14 +142,11 @@ public class Player : MonoBehaviour
             controller.Move(direction.normalized * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyUp("up"))
+        if (Input.GetKeyUp("w"))
         {
             acceleration *= -1;
             playPedaleo = false;
         }
-
-
-
 
         // Make player stay inside a certain area
         if (controller.transform.position.x < -4.5f)

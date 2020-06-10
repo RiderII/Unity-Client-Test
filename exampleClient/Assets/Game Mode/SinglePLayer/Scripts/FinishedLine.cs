@@ -11,6 +11,7 @@ public class FinishedLine : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             player.reachedFinishLine = true;
+            player.traveled_kilometers = player.controller.transform.position.z;
         }
     }
 }

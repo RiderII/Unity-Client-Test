@@ -20,7 +20,7 @@ public class ObstacleCollision : MonoBehaviour
             player.audioSourceVaquita.Play();
             player.audioSourcePedalo.volume *= 0.20f;
             player.speed *= player.obstacleSlowDown;
-            PlayerCollided(player);
+            player.collisions += 1;
         }
     }
 
@@ -29,13 +29,5 @@ public class ObstacleCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         isColliding = false;
-    }
-
-    private void PlayerCollided(Player _player)
-    {
-        //_player.collisions += 1;
-        //Debug.Log($"COLISIONES: {_player.username}");
-        //Debug.Log($"COLISIONES: {_player.collisions}");
-        //PacketSend.PlayerCollided(_player);
     }
 }

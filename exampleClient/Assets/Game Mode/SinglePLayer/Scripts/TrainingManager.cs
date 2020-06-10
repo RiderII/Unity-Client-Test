@@ -13,6 +13,7 @@ public class TrainingManager : MonoBehaviour
     public float spawnDistanceFromPlayer = 40f;
     public float spawnDistanceFromObstacles = 10f;
     public float finishLinePosition = 200f;
+    public int numberOfObstaclers = 0;
 
     private float obstaclePointer;
 
@@ -41,6 +42,7 @@ public class TrainingManager : MonoBehaviour
                 1.5f,
                 player.transform.parent.position.z + spawnDistanceFromPlayer
             );
+            numberOfObstaclers += 1;
         }
 
         gameTimer += Time.deltaTime;
@@ -51,6 +53,14 @@ public class TrainingManager : MonoBehaviour
             {
                 isGameOver = true;
                 finalTime = gameTimer;
+                player.totalGameTime = finalTime;
+                Challenge challengeType = new Challenge("reto de 200 km", 20);
+                Medal medal = new Medal(challengeType, "sprite", System.DateTime.Now, "lo lograste");
+                player.medals.Add(medal);
+                MapReport mapReport = new MapReport(
+                    player.collisions, player.traveled_kilometers, player.burned_calories,
+                    player.totalGameTime, medal);
+                Debug.Log(player);
             }
 
             infoText.text = "Time: " + Mathf.FloorToInt(gameTimer);
