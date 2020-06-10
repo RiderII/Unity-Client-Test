@@ -11,6 +11,7 @@ public class LvlManger : MonoBehaviour
     public GameObject challengeMenu;
     public GameObject mainMenu;
     public GameObject challengePrefab;
+    public GameObject backbtnPrefab;
 
     public DataBridge dataBridge;
     
@@ -36,6 +37,15 @@ public class LvlManger : MonoBehaviour
             var challenge = Instantiate(challengePrefab, challengeMenu.transform);
             challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
         }
+        var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
+        Button btn = backbtn.GetComponent<Button>();
+        btn.onClick.AddListener(delegate() {
+            mainMenu.SetActive(true);
+            foreach (Transform child in challengeMenu.transform)
+                Destroy(child.gameObject);
+
+            challengeMenu.SetActive(false);
+        });
 
         print("loaded");
 
