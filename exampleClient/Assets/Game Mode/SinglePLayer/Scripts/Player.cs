@@ -144,9 +144,6 @@ public class Player : MonoBehaviour
             audioSourcePedalo.volume *= 0.20f;
             speed *= obstacleSlowDown;
         }
-        else if (otherCollider.tag == "FinishLine") {
-            reachedFinishLine = true;
-        }
     }
 
     private void PauseGame()
