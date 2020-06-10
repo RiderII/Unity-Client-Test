@@ -10,16 +10,18 @@ public class MapReport
     public float traveled_kilometers = 0f;
     public float burned_calories = 0f;
     public float totalGameTime = 0f;
+    public string datetime;
     public Medal medal;
 
     public MapReport() { }
 
     public MapReport(int collisions, float traveled_kilometers, 
-        float burned_calories, float totalGameTime, Medal medal) {
+        float burned_calories, float totalGameTime, string datetime, Medal medal) {
         this.collisions = collisions;
         this.traveled_kilometers = traveled_kilometers;
         this.burned_calories = burned_calories;
         this.totalGameTime = totalGameTime;
+        this.datetime = datetime;
         this.medal = medal;
     }
 }

@@ -9,10 +9,11 @@ public class AuthController : MonoBehaviour
     //public Text emailInput, passwordInput;
     private string email = "test@test.com";
     private string password = "Test12345";
+    
 
     public void Start()
     {
-        //Login();
+        Login();
     }
     public void Login()
     {

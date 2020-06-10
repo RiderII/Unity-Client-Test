@@ -13,7 +13,7 @@ public class LvlManger : MonoBehaviour
     public GameObject challengePrefab;
     public GameObject backbtnPrefab;
 
-    public DataBridge dataBridge;
+    //public DataBridge dataBridge;
     
     public void loadLevel(string pNombreNivel){
         Time.timeScale = 1;
@@ -30,7 +30,7 @@ public class LvlManger : MonoBehaviour
     {
         mainMenu.SetActive(false);
         challengeMenu.SetActive(true);
-        var lista = await dataBridge.LoadDataChallenges();
+        var lista = await DataBridge.instance.LoadDataChallenges();
         
         foreach (var t in lista)
         {

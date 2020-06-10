@@ -5,27 +5,48 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
 using System.Threading.Tasks;
+using Firebase.Auth;
 
 public class DataBridge : MonoBehaviour
 {
+    public static DataBridge instance;
     private string DATA_URL = "https://riderii.firebaseio.com/";
     private DatabaseReference dbReference;
     private Challenge data;
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
 
     private void Start()
     {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
 
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-        //LoadData();
+       
     }
 
     public void SaveData() {
         data = new Challenge("Termina una carrera!", 100);
         string jsonData = JsonUtility.ToJson(data);
 
-        dbReference.Child("Challenges" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
+        dbReference.Child("Challenges").Child("Challenge" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
         //en vez de usar un range, se debe usar un id unico usando firebase.Auth
+    }
+
+    public void SaveReport(MapReport report)
+    {
+        print("saving report");
+        string jsonData = JsonUtility.ToJson(report);
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        string key = dbReference.Child("UserRecords").Child(userid).Push().Key;
+        dbReference.Child("UserRecords").Child(userid).Child(key).SetRawJsonValueAsync(jsonData);
     }
 
     public void LoadData()
@@ -55,12 +76,11 @@ public class DataBridge : MonoBehaviour
                 }
         }));
     }
-
     
     public async Task<List<Challenge>> LoadDataChallenges()
     {
         List<Challenge> lista = new List<Challenge>();
-        await FirebaseDatabase.DefaultInstance.GetReferenceFromUrl(DATA_URL).GetValueAsync()
+        await FirebaseDatabase.DefaultInstance.GetReference("Challenges").GetValueAsync()
             .ContinueWith((task => {
                 if (task.IsCanceled)
                 {
@@ -82,8 +102,7 @@ public class DataBridge : MonoBehaviour
                     }
                 }
             }));
-
-        
+        print("trayendo challenges");
         return lista; 
         
     }

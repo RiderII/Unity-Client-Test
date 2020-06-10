@@ -9,7 +9,7 @@ public class TrainingManager : MonoBehaviour
     public Player player;
     public TextMesh infoText;
     public GameObject finishLine;
-
+   
     public float spawnDistanceFromPlayer = 40f;
     public float spawnDistanceFromObstacles = 10f;
     public float finishLinePosition = 200f;
@@ -59,8 +59,8 @@ public class TrainingManager : MonoBehaviour
                 player.medals.Add(medal);
                 MapReport mapReport = new MapReport(
                     player.collisions, player.traveled_kilometers, player.burned_calories,
-                    player.totalGameTime, medal);
-                Debug.Log(player);
+                    player.totalGameTime, System.DateTime.Now.ToString(), medal);
+                DataBridge.instance.SaveReport(mapReport);
             }
 
             infoText.text = "Time: " + Mathf.FloorToInt(gameTimer);
