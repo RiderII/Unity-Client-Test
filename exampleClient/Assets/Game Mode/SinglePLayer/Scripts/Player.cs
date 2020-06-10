@@ -8,10 +8,14 @@ public class Player : MonoBehaviour
     public float clampAngle = 80.0f;
     private float rotY = 0.0f; // rotation around the up/y axis
 
+    public CharacterController controller;
+
+    private float yVelocity = 0;
+    public float gravity = -9.81f;
     public float acceleration = 0.6f;
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
-    private float speed = 0f;
+    public float speed = 0f;
     public bool reachedFinishLine = false;
     public bool playPedaleo = false;
     public AudioClip vaquitamu;
@@ -64,7 +68,17 @@ public class Player : MonoBehaviour
 
         // Acceleration logic
 
-        Vector3 direction = new Vector3(transform.parent.forward.x, 0, transform.parent.forward.z);
+        if (controller.isGrounded)
+        {
+            yVelocity = 0f;
+        }
+        else {
+            Vector3 moveDown = new Vector3(controller.transform.forward.x, controller.transform.forward.y + gravity, controller.transform.forward.z);
+            controller.Move(moveDown.normalized * speed * Time.deltaTime);
+        }
+        yVelocity += gravity;
+
+        Vector3 direction = new Vector3(controller.transform.forward.x, 0, controller.transform.forward.z);
 
         speed += acceleration * Time.deltaTime;
 
@@ -92,7 +106,7 @@ public class Player : MonoBehaviour
 
         if (acceleration < 0)
         {
-            transform.parent.position += direction.normalized * speed * Time.deltaTime;
+            controller.Move(direction.normalized * speed * Time.deltaTime);
         }
 
         // Make player move automatically
@@ -113,7 +127,7 @@ public class Player : MonoBehaviour
                 acceleration *= -1;
                 //reproducir pedaleo
             }
-            transform.parent.position += direction.normalized * speed * Time.deltaTime;
+            controller.Move(direction.normalized * speed * Time.deltaTime);
         }
 
         if (Input.GetKeyUp("up"))
@@ -126,23 +140,16 @@ public class Player : MonoBehaviour
 
 
         // Make player stay inside a certain area
-        if (transform.parent.position.x < -5f)
+        if (controller.transform.position.x < -4.5f)
         {
-            transform.parent.position = new Vector3(-5f, transform.parent.position.y, transform.parent.position.z);
+            controller.enabled = false;
+            controller.transform.position = new Vector3(-4.5f, controller.transform.position.y, controller.transform.position.z);
+            controller.enabled = true;
         }
-        else if (transform.position.x > 5f) {
-            transform.parent.position = new Vector3(5f, transform.parent.position.y, transform.parent.position.z);
-        }
-    }
-
-    private void OnTriggerEnter(Collider otherCollider)
-    {
-        if (otherCollider.tag == "Obstacle")
-        {
-            audioSourceVaquita.clip = vaquitamu;
-            audioSourceVaquita.Play();
-            audioSourcePedalo.volume *= 0.20f;
-            speed *= obstacleSlowDown;
+        else if (controller.transform.position.x > 4.5f) {
+            controller.enabled = false;
+            controller.transform.position = new Vector3(4.5f, controller.transform.position.y, controller.transform.position.z);
+            controller.enabled = true;
         }
     }
 
