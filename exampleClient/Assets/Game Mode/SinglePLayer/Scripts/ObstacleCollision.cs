@@ -15,7 +15,11 @@ public class ObstacleCollision : MonoBehaviour
             isColliding = true;
             StartCoroutine(Reset());
 
-            Player player = hit.controller.gameObject.GetComponent<Player>();
+            Player player = hit.controller.gameObject.GetComponentInChildren<Player>();
+            player.audioSourceVaquita.clip = player.vaquitamu;
+            player.audioSourceVaquita.Play();
+            player.audioSourcePedalo.volume *= 0.20f;
+            player.speed *= player.obstacleSlowDown;
             PlayerCollided(player);
         }
     }
