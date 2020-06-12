@@ -107,5 +107,31 @@ public class DataBridge : MonoBehaviour
         
     }
 
+    public async Task<List<string>> LoadUserMedals()
+    {
+        List<string> lista = new List<string>();
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
 
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var child in snapshot.Children)
+                    {
+                        string t = child.GetRawJsonValue();
+                        lista.Add(t);
+                    }
+                }
+            }));
+
+        return lista;
+    }
 }
