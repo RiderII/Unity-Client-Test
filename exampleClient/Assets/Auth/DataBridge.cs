@@ -126,7 +126,7 @@ public class DataBridge : MonoBehaviour
                     DataSnapshot snapshot = task.Result;
                     foreach (var child in snapshot.Children)
                     {
-                        string t = child.GetRawJsonValue();
+                        string t = child.Value.ToString();
                         lista.Add(t);
                     }
                 }
