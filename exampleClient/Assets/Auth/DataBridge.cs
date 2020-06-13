@@ -48,6 +48,12 @@ public class DataBridge : MonoBehaviour
         string key = dbReference.Child("UserRecords").Child(userid).Push().Key;
         dbReference.Child("UserRecords").Child(userid).Child(key).SetRawJsonValueAsync(jsonData);
     }
+    public void SaveUserMedal(string id)
+    {
+        print("saving medal");
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        dbReference.Child("UserMedals").Child(userid).Child("ID" + id).SetValueAsync(id);
+    }
 
     public void LoadData()
     {
@@ -107,5 +113,31 @@ public class DataBridge : MonoBehaviour
         
     }
 
+    public async Task<List<string>> LoadUserMedals()
+    {
+        List<string> lista = new List<string>();
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
 
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var child in snapshot.Children)
+                    {
+                        string t = child.Value.ToString();
+                        lista.Add(t);
+                    }
+                }
+            }));
+
+        return lista;
+    }
 }

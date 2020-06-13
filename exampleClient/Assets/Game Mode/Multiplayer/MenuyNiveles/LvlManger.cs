@@ -10,11 +10,23 @@ public class LvlManger : MonoBehaviour
 {
     public GameObject challengeMenu;
     public GameObject mainMenu;
+    public GameObject title;
+    public GameObject profileMenu;
+    public Button profileBackBtn;
+
     public GameObject challengePrefab;
     public GameObject backbtnPrefab;
+    public GameObject medalOffPrefab;
+    public GameObject medalOnPrefab;
 
-    //public DataBridge dataBridge;
-    
+    private MedalCollection medalCollection;
+
+    private void Start()
+    {
+        medalCollection = new MedalCollection();
+    }
+
+
     public void loadLevel(string pNombreNivel){
         Time.timeScale = 1;
         SceneManager.LoadScene(pNombreNivel); 
@@ -51,5 +63,76 @@ public class LvlManger : MonoBehaviour
 
     }
 
+    public async void LoadProfile()
+    {
+        mainMenu.SetActive(false);
+        title.SetActive(false);
+        profileMenu.SetActive(true);
 
+        GameObject board = profileMenu.transform.GetChild(0).gameObject;
+       
+
+        var lista = await DataBridge.instance.LoadUserMedals();
+
+        foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)
+        {
+            if(lista.Contains(entry.Key)){
+                GameObject medal = Instantiate(medalOnPrefab, board.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.on;
+            }
+            else
+            {
+                GameObject medal = Instantiate(medalOffPrefab, board.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.off;
+            }
+        }
+        profileBackBtn.onClick.AddListener(delegate () {
+            mainMenu.SetActive(true);
+            foreach (Transform child in board.transform)
+                Destroy(child.gameObject);
+
+            mainMenu.SetActive(true);
+            title.SetActive(true);
+            profileMenu.SetActive(false);
+        });
+
+    }
+
+}
+
+public class MedalCollection
+{
+
+    private const string path = "Design/UI/medallas/";
+    public Dictionary<string, MedalSprites> sprites;
+
+    public MedalCollection()
+    {
+        sprites = new Dictionary<string, MedalSprites>();
+        sprites.Add("one", new MedalSprites
+        {
+            on = Resources.Load<Sprite>(path + "cup_gold"),
+            off = Resources.Load<Sprite>(path + "cup") });
+        sprites.Add("two", new MedalSprites
+        {
+            on = Resources.Load<Sprite>(path + "medal_gold"),
+            off = Resources.Load<Sprite>(path + "medal") });
+        sprites.Add("three", new MedalSprites
+        {
+            on = Resources.Load<Sprite>(path + "reward_gold"),
+            off = Resources.Load<Sprite>(path + "reward")
+        });
+        sprites.Add("four", new MedalSprites
+        {
+            on = Resources.Load<Sprite>(path + "trophy_gold"),
+            off = Resources.Load<Sprite>(path + "trophy")
+        });
+    }
+
+   
+}
+public class MedalSprites
+{
+    public Sprite on { get; set; }
+    public Sprite off { get; set; }
 }

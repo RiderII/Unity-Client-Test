@@ -17,3 +17,14 @@ public class Medal
     }
 }
 
+public class MedalID
+{
+    public string ID;
+
+    public MedalID() { }
+
+    public MedalID(string id) {
+        ID = id;
+    }
+}
+
