@@ -61,6 +61,8 @@ public class TrainingManager : MonoBehaviour
                     player.collisions, player.traveled_kilometers, player.burned_calories,
                     player.totalGameTime, System.DateTime.Now.ToString(), medal);
                 DataBridge.instance.SaveReport(mapReport);
+                //verificar si gano una medalla
+                CheckRecords(mapReport);
             }
 
             infoText.text = "Time: " + Mathf.FloorToInt(gameTimer);
@@ -75,6 +77,22 @@ public class TrainingManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
 
+        }
+    }
+
+    void CheckRecords(MapReport mapReport)
+    {
+        if(mapReport.totalGameTime < 25)
+        {
+            DataBridge.instance.SaveUserMedal("one");
+        }
+        if(mapReport.collisions == 0)
+        {
+            DataBridge.instance.SaveUserMedal("two");
+        }
+        if (mapReport.totalGameTime <= 21)
+        {
+            DataBridge.instance.SaveUserMedal("three");
         }
     }
 }

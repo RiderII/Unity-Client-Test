@@ -48,6 +48,12 @@ public class DataBridge : MonoBehaviour
         string key = dbReference.Child("UserRecords").Child(userid).Push().Key;
         dbReference.Child("UserRecords").Child(userid).Child(key).SetRawJsonValueAsync(jsonData);
     }
+    public void SaveUserMedal(string id)
+    {
+        print("saving medal");
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        dbReference.Child("UserMedals").Child(userid).Child("ID" + id).SetValueAsync(id);
+    }
 
     public void LoadData()
     {
