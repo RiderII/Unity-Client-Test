@@ -1,13 +1,20 @@
-﻿using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TrainingManager : MonoBehaviour
 {
     public GameObject obstaclePrefab;
     public Player player;
-    public TextMesh infoText;
+    //public TextMeshProUGUI textTimer;
+    public Image UIpanel;
+    private GameObject playersFrame;
+    private GameObject statisticsFrame;
+    private GameObject displayInfoFrame;
+    private GameObject raceRankFrame;
     public GameObject finishLine;
    
     public float spawnDistanceFromPlayer = 40f;
@@ -27,6 +34,13 @@ public class TrainingManager : MonoBehaviour
     void Start()
     {
         finishLine.transform.position = new Vector3(0, 0, finishLinePosition);
+        playersFrame = UIpanel.transform.GetChild(0).gameObject;
+        statisticsFrame = UIpanel.transform.GetChild(1).gameObject;
+        displayInfoFrame = UIpanel.transform.GetChild(2).gameObject;
+        raceRankFrame = UIpanel.transform.GetChild(3).gameObject;
+        displayInfoFrame.SetActive(false);
+        //raceRankFrame.SetActive(false);
+        //playersFrame.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,14 +76,18 @@ public class TrainingManager : MonoBehaviour
                     player.totalGameTime, System.DateTime.Now.ToString(), medal);
                 DataBridge.instance.SaveReport(mapReport);
                 //verificar si gano una medalla
-                CheckRecords(mapReport);
+                CheckRecords(mapReport);    
             }
 
-            infoText.text = "Time: " + Mathf.FloorToInt(gameTimer);
+            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer);
+            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(player.controller.transform.position.z, 2);
+            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(player.controller.transform.position.z / 50, 2);
+            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + player.collisions;
         }
         else
         {
-            infoText.text = "Game over! \nYour time: " + Mathf.FloorToInt(finalTime);
+            displayInfoFrame.SetActive(true);
+            displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
             gameOverTimer -= Time.deltaTime;
 
             if (gameOverTimer <= 0f)
