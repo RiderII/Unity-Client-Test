@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 4992b7ab8f64185498cd5b63b750729c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 4992b7ab8f64185498cd5b63b750729c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -759,6 +759,7 @@ Transform:
   m_Children:
   - {fileID: 534669905}
   - {fileID: 1084852535}
+  - {fileID: 760775718}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -774,8 +775,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a21a5a0fa175b6a468c5e99af97775e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 100
-  clampAngle: 80
+  player: {fileID: 534669906}
+  gyroInstance: {fileID: 0}
+  sensitivity: 100
+  clamAngle: 85
 --- !u!143 &481305864
 CharacterController:
   m_ObjectHideFlags: 0
@@ -905,6 +908,15 @@ MonoBehaviour:
   mouseSensitivity: 100
   clampAngle: 80
   controller: {fileID: 481305864}
+  id: 0
+  dbId: 0
+  username: diego
+  email: test@test.com
+  collisions: 0
+  traveled_kilometers: 0
+  burned_calories: 0
+  totalGameTime: 0
+  totalScore: 0
   gravity: -9.81
   acceleration: 2
   maximunSpeed: 10
@@ -1111,6 +1123,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 411ed3155b8ca4a8893d71d4c289bb1a, type: 3}
+--- !u!1 &760775717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 760775718}
+  - component: {fileID: 760775719}
+  m_Layer: 0
+  m_Name: GyroManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &760775718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760775717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 481305862}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &760775719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760775717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdf66e2aa0316b41a849bcc81bad8ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseRotation: {x: 0, y: 0, z: 1, w: 0}
 --- !u!1 &766424055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,6 +2211,7 @@ MonoBehaviour:
   spawnDistanceFromPlayer: 20
   spawnDistanceFromObstacles: 15
   finishLinePosition: 200
+  numberOfObstaclers: 0
   gameOverTimer: 3
 --- !u!4 &1263224408
 Transform:
@@ -2557,9 +2614,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   challengeMenu: {fileID: 0}
   mainMenu: {fileID: 0}
+  title: {fileID: 0}
+  profileMenu: {fileID: 0}
+  profileBackBtn: {fileID: 0}
   challengePrefab: {fileID: 0}
   backbtnPrefab: {fileID: 0}
-  dataBridge: {fileID: 0}
+  medalOffPrefab: {fileID: 0}
+  medalOnPrefab: {fileID: 0}
 --- !u!4 &1624790745
 Transform:
   m_ObjectHideFlags: 0
