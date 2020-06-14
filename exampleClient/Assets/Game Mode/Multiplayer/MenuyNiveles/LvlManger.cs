@@ -18,6 +18,7 @@ public class LvlManger : MonoBehaviour
     public GameObject backbtnPrefab;
     public GameObject medalOffPrefab;
     public GameObject medalOnPrefab;
+    public GameObject modeErrorBoxPrefab;
 
     private MedalCollection medalCollection;
 
@@ -42,25 +43,38 @@ public class LvlManger : MonoBehaviour
     {
         mainMenu.SetActive(false);
         challengeMenu.SetActive(true);
-        var lista = await DataBridge.instance.LoadDataChallenges();
-        
-        foreach (var t in lista)
+        if(DataBridge.instance.GetMode() == null)
         {
-            var challenge = Instantiate(challengePrefab, challengeMenu.transform);
-            challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
+            var box = Instantiate(modeErrorBoxPrefab, challengeMenu.transform);
+            var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
+            Button btn = backbtn.GetComponent<Button>();
+            btn.onClick.AddListener(delegate () {
+                mainMenu.SetActive(true);
+                foreach (Transform child in challengeMenu.transform)
+                    Destroy(child.gameObject);
+                challengeMenu.SetActive(false);
+            });
         }
-        var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
-        Button btn = backbtn.GetComponent<Button>();
-        btn.onClick.AddListener(delegate() {
-            mainMenu.SetActive(true);
-            foreach (Transform child in challengeMenu.transform)
-                Destroy(child.gameObject);
+        if(DataBridge.instance.GetMode() != null)
+        {
+            var lista = await DataBridge.instance.LoadDataChallenges();
 
-            challengeMenu.SetActive(false);
-        });
+            foreach (var t in lista)
+            {
+                var challenge = Instantiate(challengePrefab, challengeMenu.transform);
+                challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
+            }
+            var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
+            Button btn = backbtn.GetComponent<Button>();
+            btn.onClick.AddListener(delegate () {
+                mainMenu.SetActive(true);
+                foreach (Transform child in challengeMenu.transform)
+                    Destroy(child.gameObject);
 
-        print("loaded");
-
+                challengeMenu.SetActive(false);
+            });
+            print("loaded");
+        }
     }
 
     public async void LoadProfile()

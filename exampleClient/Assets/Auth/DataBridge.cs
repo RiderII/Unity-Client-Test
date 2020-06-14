@@ -13,6 +13,17 @@ public class DataBridge : MonoBehaviour
     private string DATA_URL = "https://riderii.firebaseio.com/";
     private DatabaseReference dbReference;
     private Challenge data;
+    private string mode;
+
+    public string GetMode()
+    {
+        return mode;
+    }
+
+    public void SetMode(string mode)
+    {
+        this.mode = mode;
+    }
 
     public void Awake()
     {
@@ -26,10 +37,12 @@ public class DataBridge : MonoBehaviour
 
     private void Start()
     {
+        print("database init");
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
-
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-       
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        LoadUserMode(userid);
+
     }
 
     public void SaveData() {
@@ -55,6 +68,36 @@ public class DataBridge : MonoBehaviour
         dbReference.Child("UserMedals").Child(userid).Child("ID" + id).SetValueAsync(id);
     }
 
+    public void SaveUserPreferences(string mode)
+    {
+        SetMode(mode);
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        dbReference.Child("Users").Child(userid).Child("mode").SetValueAsync(mode);
+        dbReference.Child("UserMedals").Child(userid).RemoveValueAsync();
+        print("Modo cambiado, medallas borradas");
+    }
+
+    public void LoadUserMode(string userid)
+    {
+        FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).Child("mode").GetValueAsync()
+            .ContinueWith((task =>
+            {
+                if (task.IsCanceled)
+                {
+
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    SetMode(snapshot.Value.ToString());
+                }
+            }));
+        print("mode loaded");
+    }
     public void LoadData()
     {
         FirebaseDatabase.DefaultInstance.GetReferenceFromUrl(DATA_URL).GetValueAsync()
@@ -86,7 +129,8 @@ public class DataBridge : MonoBehaviour
     public async Task<List<Challenge>> LoadDataChallenges()
     {
         List<Challenge> lista = new List<Challenge>();
-        await FirebaseDatabase.DefaultInstance.GetReference("Challenges").GetValueAsync()
+        string mode = GetMode();
+        await FirebaseDatabase.DefaultInstance.GetReference("Challenges").Child(mode).GetValueAsync()
             .ContinueWith((task => {
                 if (task.IsCanceled)
                 {
