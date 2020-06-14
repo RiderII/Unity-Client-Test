@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMouse : MonoBehaviour
 {
     public Player player;
-    public GyroManager gyroInstance;
+    private GyroManager gyroInstance;
     public float sensitivity = 100f;
     public float clamAngle = 85f;
     private float verticalRotation;
