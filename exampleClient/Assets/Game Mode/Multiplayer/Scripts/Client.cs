@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "18.216.200.13";
+    public string ip = "3.128.24.55";
     public int port = 26950;
     public int myId = 0;
     public string userName = "user";
