@@ -33,12 +33,15 @@ public class GyroManager : MonoBehaviour
     private Quaternion rotation;
     private bool gyroActive;
 
+    [Header("Tweaks")]
+    [SerializeField] private Quaternion baseRotation = new Quaternion(0, 0, 1, 0);
+
     public void EnableGyro()
     {
         if (gyroActive)
             return;
 
-        if (SystemInfo.supportsGyroscope)
+        if (SystemInfo.supportsGyroscope && Application.platform == RuntimePlatform.Android)
         {
             gyro = Input.gyro;
             gyro.enabled = true;
@@ -61,6 +64,11 @@ public class GyroManager : MonoBehaviour
 
     public Quaternion GetGyroRotation()
     {
-        return rotation;
+        return rotation * baseRotation;
+    }
+
+    public bool GetGyroActive()
+    {
+        return gyroActive;
     }
 }

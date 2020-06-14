@@ -5,14 +5,12 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public PlayerManager player;
+    private GyroManager gyroInstance;
 
-    // public float sensitivity = 100f;
-    // public float clamAngle = 85f;
-    // private float verticalRotation;
-    // private float horizontalRotation;
-
-    [Header("Tweaks")]
-    [SerializeField] private Quaternion baseRotation = new Quaternion(0, 0, 1, 0);
+    public float sensitivity = 100f;
+    public float clamAngle = 85f;
+    private float verticalRotation;
+    private float horizontalRotation;
 
     public float defaultVolumeCollision = 1.0f;
 
@@ -26,9 +24,10 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        // verticalRotation = transform.localEulerAngles.x;
-        // horizontalRotation = player.transform.eulerAngles.y;
-        GyroManager.Instance.EnableGyro();
+        verticalRotation = transform.localEulerAngles.x;
+        horizontalRotation = player.transform.eulerAngles.y;
+        gyroInstance = GyroManager.Instance;
+        gyroInstance.EnableGyro();
         audioSourceVaquita = AddAudio(false, false, defaultVolumeCollision);
         audioSourcePedalo = AddAudio(true, false, 0.5f);
     }
@@ -94,19 +93,25 @@ public class CameraController : MonoBehaviour
 
     private void Look()
     {
-        // Quaternion calculatedRotation = GyroManager.Instance.GetGyroRotation() * baseRotation;
-        transform.localRotation = Quaternion.Euler(GyroManager.Instance.GetGyroRotation().x, 0f, 0f);
-        player.transform.rotation = Quaternion.Euler(0f, GyroManager.Instance.GetGyroRotation().y, 0f);
-        //float _mouseVertical = -Input.GetAxis("Mouse Y");
-        //float _mouseHorizontal = Input.GetAxis("Mouse X");
+        // centrar el celular para obtener el posicionamiento deseado
+        if (gyroInstance.GetGyroActive())
+        {
+            player.transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 60.5f, 0f);
+            transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 60.5f, 0f, 0f);
+        }
+        else
+        {
+            float _mouseVertical = -Input.GetAxis("Mouse Y");
+            float _mouseHorizontal = Input.GetAxis("Mouse X");
 
-        //verticalRotation += _mouseVertical * sensitivity * Time.deltaTime;
-        //horizontalRotation += _mouseHorizontal * sensitivity * Time.deltaTime;
+            verticalRotation += _mouseVertical * sensitivity * Time.deltaTime;
+            horizontalRotation += _mouseHorizontal * sensitivity * Time.deltaTime;
 
-        //verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
+            verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-        //transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
-        //player.transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
+            transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+            player.transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
+        }
     }
 
     public void ToggleCursorMode()
