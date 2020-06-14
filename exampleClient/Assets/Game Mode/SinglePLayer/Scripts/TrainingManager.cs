@@ -14,6 +14,7 @@ public class TrainingManager : MonoBehaviour
     private GameObject playersFrame;
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
+    private GameObject raceRankFrame;
     public GameObject finishLine;
    
     public float spawnDistanceFromPlayer = 40f;
@@ -36,7 +37,10 @@ public class TrainingManager : MonoBehaviour
         playersFrame = UIpanel.transform.GetChild(0).gameObject;
         statisticsFrame = UIpanel.transform.GetChild(1).gameObject;
         displayInfoFrame = UIpanel.transform.GetChild(2).gameObject;
+        raceRankFrame = UIpanel.transform.GetChild(3).gameObject;
         displayInfoFrame.SetActive(false);
+        //raceRankFrame.SetActive(false);
+        //playersFrame.SetActive(false);
     }
 
     // Update is called once per frame
