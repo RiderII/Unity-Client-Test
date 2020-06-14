@@ -9,13 +9,16 @@ public class AuthController : MonoBehaviour
     //public Text emailInput, passwordInput;
     private string email = "test@test.com";
     private string password = "Test12345";
-    
+
+    private string emailQA = "qatest@upc.com";
+    private string passwordQA = "QAtest12345";
+
 
     public void Start()
     {
-        Login();
+        Login(email,password);
     }
-    public void Login()
+    public void Login(string email, string password )
     {
         FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(email, password)
             .ContinueWith((task =>
@@ -76,7 +79,7 @@ public class AuthController : MonoBehaviour
     }
 
     public void RegisterUser() {
-        FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(email, password)
+        FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailQA, passwordQA)
             .ContinueWith((task =>
             {
                 if (task.IsCanceled)
