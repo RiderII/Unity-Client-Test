@@ -42,7 +42,6 @@ public class PacketSend : MonoBehaviour
             {
                 _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
             }
-                
 
             SendUDPData(_packet);
         }

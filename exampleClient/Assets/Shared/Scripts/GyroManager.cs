@@ -41,7 +41,7 @@ public class GyroManager : MonoBehaviour
         if (gyroActive)
             return;
 
-        if (SystemInfo.supportsGyroscope && Application.platform == RuntimePlatform.Android)
+        if (SystemInfo.supportsGyroscope)
         {
             gyro = Input.gyro;
             gyro.enabled = true;

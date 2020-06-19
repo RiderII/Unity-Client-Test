@@ -1,10 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
+    public Image UIpanel;
+    public Canvas playerCanvas;
+    private GameObject playersFrame;
+    private GameObject statisticsFrame;
+    private GameObject displayInfoFrame;
+    private GameObject raceRankFrame;
+
     public int id;
     public string username;
     public int collisions;
@@ -12,7 +21,6 @@ public class PlayerManager : MonoBehaviour
     public float burned_calories;
     public bool finishedGame = false;
     public bool reloadRequestSent = false;
-    public TextMesh infoText;
 
     private float gameOverTimer = 3f;
 
@@ -23,11 +31,18 @@ public class PlayerManager : MonoBehaviour
     {
         id = _id;
         username = _username;
+        Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
+        playersFrame = uiPanel.transform.GetChild(0).gameObject;
+        statisticsFrame = uiPanel.transform.GetChild(1).gameObject;
+        displayInfoFrame = uiPanel.transform.GetChild(2).gameObject;
+        raceRankFrame = uiPanel.transform.GetChild(3).gameObject;
+        displayInfoFrame.SetActive(false);
     }
 
     public void SetCollisions(int _collision)
     {
         collisions = _collision;
+        CameraController.audioSourcePedalo.volume *= 0.20f;
         Debug.Log($"player {username} collided {collisions}");
     }
 
@@ -36,10 +51,8 @@ public class PlayerManager : MonoBehaviour
         if (finishedGame)
         {
             finalTime = gameTimer;
-            if (infoText)
-            {
-                infoText.text = "Ruta finalizada\n Tu tiempo:" + Mathf.FloorToInt(finalTime);
-            } 
+            displayInfoFrame.SetActive(true);
+            displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
             gameOverTimer -= Time.deltaTime;
             if (gameOverTimer <= 0f)
             {
@@ -51,10 +64,10 @@ public class PlayerManager : MonoBehaviour
         }
         else {
             gameTimer += Time.deltaTime;
-            if (infoText)
-            {
-                infoText.text = "Tiempo: " + Mathf.FloorToInt(gameTimer);
-            }
+            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
+            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(transform.position.z, 2) + " Km";
+            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(transform.position.z / 50, 2) + " Kcal";
+            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + collisions;
         }
     }
 

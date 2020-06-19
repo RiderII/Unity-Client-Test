@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //SerialPort sp = new SerialPort("COM2", 9600);
-
     private void Start()
     {
         //sp.Open();
         //sp.ReadTimeout = 1;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         SendInputToServer();
-       
+
+        
+
         //if (sp.IsOpen)
         //{
         //    try
@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
         bool[] _inputs = new bool[]
         {
             Input.GetKey(KeyCode.W),
-            Input.GetKey(KeyCode.S),
-            Input.GetKey(KeyCode.A),
-            Input.GetKey(KeyCode.D)
+            false,
+            false,
+            false
         };
 
         PacketSend.PlayerMovement(_inputs);
