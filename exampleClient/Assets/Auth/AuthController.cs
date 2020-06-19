@@ -2,25 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Auth;
-using UnityEngine.UI;
+using TMPro;
 
 public class AuthController : MonoBehaviour
 {
-    //public Text emailInput, passwordInput;
-    private string email = "test@test.com";
-    private string password = "Test12345";
+    private bool logged = false;
+    public TMP_InputField usernameField;
+    public TMP_InputField pwdRegister;
+    public TMP_InputField emailRegister;
 
-    private string emailQA = "qatest@upc.com";
-    private string passwordQA = "QAtest12345";
+    public TMP_InputField emailLogin;
+    public TMP_InputField pwdLogin;
 
+    public GameObject errorPanel;
+    public GameObject menuPanel;
+    public GameObject authMenu;
 
-    public void Start()
+    public void Update()
     {
-        Login(email,password);
+        if (logged)
+        {
+            LoggedSuccess();
+            logged = false;
+        }
     }
-    public void Login(string email, string password )
+    public void Login()
     {
-        FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(email, password)
+        FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text)
             .ContinueWith((task =>
             {
                 if (task.IsCanceled)
@@ -45,6 +53,7 @@ public class AuthController : MonoBehaviour
                     Firebase.Auth.FirebaseUser newUser = task.Result;
                     Debug.LogFormat("User signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
+                    logged = true;
                 }
             }));
     }
@@ -79,7 +88,7 @@ public class AuthController : MonoBehaviour
     }
 
     public void RegisterUser() {
-        FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailQA, passwordQA)
+        FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailRegister.text, pwdRegister.text)
             .ContinueWith((task =>
             {
                 if (task.IsCanceled)
@@ -88,7 +97,6 @@ public class AuthController : MonoBehaviour
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
                     GetErrorMessage((AuthError)e.ErrorCode);
-                    return;
                 }
                 if (task.IsFaulted)
                 {
@@ -96,13 +104,13 @@ public class AuthController : MonoBehaviour
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
                     GetErrorMessage((AuthError)e.ErrorCode);
-                    return;
                 }
                 if (task.IsCompleted)
                 {
                     Firebase.Auth.FirebaseUser newUser = task.Result;
                     Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
+                    logged = true;
                 }
             }));
     }
@@ -125,5 +133,24 @@ public class AuthController : MonoBehaviour
         }
         
         print(msg);
+        ShowError(msg);
     } 
+
+    public void LoggedSuccess()
+    {
+        authMenu.SetActive(false);
+        menuPanel.SetActive(true);
+
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        print(userid);
+        DataBridge.instance.LoadUserMode(userid);
+    }
+
+    void ShowError(string mensaje)
+    {
+        
+        var message = errorPanel.transform.GetChild(0).gameObject.GetComponent<TMPro.TextMeshPro>();
+        message.text = mensaje;
+        errorPanel.SetActive(true);
+    }
 }

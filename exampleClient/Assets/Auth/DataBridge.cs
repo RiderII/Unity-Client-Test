@@ -40,9 +40,6 @@ public class DataBridge : MonoBehaviour
         print("database init");
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-        LoadUserMode(userid);
-
     }
 
     public void SaveData() {
