@@ -19,8 +19,8 @@ public class CameraController : MonoBehaviour
     public static Vector3 collisionPosition;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
-    public AudioSource audioSourceVaquita;
-    public AudioSource audioSourcePedalo;
+    public static AudioSource audioSourceVaquita;
+    public static AudioSource audioSourcePedalo;
 
     private void Start()
     {
@@ -55,11 +55,11 @@ public class CameraController : MonoBehaviour
 
         if (playPedaleo)
         {
-            audioSourcePedalo.volume = 0.5f;
+            audioSourcePedalo.volume *= 1.018f;
         }
         else
         {
-            audioSourcePedalo.volume = 0f;
+            audioSourcePedalo.volume /= 1.02f;
         }
 
         if (Input.GetKey(KeyCode.W))

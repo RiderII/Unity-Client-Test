@@ -10,13 +10,12 @@ public class BlurPanel : Image
     public bool animate;
     public float time = 1.5f;
     public float delay = 0f;
+    new CanvasGroup canvas;
 
-    CanvasGroup canvas;
-
-    protected override void Reset()
-    {
-        color = Color.black * 1f;
-    }
+    //protected override void Reset()
+    //{
+    //    color = Color.black * 1f;
+    //}
 
     protected override void Awake()
     {
