@@ -7,6 +7,7 @@ using TMPro;
 public class AuthController : MonoBehaviour
 {
     private bool logged = false;
+    private bool isNewUser = false;
     public TMP_InputField usernameField;
     public TMP_InputField pwdRegister;
     public TMP_InputField emailRegister;
@@ -110,6 +111,7 @@ public class AuthController : MonoBehaviour
                     Firebase.Auth.FirebaseUser newUser = task.Result;
                     Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
+                    isNewUser = true;
                     logged = true;
                 }
             }));
@@ -142,8 +144,16 @@ public class AuthController : MonoBehaviour
         menuPanel.SetActive(true);
 
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        if (isNewUser)
+        {
+            User newuser = new User(userid, usernameField.text);
+            DataBridge.instance.SaveNewUser(newuser);
+        }
+        else
+        {
+            DataBridge.instance.LoadUserMode(userid);
+        }
         print(userid);
-        DataBridge.instance.LoadUserMode(userid);
     }
 
     void ShowError(string mensaje)

@@ -46,10 +46,15 @@ public class DataBridge : MonoBehaviour
         data = new Challenge("Termina una carrera!", 100);
         string jsonData = JsonUtility.ToJson(data);
 
-        dbReference.Child("Challenges").Child("Challenge" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
+        dbReference.Child("Challenges2").Child("Challenge" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
         //en vez de usar un range, se debe usar un id unico usando firebase.Auth
     }
 
+    public void SaveNewUser(User user)
+    {
+        string jsonData = JsonUtility.ToJson(user);
+        dbReference.Child("Users").Child(user.ID).SetRawJsonValueAsync(jsonData);
+    }
     public void SaveReport(MapReport report)
     {
         print("saving report");
