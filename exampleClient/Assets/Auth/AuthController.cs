@@ -151,7 +151,7 @@ public class AuthController : MonoBehaviour
         }
         else
         {
-            DataBridge.instance.LoadUserMode(userid);
+            DataBridge.instance.LoadUser(userid);
         }
         print(userid);
     }

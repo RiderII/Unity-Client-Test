@@ -43,7 +43,8 @@ public class LvlManger : MonoBehaviour
     {
         mainMenu.SetActive(false);
         challengeMenu.SetActive(true);
-        if(DataBridge.instance.GetMode() == null)
+        string mode = DataBridge.instance.GetMode();
+        if ( mode == null || mode == "")
         {
             var box = Instantiate(modeErrorBoxPrefab, challengeMenu.transform);
             var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
@@ -55,7 +56,7 @@ public class LvlManger : MonoBehaviour
                 challengeMenu.SetActive(false);
             });
         }
-        if(DataBridge.instance.GetMode() != null)
+        else
         {
             var lista = await DataBridge.instance.LoadDataChallenges();
 
@@ -84,9 +85,13 @@ public class LvlManger : MonoBehaviour
         profileMenu.SetActive(true);
 
         GameObject board = profileMenu.transform.GetChild(0).gameObject;
-       
+        GameObject Username = profileMenu.transform.GetChild(1).gameObject;
+        TMP_InputField usernameInput = Username.transform.GetChild(0).GetComponent<TMP_InputField>();
+
 
         var lista = await DataBridge.instance.LoadUserMedals();
+        var user = await DataBridge.instance.LoadUser();
+        usernameInput.text = user.username;
 
         foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)
         {
@@ -100,6 +105,9 @@ public class LvlManger : MonoBehaviour
                 medal.GetComponent<Image>().sprite = entry.Value.off;
             }
         }
+
+
+
         profileBackBtn.onClick.AddListener(delegate () {
             mainMenu.SetActive(true);
             foreach (Transform child in board.transform)

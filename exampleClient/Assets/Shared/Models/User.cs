@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class User 
 {
-    public string ID { get; set; }
+    public string ID;
     public string username;
     public string mode;
 
@@ -15,5 +15,11 @@ public class User
         ID = id;
         this.username = username;
         mode = "";
+    }
+    public User(string id, string username, string mode)
+    {
+        ID = id;
+        this.username = username;
+        this.mode = mode;
     }
 }

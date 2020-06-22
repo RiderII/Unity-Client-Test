@@ -13,16 +13,16 @@ public class DataBridge : MonoBehaviour
     private string DATA_URL = "https://riderii.firebaseio.com/";
     private DatabaseReference dbReference;
     private Challenge data;
-    private string mode;
+    public User userProfile;
 
     public string GetMode()
     {
-        return mode;
+        return userProfile.mode;
     }
 
     public void SetMode(string mode)
     {
-        this.mode = mode;
+        userProfile.mode = mode;
     }
 
     public void Awake()
@@ -38,6 +38,7 @@ public class DataBridge : MonoBehaviour
     private void Start()
     {
         print("database init");
+        userProfile = new User();
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(DATA_URL);
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -52,6 +53,7 @@ public class DataBridge : MonoBehaviour
 
     public void SaveNewUser(User user)
     {
+        userProfile = user;
         string jsonData = JsonUtility.ToJson(user);
         dbReference.Child("Users").Child(user.ID).SetRawJsonValueAsync(jsonData);
     }
@@ -79,9 +81,9 @@ public class DataBridge : MonoBehaviour
         print("Modo cambiado, medallas borradas");
     }
 
-    public void LoadUserMode(string userid)
+    public void LoadUser(string userid)
     {
-        FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).Child("mode").GetValueAsync()
+        FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).GetValueAsync()
             .ContinueWith((task =>
             {
                 if (task.IsCanceled)
@@ -95,7 +97,8 @@ public class DataBridge : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    SetMode(snapshot.Value.ToString());
+                    string userstring = snapshot.GetRawJsonValue();
+                    userProfile = JsonUtility.FromJson<User>(userstring);
                 }
             }));
         print("mode loaded");
@@ -185,5 +188,29 @@ public class DataBridge : MonoBehaviour
             }));
 
         return lista;
+    }
+    public async Task<User> LoadUser()
+    {
+        User userProfile = new User();
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        await FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
+
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    string profileString = snapshot.GetRawJsonValue();
+                    userProfile = JsonUtility.FromJson<User>(profileString);
+                }
+            }));
+
+        return userProfile;
     }
 }

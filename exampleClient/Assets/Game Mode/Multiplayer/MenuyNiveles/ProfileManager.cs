@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ProfileManager : MonoBehaviour
 {
     public GameObject confirmationPanel;
+    public TMP_InputField usernameInput;
+    public Button editBtn;
+    public Button checkBtn;
+    public Button cancelBtn;
+
+    private string username;
+
     private Button yesBtn;
     private Button noBtn;
     
@@ -37,5 +45,39 @@ public class ProfileManager : MonoBehaviour
         confirmationPanel.SetActive(false);
     }
 
-    
+    public void EditBtnClick()
+    {
+        editBtn.gameObject.SetActive(false);
+        checkBtn.gameObject.SetActive(true);
+        cancelBtn.gameObject.SetActive(true);
+
+        username = usernameInput.text;
+        usernameInput.interactable = true;
+    }
+
+    public void CancelBtnClick()
+    {
+        editBtn.gameObject.SetActive(true);
+        checkBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
+
+        usernameInput.text = username;
+        usernameInput.interactable = false;
+    }
+
+    public void CheckBtnClick()
+    {
+        username = usernameInput.textComponent.text;
+        User user = DataBridge.instance.userProfile;
+        user.username = username;
+        DataBridge.instance.SaveNewUser(user);
+
+        editBtn.gameObject.SetActive(true);
+        checkBtn.gameObject.SetActive(false);
+        cancelBtn.gameObject.SetActive(false);
+
+        usernameInput.interactable = false;
+    }
+
+
 }
