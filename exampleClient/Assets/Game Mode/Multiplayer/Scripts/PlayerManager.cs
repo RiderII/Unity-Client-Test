@@ -9,11 +9,12 @@ public class PlayerManager : MonoBehaviour
 {
     public Image UIpanel;
     public Canvas playerCanvas;
+    public TextMesh userNameText;
     private GameObject playersFrame;
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
-    public  List<int> playerPosition = new List<int>();
+    public List<int> playerPosition = new List<int>();
 
     public Sprite one;
     public Sprite two;
@@ -38,6 +39,7 @@ public class PlayerManager : MonoBehaviour
     {
         id = _id;
         username = _username;
+        userNameText.text = username;
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
         statisticsFrame = uiPanel.transform.GetChild(1).gameObject;
@@ -50,6 +52,7 @@ public class PlayerManager : MonoBehaviour
             Image pFrame = child.GetComponent<Image>();
             pFrame.enabled = false;
             pFrame.transform.GetChild(0).GetComponent<Image>().enabled = false;
+            pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().enabled = false;
         }
     }
 
@@ -89,11 +92,11 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            setPlayersPosition(position++, bestPosition);
+            setPlayersPosition(++position, 0);
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         foreach (PlayerManager player in GameManager.players.Values)
         {
@@ -101,13 +104,15 @@ public class PlayerManager : MonoBehaviour
             {
                 Image pFrame = playersFrame.transform.GetChild(player.id - 1).GetComponent<Image>();
                 pFrame.enabled = true;
-                pFrame.transform.GetChild(player.id - 1).GetComponent<Image>().enabled = true;
+                pFrame.transform.GetChild(0).GetComponent<Image>().enabled = true;
+                pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().enabled = true;
+                pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
                 switch (player.position)
                 {
-                    case 1: pFrame.transform.GetChild(player.id - 1).GetComponent<Image>().sprite = one; break;
-                    case 2: pFrame.transform.GetChild(player.id - 1).GetComponent<Image>().sprite = two; break;
-                    case 3: pFrame.transform.GetChild(player.id - 1).GetComponent<Image>().sprite = three; break;
-                    case 4: pFrame.transform.GetChild(player.id - 1).GetComponent<Image>().sprite = four; break;
+                    case 1: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = one; break;
+                    case 2: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = two; break;
+                    case 3: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = three; break;
+                    case 4: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = four; break;
                 }
             }
         }
@@ -115,7 +120,6 @@ public class PlayerManager : MonoBehaviour
         setPlayersPosition(1, 0);
 
         playerPosition.Clear();
-
 
         if (finishedGame)
         {
@@ -125,13 +129,15 @@ public class PlayerManager : MonoBehaviour
             gameOverTimer -= Time.deltaTime;
             if (gameOverTimer <= 0f)
             {
-                if (!reloadRequestSent) {
+                if (!reloadRequestSent)
+                {
                     PacketSend.RequestGameRestart();
                     reloadRequestSent = true;
                 }
             }
         }
-        else {
+        else
+        {
             gameTimer += Time.deltaTime;
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
             statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(transform.position.z, 2) + " Km";
