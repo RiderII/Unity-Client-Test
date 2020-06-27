@@ -90,7 +90,7 @@ public class LvlManger : MonoBehaviour
 
 
         var lista = await DataBridge.instance.LoadUserMedals();
-        var user = await DataBridge.instance.LoadUser();
+        var user = await DataBridge.instance.LoadUserProfile();
         usernameInput.text = user.username;
 
         foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)

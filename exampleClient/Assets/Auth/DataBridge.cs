@@ -189,7 +189,7 @@ public class DataBridge : MonoBehaviour
 
         return lista;
     }
-    public async Task<User> LoadUser()
+    public async Task<User> LoadUserProfile()
     {
         User userProfile = new User();
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
@@ -212,5 +212,34 @@ public class DataBridge : MonoBehaviour
             }));
 
         return userProfile;
+    }
+
+    public async Task<List<User>> LoadUsers(string usersearch)
+    {
+        List<User> users = new List<User>();
+
+        await FirebaseDatabase.DefaultInstance.GetReference("Users").GetValueAsync()
+           .ContinueWith((task => {
+               if (task.IsCanceled)
+               {
+
+               }
+               if (task.IsFaulted)
+               {
+
+               }
+               if (task.IsCompleted)
+               {
+                   DataSnapshot snapshot = task.Result;
+                   foreach(var child in snapshot.Children)
+                   {
+                       string profileString = child.GetRawJsonValue();
+                       User user = JsonUtility.FromJson<User>(profileString);
+                       users.Add(user);
+                   }
+               }
+           }));
+
+        return users;
     }
 }

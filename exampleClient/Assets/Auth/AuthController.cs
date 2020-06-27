@@ -146,7 +146,7 @@ public class AuthController : MonoBehaviour
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         if (isNewUser)
         {
-            User newuser = new User(userid, usernameField.text);
+            User newuser = new User(userid, usernameField.text, emailRegister.text);
             DataBridge.instance.SaveNewUser(newuser);
         }
         else
