@@ -1,20 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SearchPlayers : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    public GameObject userRowPrefab;
+    public GameObject container;
     
-    async void LoadUsers(string usersearch)
+    public async void SearchUsers(string usersearch)
     {
+        foreach (Transform child in container.transform)
+            Destroy(child.gameObject);
 
         var lista = await DataBridge.instance.LoadUsers(usersearch);
+        foreach(var u in lista)
+        {
+            var urow = Instantiate(userRowPrefab, container.transform);
+            GameObject username = urow.transform.GetChild(1).gameObject;
+            GameObject email = urow.transform.GetChild(2).gameObject;
+
+            username.GetComponent<TextMeshProUGUI>().text = u.username;
+            email.GetComponent<TextMeshProUGUI>().text = u.email;
+        }
     }
 }
