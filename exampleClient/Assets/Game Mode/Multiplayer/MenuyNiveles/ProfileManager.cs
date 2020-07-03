@@ -6,17 +6,28 @@ using UnityEngine.UI;
 
 public class ProfileManager : MonoBehaviour
 {
+    public static ProfileManager instance;
     public GameObject confirmationPanel;
     public TMP_InputField usernameInput;
     public Button editBtn;
     public Button checkBtn;
     public Button cancelBtn;
+    public List<MapReport> records;
+
+    public GameObject recordPrefab;
 
     private string username;
 
     private Button yesBtn;
     private Button noBtn;
-    
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     public void AssigmentClick(string mode)
     {

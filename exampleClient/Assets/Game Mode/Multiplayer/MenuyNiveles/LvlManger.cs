@@ -88,9 +88,9 @@ public class LvlManger : MonoBehaviour
         GameObject Username = profileMenu.transform.GetChild(1).gameObject;
         TMP_InputField usernameInput = Username.transform.GetChild(0).GetComponent<TMP_InputField>();
 
-
+        //medallas
         var lista = await DataBridge.instance.LoadUserMedals();
-        var user = await DataBridge.instance.LoadUserProfile();
+        User user = DataBridge.instance.userProfile;
         usernameInput.text = user.username;
 
         foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)
@@ -106,6 +106,18 @@ public class LvlManger : MonoBehaviour
             }
         }
 
+        //RECORDS
+        //passing all records to profilemanager
+        var response = await DataBridge.instance.LoadUserRecords(user.ID);
+        ProfileManager.instance.records = response.records;
+        string[] words = response.totals.Split(',');
+        //filling totals
+        TMP_InputField time = profileMenu.transform.Find("records").Find("TiempoTotal").Find("TimeInput").GetComponent<TMP_InputField>();
+        TMP_InputField calory = profileMenu.transform.Find("records").Find("CaloriasTotal").Find("CaloriaInput").GetComponent<TMP_InputField>();
+        TMP_InputField distance = profileMenu.transform.Find("records").Find("DistanciaTotal").Find("DistanceInput").GetComponent<TMP_InputField>();
+        calory.text = words[0];
+        time.text = words[1];
+        distance.text = words[2];
 
 
         profileBackBtn.onClick.AddListener(delegate () {
