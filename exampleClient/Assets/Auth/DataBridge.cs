@@ -189,6 +189,31 @@ public class DataBridge : MonoBehaviour
 
         return lista;
     }
+    public async Task<List<string>> LoadPlayerMedals(string userid)
+    {
+        List<string> lista = new List<string>();
+        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
+
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var child in snapshot.Children)
+                    {
+                        string t = child.Value.ToString();
+                        lista.Add(t);
+                    }
+                }
+            }));
+        return lista;
+    }
     public async Task<User> LoadUserProfile()
     {
         User userProfile = new User();
@@ -241,5 +266,74 @@ public class DataBridge : MonoBehaviour
            }));
 
         return users;
+    }
+
+    public async Task<string> LoadPlayersRecords(string userid)
+    {
+        float calorias = 0;
+        float tiempo = 0;
+        float distancia = 0;
+        await FirebaseDatabase.DefaultInstance.GetReference("UserRecords").Child(userid).GetValueAsync().ContinueWith((task => {
+            if (task.IsCanceled)
+            {
+
+            }
+            if (task.IsFaulted)
+            {
+
+            }
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (var child in snapshot.Children)
+                {
+                    string t = child.GetRawJsonValue();
+                    MapReport data = JsonUtility.FromJson<MapReport>(t);
+                    calorias += data.burned_calories;
+                    tiempo += data.totalGameTime;
+                    distancia += data.traveled_kilometers;
+                    
+                }
+            }
+        }));
+
+        return $"{calorias},{tiempo} seg,{distancia} m";
+    }
+
+    public async Task<RecordResponse> LoadUserRecords(string userid)
+    {
+        List<MapReport> records = new List<MapReport>();
+        float calorias = 0;
+        float tiempo = 0;
+        float distancia = 0;
+        await FirebaseDatabase.DefaultInstance.GetReference("UserRecords").Child(userid).GetValueAsync().ContinueWith((task => {
+            if (task.IsCanceled)
+            {
+
+            }
+            if (task.IsFaulted)
+            {
+
+            }
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                foreach (var child in snapshot.Children)
+                {
+                    string t = child.GetRawJsonValue();
+                    MapReport data = JsonUtility.FromJson<MapReport>(t);
+                    calorias += data.burned_calories;
+                    tiempo += data.totalGameTime;
+                    distancia += data.traveled_kilometers;
+                    records.Add(data);
+
+                }
+            }
+        }));
+
+        string totals = $"{calorias},{tiempo} seg,{distancia} m";
+
+        RecordResponse response = new RecordResponse(records, totals);
+        return response;
     }
 }

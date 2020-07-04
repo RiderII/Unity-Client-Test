@@ -6,17 +6,29 @@ using UnityEngine.UI;
 
 public class ProfileManager : MonoBehaviour
 {
+    public static ProfileManager instance;
+    public GameObject container;
     public GameObject confirmationPanel;
     public TMP_InputField usernameInput;
     public Button editBtn;
     public Button checkBtn;
     public Button cancelBtn;
+    public List<MapReport> records;
+
+    public GameObject recordPrefab;
 
     private string username;
 
     private Button yesBtn;
     private Button noBtn;
-    
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     public void AssigmentClick(string mode)
     {
@@ -79,5 +91,29 @@ public class ProfileManager : MonoBehaviour
         usernameInput.interactable = false;
     }
 
+    public void LoadRecords()
+    {
+        foreach (var r in records)
+        {
+            var row = Instantiate(recordPrefab, container.transform);
+
+            Text title = row.transform.GetChild(0).GetComponent<Text>();
+            TextMeshProUGUI calorias = row.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI time = row.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI distance = row.transform.GetChild(6).GetComponent<TextMeshProUGUI>();
+
+            title.text = r.datetime;
+            calorias.text = $"{r.burned_calories}";
+            time.text = $"{r.totalGameTime} s";
+            distance.text = $"{r.traveled_kilometers} m";
+
+        }
+    }
+
+    public void HistoricBackClick()
+    {
+        foreach (Transform child in container.transform)
+            Destroy(child.gameObject);
+    }
 
 }

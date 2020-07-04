@@ -16,8 +16,6 @@ public class AuthController : MonoBehaviour
     public TMP_InputField pwdLogin;
 
     public GameObject errorPanel;
-    public GameObject menuPanel;
-    public GameObject authMenu;
 
     public void Update()
     {
@@ -140,18 +138,17 @@ public class AuthController : MonoBehaviour
 
     public void LoggedSuccess()
     {
-        authMenu.SetActive(false);
-        menuPanel.SetActive(true);
-
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         if (isNewUser)
         {
             User newuser = new User(userid, usernameField.text, emailRegister.text);
             DataBridge.instance.SaveNewUser(newuser);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
         else
         {
             DataBridge.instance.LoadUser(userid);
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         }
         print(userid);
     }
