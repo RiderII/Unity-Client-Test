@@ -8,6 +8,9 @@ public class AuthController : MonoBehaviour
 {
     private bool logged = false;
     private bool isNewUser = false;
+    private bool error = false;
+    private AuthError errorType;
+
     public TMP_InputField usernameField;
     public TMP_InputField pwdRegister;
     public TMP_InputField emailRegister;
@@ -24,6 +27,12 @@ public class AuthController : MonoBehaviour
             LoggedSuccess();
             logged = false;
         }
+
+        if (error)
+        {
+            error = false;
+            GetErrorMessage(errorType);
+        }
     }
     public void Login()
     {
@@ -35,7 +44,9 @@ public class AuthController : MonoBehaviour
                     Firebase.FirebaseException e =
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
-                    GetErrorMessage((AuthError)e.ErrorCode);
+                    error = true;
+                    errorType = (AuthError)e.ErrorCode;
+                    //GetErrorMessage((AuthError)e.ErrorCode);
                     return;
                 }
                 if (task.IsFaulted)
@@ -43,7 +54,9 @@ public class AuthController : MonoBehaviour
                     Firebase.FirebaseException e =
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
-                    GetErrorMessage((AuthError)e.ErrorCode);
+                    error = true;
+                    errorType = (AuthError)e.ErrorCode;
+                    //GetErrorMessage((AuthError)e.ErrorCode);
                     //Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
                     return;
                 }
@@ -120,7 +133,8 @@ public class AuthController : MonoBehaviour
         string msg = "";
         msg = errorCode.ToString();
 
-        switch (errorCode)
+
+        /*switch (errorCode)
         {
             case AuthError.AccountExistsWithDifferentCredentials:
                 break;
@@ -130,10 +144,13 @@ public class AuthController : MonoBehaviour
                 break;
             case AuthError.InvalidEmail:
                 break;
-        }
-        
+        }*/
+
+        errorPanel.SetActive(true);
+        TextMeshProUGUI message = errorPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        message.text = msg;
+       
         print(msg);
-        ShowError(msg);
     } 
 
     public void LoggedSuccess()
@@ -153,11 +170,5 @@ public class AuthController : MonoBehaviour
         print(userid);
     }
 
-    void ShowError(string mensaje)
-    {
-        
-        var message = errorPanel.transform.GetChild(0).gameObject.GetComponent<TMPro.TextMeshPro>();
-        message.text = mensaje;
-        errorPanel.SetActive(true);
-    }
+  
 }
