@@ -114,9 +114,7 @@ public class Player : MonoBehaviour
 
         // Vector3 direction = new Vector3(transform.parent.forward.x, 0, transform.parent.forward.z);
         // transform.parent.position += direction.normalized * speed * Time.deltaTime;
-
-        if (Input.GetKey("w")) {
-
+        if (Input.GetKey("w") && !reachedFinishLine) {
             if (!playPedaleo) {
                 audioSourcePedalo.clip = pedaleo;
                 audioSourcePedalo.Play();
@@ -131,7 +129,7 @@ public class Player : MonoBehaviour
             controller.Move(direction.normalized * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyUp("w"))
+        if (Input.GetKeyUp("w") || reachedFinishLine)
         {
             acceleration *= -1;
             playPedaleo = false;

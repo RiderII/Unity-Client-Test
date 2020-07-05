@@ -42,6 +42,7 @@ public class TrainingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         finishLine.transform.position = new Vector3(0, 0, finishLinePosition);
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
@@ -88,7 +89,7 @@ public class TrainingManager : MonoBehaviour
                     player.totalGameTime, System.DateTime.Now.ToString(), medal);
                 DataBridge.instance.SaveReport(mapReport);
                 //verificar si gano una medalla
-                CheckRecords(mapReport);    
+                CheckRecords(mapReport);
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
@@ -178,7 +179,6 @@ public class TrainingManager : MonoBehaviour
     private void ShowFinishDashboard()
     {
         Time.timeScale = 0;
-        
         raceResults.SetActive(true);
         //Disable scripts that still work while timescale is set to 0
     }
