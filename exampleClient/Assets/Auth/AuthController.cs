@@ -46,7 +46,6 @@ public class AuthController : MonoBehaviour
 
                     error = true;
                     errorType = (AuthError)e.ErrorCode;
-                    //GetErrorMessage((AuthError)e.ErrorCode);
                     return;
                 }
                 if (task.IsFaulted)
@@ -56,8 +55,6 @@ public class AuthController : MonoBehaviour
 
                     error = true;
                     errorType = (AuthError)e.ErrorCode;
-                    //GetErrorMessage((AuthError)e.ErrorCode);
-                    //Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
                     return;
                 }
                 if (task.IsCompleted)
@@ -108,14 +105,18 @@ public class AuthController : MonoBehaviour
                     Firebase.FirebaseException e =
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
-                    GetErrorMessage((AuthError)e.ErrorCode);
+                    error = true;
+                    errorType = (AuthError)e.ErrorCode;
+                    return;
                 }
                 if (task.IsFaulted)
                 {
                     Firebase.FirebaseException e =
                     task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
 
-                    GetErrorMessage((AuthError)e.ErrorCode);
+                    error = true;
+                    errorType = (AuthError)e.ErrorCode;
+                    return;
                 }
                 if (task.IsCompleted)
                 {
@@ -132,25 +133,37 @@ public class AuthController : MonoBehaviour
     {
         string msg = "";
         msg = errorCode.ToString();
+        print(msg);
 
-
-        /*switch (errorCode)
+        switch (errorCode)
         {
+            case AuthError.EmailAlreadyInUse:
+                msg = "Este correo electrónico ya esta en uso";
+                break;
             case AuthError.AccountExistsWithDifferentCredentials:
+                msg = "La cuenta existe con credenciales diferentes";
                 break;
             case AuthError.MissingPassword:
+                msg = "Ingrese una contraseña";
                 break;
-            case AuthError.WrongPassword:
+            case AuthError.MissingEmail:
+                msg = "Ingrese un correo electrónico";
+                break;
+;            case AuthError.WrongPassword:
+                msg = "Contraseña incorrecta";
                 break;
             case AuthError.InvalidEmail:
+                msg = "Correo electrónico inválido";
                 break;
-        }*/
+            case AuthError.UserNotFound:
+                msg = "Correo electrónico no encontrado. Ingrese un correo registrado";
+                break;
+        }
 
         errorPanel.SetActive(true);
         TextMeshProUGUI message = errorPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message.text = msg;
-       
-        print(msg);
+        
     } 
 
     public void LoggedSuccess()
