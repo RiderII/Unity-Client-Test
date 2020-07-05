@@ -10,6 +10,8 @@ public class TrainingManager : MonoBehaviour
     public GameObject obstaclePrefab;
     public Player player;
     //public TextMeshProUGUI textTimer;
+
+    // for ingame canvas
     public Image UIpanel;
     public Canvas playerCanvas;
     private GameObject playersFrame;
@@ -17,7 +19,10 @@ public class TrainingManager : MonoBehaviour
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public GameObject finishLine;
-   
+
+    // for race results
+    private GameObject playersFrameResult;
+
     public float spawnDistanceFromPlayer = 40f;
     public float spawnDistanceFromObstacles = 10f;
     public float finishLinePosition = 200f;
@@ -31,9 +36,11 @@ public class TrainingManager : MonoBehaviour
 
     public float gameOverTimer = 3f;
 
+    [SerializeField] private GameObject raceResults;
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         finishLine.transform.position = new Vector3(0, 0, finishLinePosition);
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
@@ -43,6 +50,7 @@ public class TrainingManager : MonoBehaviour
         displayInfoFrame.SetActive(false);
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
+        raceResults.SetActive(false);
     }
 
     // Update is called once per frame
@@ -67,6 +75,7 @@ public class TrainingManager : MonoBehaviour
         {
             if (player.reachedFinishLine == true)
             {
+                CalculateScore();
                 isGameOver = true;
                 finalTime = gameTimer;
                 player.totalGameTime = finalTime;
@@ -78,7 +87,7 @@ public class TrainingManager : MonoBehaviour
                     player.totalGameTime, System.DateTime.Now.ToString(), medal);
                 DataBridge.instance.SaveReport(mapReport);
                 //verificar si gano una medalla
-                CheckRecords(mapReport);    
+                CheckRecords(mapReport);
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
@@ -94,7 +103,9 @@ public class TrainingManager : MonoBehaviour
 
             if (gameOverTimer <= 0f)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                ShowFinishDashboard();
+                playerCanvas.enabled = false;
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
 
         }
@@ -132,6 +143,41 @@ public class TrainingManager : MonoBehaviour
                 DataBridge.instance.SaveUserMedal("three");
             }
         }
-        
+    }
+
+    private void CalculateScore()
+    {
+        double distance = System.Math.Round(player.controller.transform.position.z, 2);
+        double calories = System.Math.Round(player.controller.transform.position.z / 50, 2);
+
+        switch (distance)
+        {
+            case var _ when distance > 100: player.totalScore += 50;  break;
+            case var _ when distance > 200: player.totalScore += 100; break;
+            case var _ when distance > 300: player.totalScore += 200; break;
+        }
+
+        switch (calories)
+        {
+            case var _ when calories > 2: player.totalScore += 30; break;
+            case var _ when calories > 4: player.totalScore += 60; break;
+            case var _ when calories > 10: player.totalScore += 90; break;
+        }
+
+        playersFrameResult = raceResults.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
+        playersFrameResult.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = player.username;
+        playersFrameResult.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(gameTimer) + " s";
+        playersFrameResult.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.controller.transform.position.z, 2) + " Km";
+        playersFrameResult.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.controller.transform.position.z / 50, 2) + " Kcal";
+        playersFrameResult.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
+        playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.totalScore;
+        playersFrameResult.transform.GetChild(1).GetChild(5).GetComponent<TextMeshProUGUI>().text = "CATEGORIA: " + player.category;
+    }
+
+    private void ShowFinishDashboard()
+    {
+        Time.timeScale = 0;
+        raceResults.SetActive(true);
+        //Disable scripts that still work while timescale is set to 0
     }
 }

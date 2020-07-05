@@ -85,7 +85,6 @@ public class PacketHandle : MonoBehaviour
         Vector3 _position = _packet.ReadVector3();
 
         GameManager.instance.SpawnObstacle(_position);
-
     }
 
     public static void PlayerFinishedGame(Packet _packet)
