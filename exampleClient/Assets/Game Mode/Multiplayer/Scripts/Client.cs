@@ -63,7 +63,7 @@ public class Client : MonoBehaviour
 
         public void Connect()
         {
-            socket = new TcpClient
+            socket = new TcpClient 
             {
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
@@ -284,7 +284,7 @@ public class Client : MonoBehaviour
     {
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
-            { (int)ServerPackets.welcome, PacketHandle.Welcome },
+            { (int)ServerPackets.enterLobby, PacketHandle.EnterLobby },
             { (int)ServerPackets.spawnPlayer, PacketHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, PacketHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, PacketHandle.PlayerRotation },

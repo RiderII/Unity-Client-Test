@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>Sent from server to client.</summary>
 public enum ServerPackets
 {
-    welcome = 1,
+    enterLobby = 1,
     spawnPlayer,
     playerPosition,
     playerRotation,
@@ -21,7 +21,7 @@ public enum ServerPackets
 /// <summary>Sent from client to server.</summary> 
 public enum ClientPackets
 {
-    welcomeReceived = 1,
+    enteredLobby = 1,
     playerMovement,
     restartScene
 }
