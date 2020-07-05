@@ -3,20 +3,30 @@ using UnityEngine.UI;
 
 public class LerpColor : MonoBehaviour
 {
-    Image colorPanel;
-    [SerializeField] [Range(0f, 1f)] float lerpTime;
-
-    [SerializeField] Color myColor;
+    public float speed = 1.0f;
+    public Color startColor;
+    public Color endColor;
+    public bool repeatable = true;
+    float startTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        colorPanel = GetComponent<Image>();
+        startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
-        colorPanel.material.color = Color.Lerp(colorPanel.material.color, myColor, lerpTime);
+        if (!repeatable)
+        {
+            float t = (Time.time - startTime) * speed;
+            GetComponent<Image>().material.color = Color.Lerp(startColor, endColor, t);
+        }
+        else
+        {
+            float t = (Mathf.Sin(Time.time - startTime) * speed);
+            GetComponent<Image>().material.color = Color.Lerp(startColor, endColor, t);
+        }
     }
 }
