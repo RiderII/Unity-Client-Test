@@ -8,6 +8,8 @@ using UnityEngine;
 public enum ServerPackets
 {
     enterLobby = 1,
+    sendToLobby,
+    sendReadyState,
     spawnPlayer,
     playerPosition,
     playerRotation,
@@ -21,7 +23,8 @@ public enum ServerPackets
 /// <summary>Sent from client to server.</summary> 
 public enum ClientPackets
 {
-    enteredLobby = 1,
+    requestEnteredLobby = 1,
+    sendReadyState,
     playerMovement,
     restartScene
 }

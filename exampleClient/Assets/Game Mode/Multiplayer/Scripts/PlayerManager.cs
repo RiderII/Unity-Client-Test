@@ -23,10 +23,16 @@ public class PlayerManager : MonoBehaviour
 
     public int id;
     public int placement;
-    public string username;
+    public string username = "diego";
+    public string email = "test@test.com";
     public int collisions;
     public float traveled_kilometers;
     public float burned_calories;
+    public float totalGameTime = 0f;
+    public List<Medal> medals = new List<Medal>();
+    public List<MapReport> mapReport;
+    public float totalScore = 0;
+    public string league = "amateur";
     public bool finishedGame = false;
     public bool reloadRequestSent = false;
 

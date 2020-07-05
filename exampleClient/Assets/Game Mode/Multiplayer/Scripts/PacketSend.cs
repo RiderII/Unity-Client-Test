@@ -17,12 +17,23 @@ public class PacketSend : MonoBehaviour
     }
 
     #region Packets
-    public static void EnteredLobbby()
+    public static void RequestEnterLobbby()
     {
-        using (Packet _packet = new Packet((int)ClientPackets.enteredLobby))
+        using (Packet _packet = new Packet((int)ClientPackets.requestEnteredLobby))
         {
             _packet.Write(Client.instance.myId); //the server can confirm that the client claimed the correct Id.
             _packet.Write(Client.instance.userName);
+            _packet.Write(Client.instance.league);
+
+            SendTCPData(_packet);
+        }
+    }
+
+    public static void SendReadyState()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendReadyState))
+        {
+            _packet.Write(Client.instance.myId);
 
             SendTCPData(_packet);
         }

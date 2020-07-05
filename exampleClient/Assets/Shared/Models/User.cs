@@ -7,11 +7,21 @@ using UnityEngine;
 public class User 
 {
     public string ID;
+    public int userServerId;
     public string email;
     public string username;
+    public string league;
+    public string lobbyState = "Pendiente";
     public string mode;
 
     public User() { }
+
+    public User(int userServerId, string username, string league) { // for lobby
+        this.userServerId = userServerId;
+        this.username = username;
+        this.league = league;
+    }
+
     public User(string id, string username, string email) {
         ID = id;
         this.username = username;

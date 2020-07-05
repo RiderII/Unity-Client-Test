@@ -13,7 +13,8 @@ public class Client : MonoBehaviour
     public string ip = "3.128.24.55";
     public int port = 26950;
     public int myId = 0;
-    public string userName = "user";
+    public string userName = "miguel";
+    public string league = "pro";
     public TCP tcp;
     public UDP udp;
     private bool isConnected = false;
@@ -25,13 +26,14 @@ public class Client : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
-        else if (instance != this)
-        {
-            //ensure that only one instance of this class exists makes sense for every single client you only have one
-            Debug.Log("Instance already exists, destroying object!");
-            Destroy(this);
-        }   
+        //else if (instance != this)
+        //{
+        //    //ensure that only one instance of this class exists makes sense for every single client you only have one
+        //    Debug.Log("Instance already exists, destroying object!");
+        //    Destroy(this);
+        //}
     }
 
     private void Start()
@@ -47,10 +49,13 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
-        InitializeClientData();
+        if (!isConnected)
+        {
+            InitializeClientData();
 
-        isConnected = true;
-        tcp.Connect();
+            isConnected = true;
+            tcp.Connect();
+        }
     }
 
     public class TCP
@@ -285,6 +290,8 @@ public class Client : MonoBehaviour
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
             { (int)ServerPackets.enterLobby, PacketHandle.EnterLobby },
+            { (int)ServerPackets.sendToLobby, PacketHandle.SendToLobby },
+            { (int)ServerPackets.sendReadyState, PacketHandle.SendReadyState },
             { (int)ServerPackets.spawnPlayer, PacketHandle.SpawnPlayer },
             { (int)ServerPackets.playerPosition, PacketHandle.PlayerPosition },
             { (int)ServerPackets.playerRotation, PacketHandle.PlayerRotation },

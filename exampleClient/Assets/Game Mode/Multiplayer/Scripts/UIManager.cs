@@ -26,10 +26,10 @@ public class UIManager : MonoBehaviour
 
     public void ConnectToServer()
     {
-        startMenu.SetActive(false);
-        usernameField.interactable = false;
-        Client.instance.userName = usernameField.text;
-        Client.instance.ConnectToServer();
+        //startMenu.SetActive(false);
+        //usernameField.interactable = false;
+        //Client.instance.userName = DataBridge.instance.userProfile.username;
+        //Client.instance.ConnectToServer();
     }
 
     private void Update()

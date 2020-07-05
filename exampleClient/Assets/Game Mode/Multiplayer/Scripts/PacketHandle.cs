@@ -14,9 +14,24 @@ public class PacketHandle : MonoBehaviour
         Client.instance.myId = _myId;
 
         // Send packet back to the server
-        PacketSend.EnteredLobbby();
+        PacketSend.RequestEnterLobbby();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+    }
+
+    public static void SendToLobby(Packet _packet)
+    {
+        int _clientId = _packet.ReadInt();
+        string _playerName = _packet.ReadString();
+        string _category = _packet.ReadString();
+
+        LobbyGameManager.instance.SendToLobby(_clientId, _playerName, _category);
+    }
+
+    public static void SendReadyState(Packet _packet)
+    {
+        int _clientId = _packet.ReadInt();
+        LobbyGameManager.clientsInLobby[_clientId].lobbyState = "Listo";
     }
 
     public static void SpawnPlayer(Packet _packet)
