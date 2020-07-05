@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
     public float totalScore = 0;
+    public string category = "amateur";
 
     private float yVelocity = 0;
     public float gravity = -9.81f;

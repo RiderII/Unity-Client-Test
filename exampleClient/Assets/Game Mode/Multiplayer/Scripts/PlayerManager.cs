@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
-    public List<int> playerPosition = new List<int>();
+    public List<int> playerPlacement = new List<int>();
 
     public Sprite one;
     public Sprite two;
@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     public Sprite four;
 
     public int id;
-    public int position;
+    public int placement;
     public string username;
     public int collisions;
     public float traveled_kilometers;
@@ -63,17 +63,17 @@ public class PlayerManager : MonoBehaviour
         Debug.Log($"player {username} collided {collisions}");
     }
 
-    private void setPlayersPosition(int position, float bestPosition)
+    private void setPlayersPlacement(int placement, float bestPlacement)
     {
         int playerId = 0;
 
         foreach (PlayerManager player in GameManager.players.Values)
         {
-            if (!playerPosition.Contains(player.id))
+            if (!playerPlacement.Contains(player.id))
             {
-                if (player.transform.position.z > bestPosition)
+                if (player.transform.position.z > bestPlacement)
                 {
-                    bestPosition = player.transform.position.z;
+                    bestPlacement = player.transform.position.z;
                     playerId = player.id;
                 }
             }
@@ -81,18 +81,18 @@ public class PlayerManager : MonoBehaviour
 
         if (GameManager.players.ContainsKey(playerId))
         {
-            GameManager.players[playerId].position = position;
+            GameManager.players[playerId].placement = placement;
         }
 
-        playerPosition.Add(playerId);
+        playerPlacement.Add(playerId);
 
-        if (GameManager.players.Count == playerPosition.Count)
+        if (GameManager.players.Count == playerPlacement.Count)
         {
             return;
         }
         else
         {
-            setPlayersPosition(++position, 0);
+            setPlayersPlacement(++placement, 0);
         }
     }
 
@@ -107,7 +107,7 @@ public class PlayerManager : MonoBehaviour
                 pFrame.transform.GetChild(0).GetComponent<Image>().enabled = true;
                 pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().enabled = true;
                 pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
-                switch (player.position)
+                switch (player.placement)
                 {
                     case 1: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = one; break;
                     case 2: pFrame.transform.GetChild(0).GetComponent<Image>().sprite = two; break;
@@ -117,9 +117,9 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        setPlayersPosition(1, 0);
+        setPlayersPlacement(1, 0);
 
-        playerPosition.Clear();
+        playerPlacement.Clear();
 
         if (finishedGame)
         {
@@ -143,7 +143,7 @@ public class PlayerManager : MonoBehaviour
             statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(transform.position.z, 2) + " Km";
             statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(transform.position.z / 50, 2) + " Kcal";
             statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + collisions;
-            raceRankFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Posición: " + position;
+            raceRankFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Posición: " + placement;
         }
     }
 
