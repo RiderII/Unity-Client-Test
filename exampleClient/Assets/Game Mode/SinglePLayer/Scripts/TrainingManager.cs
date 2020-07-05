@@ -21,9 +21,7 @@ public class TrainingManager : MonoBehaviour
     public GameObject finishLine;
 
     // for race results
-
     private GameObject playersFrameResult;
-
 
     public float spawnDistanceFromPlayer = 40f;
     public float spawnDistanceFromObstacles = 10f;

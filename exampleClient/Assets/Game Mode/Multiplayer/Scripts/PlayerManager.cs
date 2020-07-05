@@ -35,6 +35,9 @@ public class PlayerManager : MonoBehaviour
     private float gameTimer;
     private float finalTime;
 
+    private GameObject playersFrameResult;
+    [SerializeField] private GameObject raceResults;
+
     public void Initialize(int _id, string _username)
     {
         id = _id;
@@ -54,6 +57,8 @@ public class PlayerManager : MonoBehaviour
             pFrame.transform.GetChild(0).GetComponent<Image>().enabled = false;
             pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().enabled = false;
         }
+
+        raceResults.SetActive(false);
     }
 
     public void SetCollisions(int _collision)
