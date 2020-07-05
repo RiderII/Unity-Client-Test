@@ -1631,7 +1631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &861166095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4626,7 +4626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.1740833, b: 0.1740833, a: 0.8117647}
+  m_Color: {r: 0, g: 0.1740833, b: 0.1740833, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4842,6 +4842,7 @@ GameObject:
   - component: {fileID: 8757768423255704898}
   - component: {fileID: 2339474953680647679}
   - component: {fileID: 8929500053681947764}
+  - component: {fileID: 5423082436411994979}
   m_Layer: 5
   m_Name: colorPanel
   m_TagString: Untagged
@@ -4849,6 +4850,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5423082436411994979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423082436411994978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60448792a015cb54d8b0f1187a3e373f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpTime: 2
+  myColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.97351444, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.970881, a: 1}
+  - {r: 0, g: 0.2797284, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.04313922, a: 1}
 --- !u!224 &5509833768692176176
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5536,7 +5556,7 @@ RectTransform:
   m_GameObject: {fileID: 5927047737239493959}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.14775124, y: 0.25167397, z: 0.21512158}
+  m_LocalScale: {x: 0.14953434, y: 0.2579355, z: 0.2204781}
   m_Children:
   - {fileID: 7804211953663863829}
   m_Father: {fileID: 8757768423255704898}
@@ -5667,7 +5687,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.046871185, a: 0.6431373}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5675,7 +5695,7 @@ MonoBehaviour:
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 1
+  m_FillCenter: 0
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1

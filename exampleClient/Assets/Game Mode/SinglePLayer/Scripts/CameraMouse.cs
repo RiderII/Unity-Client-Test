@@ -23,24 +23,26 @@ public class CameraMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // centrar el celular para obtener el posicionamiento deseado
-        if (gyroInstance.GetGyroActive())
-        {
-            player.transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 60.5f, 0f);
-            transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 60.5f, 0f, 0f);
-        }
-        else
-        {
-            float _mouseVertical = -Input.GetAxis("Mouse Y");
-            float _mouseHorizontal = Input.GetAxis("Mouse X");
+        if (!player.reachedFinishLine) {
+            // centrar el celular para obtener el posicionamiento deseado
+            if (gyroInstance.GetGyroActive())
+            {
+                player.transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 60.5f, 0f);
+                transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 60.5f, 0f, 0f);
+            }
+            else
+            {
+                float _mouseVertical = -Input.GetAxis("Mouse Y");
+                float _mouseHorizontal = Input.GetAxis("Mouse X");
 
-            verticalRotation += _mouseVertical * sensitivity * Time.deltaTime;
-            horizontalRotation += _mouseHorizontal * sensitivity * Time.deltaTime;
+                verticalRotation += _mouseVertical * sensitivity * Time.deltaTime;
+                horizontalRotation += _mouseHorizontal * sensitivity * Time.deltaTime;
 
-            verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
+                verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-            transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
-            player.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+                transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
+                player.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+            }
         }
     }
 }

@@ -176,7 +176,7 @@ public class TrainingManager : MonoBehaviour
 
     private void ShowFinishDashboard()
     {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         raceResults.SetActive(true);
         //Disable scripts that still work while timescale is set to 0
     }

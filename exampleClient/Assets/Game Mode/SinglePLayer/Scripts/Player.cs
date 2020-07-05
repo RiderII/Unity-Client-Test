@@ -129,7 +129,13 @@ public class Player : MonoBehaviour
             controller.Move(direction.normalized * speed * Time.deltaTime);
         }
 
-        if (Input.GetKeyUp("w") || reachedFinishLine)
+        if (Input.GetKeyUp("w") && !reachedFinishLine)
+        {
+            acceleration *= -1;
+            playPedaleo = false;
+        }
+
+        if (reachedFinishLine && acceleration > 0)
         {
             acceleration *= -1;
             playPedaleo = false;
