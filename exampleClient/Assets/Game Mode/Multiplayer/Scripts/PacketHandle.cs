@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PacketHandle : MonoBehaviour
 {
-    public static void Welcome(Packet _packet) //read the value of the packets send from the server in the same order they were send
+    public static void EnterLobby(Packet _packet) //read the value of the packets send from the server in the same order they were send
     {
         string _msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
@@ -14,7 +14,7 @@ public class PacketHandle : MonoBehaviour
         Client.instance.myId = _myId;
 
         // Send packet back to the server
-        PacketSend.WelcomeReceived();
+        PacketSend.EnteredLobbby();
 
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }

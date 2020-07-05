@@ -17,9 +17,9 @@ public class PacketSend : MonoBehaviour
     }
 
     #region Packets
-    public static void WelcomeReceived()
+    public static void EnteredLobbby()
     {
-        using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
+        using (Packet _packet = new Packet((int)ClientPackets.enteredLobby))
         {
             _packet.Write(Client.instance.myId); //the server can confirm that the client claimed the correct Id.
             _packet.Write(Client.instance.userName);
