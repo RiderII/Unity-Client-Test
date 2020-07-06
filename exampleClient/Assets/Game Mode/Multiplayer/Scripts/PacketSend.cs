@@ -39,6 +39,16 @@ public class PacketSend : MonoBehaviour
         }
     }
 
+    public static void SendIntoGame()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendToGame))
+        {
+            _packet.Write(Client.instance.userName);
+
+            SendTCPData(_packet);
+        }
+    }
+
     public static void PlayerMovement(bool[] _inputs)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))

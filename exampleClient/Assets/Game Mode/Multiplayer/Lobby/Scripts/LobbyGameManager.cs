@@ -12,6 +12,8 @@ public class LobbyGameManager : MonoBehaviour
     private Image colorPanel;
     private GameObject playersFrame;
     public static LobbyGameManager instance;
+    private bool startGame = false;
+    private float startGameCounter = 5f;
 
     // store all players info in the client side.
     public static Dictionary<int, User> clientsInLobby = new Dictionary<int, User>();
@@ -57,7 +59,38 @@ public class LobbyGameManager : MonoBehaviour
 
         if (clientsInLobby.Count > 1)
         {
-            lobbyCanvas.transform.GetChild(2).gameObject.SetActive(true);
+            lobbyCanvas.transform.GetChild(1).gameObject.SetActive(true);
+
+            foreach (User user in clientsInLobby.Values)
+            {
+                if (user.lobbyState == "Listo")
+                {
+                    startGame = true;
+                }
+                else
+                {
+                    startGame = false;
+                }
+            }
+        }
+        
+
+        if (startGame && clientsInLobby.Count > 1)
+        {
+            playersFrame.SetActive(false);
+            lobbyCanvas.transform.GetChild(1).gameObject.SetActive(false);
+            lobbyCanvas.transform.GetChild(2).gameObject.SetActive(false);
+            TextMeshProUGUI countDownTimer = colorPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+            startGameCounter -= Time.deltaTime;
+            countDownTimer.gameObject.SetActive(true);
+            countDownTimer.text = Mathf.FloorToInt(startGameCounter).ToString();
+
+            if (Mathf.FloorToInt(startGameCounter) < 1)
+            {
+                SceneManager.LoadScene("MultiPlayer");
+                PacketSend.SendIntoGame();
+            }
         }
     }
 

@@ -25,6 +25,7 @@ public enum ClientPackets
 {
     requestEnteredLobby = 1,
     sendReadyState,
+    sendToGame,
     playerMovement,
     restartScene
 }
