@@ -13,10 +13,11 @@ public class LobbyGameManager : MonoBehaviour
     private GameObject playersFrame;
     public static LobbyGameManager instance;
     private bool startGame = false;
-    private float startGameCounter = 5f;
+    private float startGameCounter = 6f;
 
     // store all players info in the client side.
     public static Dictionary<int, User> clientsInLobby = new Dictionary<int, User>();
+    private List<int> readyUsers = new List<int>();
 
     public void Awake()
     {
@@ -63,19 +64,15 @@ public class LobbyGameManager : MonoBehaviour
 
             foreach (User user in clientsInLobby.Values)
             {
-                if (user.lobbyState == "Listo")
+                if (user.lobbyState == "Listo" && !readyUsers.Contains(user.userServerId))
                 {
-                    startGame = true;
-                }
-                else
-                {
-                    startGame = false;
+                    readyUsers.Add(user.userServerId);
                 }
             }
         }
-        
 
-        if (startGame && clientsInLobby.Count > 1)
+
+        if ((readyUsers.Count == clientsInLobby.Count) && readyUsers.Count > 1)
         {
             playersFrame.SetActive(false);
             lobbyCanvas.transform.GetChild(1).gameObject.SetActive(false);
@@ -89,7 +86,6 @@ public class LobbyGameManager : MonoBehaviour
             if (Mathf.FloorToInt(startGameCounter) < 1)
             {
                 SceneManager.LoadScene("MultiPlayer");
-                PacketSend.SendIntoGame();
             }
         }
     }

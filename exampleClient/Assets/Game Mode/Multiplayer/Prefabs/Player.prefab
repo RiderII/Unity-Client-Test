@@ -154,11 +154,17 @@ MonoBehaviour:
   id: 0
   placement: 0
   username: 
+  email: test@test.com
   collisions: 0
   traveled_kilometers: 0
   burned_calories: 0
+  totalGameTime: 0
+  totalScore: 0
+  league: amateur
   finishedGame: 0
   reloadRequestSent: 0
+  raceResults: {fileID: 3934645587104309874, guid: 3aa3b6e4a4deb894997afcb49d3a80b5,
+    type: 3}
 --- !u!1 &4457406987370713928
 GameObject:
   m_ObjectHideFlags: 0
