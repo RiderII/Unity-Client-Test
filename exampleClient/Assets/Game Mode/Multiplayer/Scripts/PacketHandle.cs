@@ -15,8 +15,6 @@ public class PacketHandle : MonoBehaviour
 
         // Send packet back to the server
         PacketSend.RequestEnterLobbby();
-
-        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 
     public static void SendToLobby(Packet _packet)

@@ -43,6 +43,7 @@ public class PacketSend : MonoBehaviour
     {
         using (Packet _packet = new Packet((int)ClientPackets.sendToGame))
         {
+            _packet.Write(Client.instance.myId);
             _packet.Write(Client.instance.userName);
 
             SendTCPData(_packet);

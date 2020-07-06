@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -43,7 +44,7 @@ public class LobbyGameManager : MonoBehaviour
         playersFrame = colorPanel.transform.GetChild(0).gameObject;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         foreach (User user in clientsInLobby.Values)
         {
@@ -85,7 +86,9 @@ public class LobbyGameManager : MonoBehaviour
 
             if (Mathf.FloorToInt(startGameCounter) < 1)
             {
+                Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
                 SceneManager.LoadScene("MultiPlayer");
+                return;
             }
         }
     }

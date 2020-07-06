@@ -107,7 +107,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         foreach (PlayerManager player in GameManager.players.Values)
         {
