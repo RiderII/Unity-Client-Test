@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             }
             else 
             {
-                 ContinueGame();   
+                ContinueGame();   
             }
         }
 
