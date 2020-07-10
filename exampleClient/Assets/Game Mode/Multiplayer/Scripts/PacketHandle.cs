@@ -12,8 +12,6 @@ public class PacketHandle : MonoBehaviour
 
         Debug.Log($"Message from server: {_msg}");
         Client.instance.myId = _myId;
-
-        // Send packet back to the server
         PacketSend.RequestEnterLobbby();
     }
 
@@ -21,9 +19,9 @@ public class PacketHandle : MonoBehaviour
     {
         int _clientId = _packet.ReadInt();
         string _playerName = _packet.ReadString();
-        string _category = _packet.ReadString();
+        string _league = _packet.ReadString();
 
-        LobbyGameManager.instance.SendToLobby(_clientId, _playerName, _category);
+        LobbyGameManager.instance.SendToLobby(_clientId, _playerName, _league);
     }
 
     public static void SendReadyState(Packet _packet)

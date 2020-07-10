@@ -10,7 +10,6 @@ public class StateChange: MonoBehaviour
         {
             case "Listo":
                 {
-                    LobbyGameManager.clientsInLobby[Client.instance.myId].lobbyState = state;
                     PacketSend.SendReadyState();
                     break;
                 } 

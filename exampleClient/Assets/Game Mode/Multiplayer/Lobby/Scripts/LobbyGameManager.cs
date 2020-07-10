@@ -87,7 +87,7 @@ public class LobbyGameManager : MonoBehaviour
             if (Mathf.FloorToInt(startGameCounter) < 1)
             {
                 Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-                SceneManager.LoadScene("MultiPlayer");
+                SceneManager.LoadScene("Multiplayer");
                 return;
             }
         }

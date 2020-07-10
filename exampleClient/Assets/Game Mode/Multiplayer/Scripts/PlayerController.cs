@@ -55,13 +55,28 @@ public class PlayerController : MonoBehaviour
 
     private void SendInputToServer()
     {
-        bool[] _inputs = new bool[]
+        bool[] _inputs = null;
+
+        if (!GameManager.players[Client.instance.myId].finishedGame)
         {
-            Input.GetKey(KeyCode.W),
-            false,
-            false,
-            false
-        };
+            _inputs = new bool[]
+            {
+                Input.GetKey(KeyCode.W),
+                false,
+                false,
+                false
+            };
+        }
+        else
+        {
+            _inputs = new bool[]
+           {
+                false,
+                false,
+                false,
+                false
+           };
+        }
 
         PacketSend.PlayerMovement(_inputs);
     }
