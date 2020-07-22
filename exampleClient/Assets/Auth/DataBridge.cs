@@ -57,6 +57,37 @@ public class DataBridge : MonoBehaviour
         string jsonData = JsonUtility.ToJson(user);
         dbReference.Child("Users").Child(user.ID).SetRawJsonValueAsync(jsonData);
     }
+    public void SaveFbUser(User user)
+    {
+        FirebaseDatabase.DefaultInstance.GetReference("Users").Child(user.ID).GetValueAsync()
+            .ContinueWith((task =>
+            {
+                if (task.IsCanceled)
+                {
+
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    string userstring = snapshot.GetRawJsonValue();
+                    if(userstring == null)
+                    {
+                        userProfile = user;
+                        string jsonData = JsonUtility.ToJson(user);
+                        dbReference.Child("Users").Child(user.ID).SetRawJsonValueAsync(jsonData);
+
+                    }
+                    else
+                    {
+                        userProfile = JsonUtility.FromJson<User>(userstring);
+                    }                    
+                }
+            }));
+    }
     public void SaveReport(MapReport report)
     {
         print("saving report");

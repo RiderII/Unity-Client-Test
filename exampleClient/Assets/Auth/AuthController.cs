@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Auth;
 using TMPro;
+using Facebook.Unity;
 
 public class AuthController : MonoBehaviour
 {
     private bool logged = false;
     private bool isNewUser = false;
+    private bool fblogged = false;
     private bool error = false;
     private AuthError errorType;
 
@@ -20,12 +22,58 @@ public class AuthController : MonoBehaviour
 
     public GameObject errorPanel;
 
+    public void Awake()
+    {
+        if (!FB.IsInitialized)
+        {
+            // Initialize the Facebook SDK
+            FB.Init(InitCallback, OnHideUnity);
+        }
+        else
+        {
+            // Already initialized, signal an app activation App Event
+            FB.ActivateApp();
+        }
+    }
+    private void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            // Signal an app activation App Event
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+    }
+
+    private void OnHideUnity(bool isGameShown)
+    {
+        if (!isGameShown)
+        {
+            // Pause the game - we will need to hide
+            Time.timeScale = 0;
+        }
+        else
+        {
+            // Resume the game - we're getting focus again
+            Time.timeScale = 1;
+        }
+    }
     public void Update()
     {
         if (logged)
         {
             LoggedSuccess();
             logged = false;
+        }
+        if (fblogged)
+        {
+            FbLoggedSuccess();
+            fblogged = false;
         }
 
         if (error)
@@ -149,7 +197,7 @@ public class AuthController : MonoBehaviour
             case AuthError.MissingEmail:
                 msg = "Ingrese un correo electrónico";
                 break;
-;            case AuthError.WrongPassword:
+                ; case AuthError.WrongPassword:
                 msg = "Contraseña incorrecta";
                 break;
             case AuthError.InvalidEmail:
@@ -163,8 +211,8 @@ public class AuthController : MonoBehaviour
         errorPanel.SetActive(true);
         TextMeshProUGUI message = errorPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message.text = msg;
-        
-    } 
+
+    }
 
     public void LoggedSuccess()
     {
@@ -182,6 +230,71 @@ public class AuthController : MonoBehaviour
         }
         print(userid);
     }
+    private void FbLoggedSuccess()
+    {
+        var user = FirebaseAuth.DefaultInstance.CurrentUser;
+        User newuser = new User(user.UserId, user.DisplayName, user.Email);
+        DataBridge.instance.SaveFbUser(newuser);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+    }
 
-  
+
+    //FACEBOOK AUTH
+
+    public void SignInFacebook()
+    {
+        var perms = new List<string>() { "public_profile", "email" };
+        FB.LogInWithReadPermissions(perms, AuthCallback);
+    }
+    private void AuthCallback(ILoginResult result)
+    {
+        if (FB.IsLoggedIn)
+        {
+            // AccessToken class will have session details
+            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+            Debug.Log(aToken.UserId);
+            // Print current access token's granted permissions
+            foreach (string perm in aToken.Permissions)
+            {
+                Debug.Log(perm);
+            }
+            FirebaseFbSignIn(aToken);
+        }
+        else
+        {
+            Debug.Log("User cancelled login");
+        }
+    }
+
+    private void FirebaseFbSignIn(AccessToken token)
+    {
+        var credential = FacebookAuthProvider.GetCredential(token.TokenString);
+        FirebaseAuth.DefaultInstance.SignInWithCredentialAsync(credential).ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+            {
+                Firebase.FirebaseException e =
+                    task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
+                error = true;
+                errorType = (AuthError)e.ErrorCode;
+                return;
+            }        
+            if (task.IsFaulted)
+            {
+                Firebase.FirebaseException e =
+                    task.Exception.Flatten().InnerExceptions[0] as Firebase.FirebaseException;
+                error = true;
+                errorType = (AuthError)e.ErrorCode;
+                return;
+            }
+            if (task.IsCompleted)
+            {
+                FirebaseUser newUser = task.Result;
+                Debug.Log($"User signed In: {newUser.DisplayName}, {newUser.UserId}.");
+                //isNewUser = true;
+                fblogged = true;
+            }
+
+        });
+    }
 }
