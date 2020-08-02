@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class swipe_selection : MonoBehaviour
@@ -10,6 +11,7 @@ public class swipe_selection : MonoBehaviour
     float scroll_pos = 0;
     float[] pos;
     bool run;
+    bool buttonClicked;
     float previous_pos = 1;
     float current_pos = 1;
 
@@ -22,10 +24,19 @@ public class swipe_selection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                buttonClicked = true;
+            });
+        }
+
         if (Input.GetMouseButton(0))
         {
             run = true;
         }
+
         if (Input.GetMouseButtonDown(0))
         {
             previous_pos = scrollbar.GetComponent<Scrollbar>().value;
@@ -38,7 +49,7 @@ public class swipe_selection : MonoBehaviour
 
             Debug.Log($"Current { current_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
 
-            if (current_pos == previous_pos)
+            if (current_pos == previous_pos && buttonClicked)
             {
                 switch (current_pos)
                 {
