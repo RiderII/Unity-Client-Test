@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class swipe_selection : MonoBehaviour
@@ -27,18 +28,15 @@ public class swipe_selection : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0))
         {
-
             previous_pos = scrollbar.GetComponent<Scrollbar>().value;
 
             Debug.Log($"PREV { previous_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
         }
         if (Input.GetMouseButtonUp(0))
         {
-
             current_pos = scrollbar.GetComponent<Scrollbar>().value;
 
             Debug.Log($"Current { current_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
-
 
             if (current_pos == previous_pos)
             {
@@ -49,6 +47,7 @@ public class swipe_selection : MonoBehaviour
                     case var _ when current_pos < 0.1: current_pos = 0f; break;
                 }
                 Debug.Log(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
+                SceneManager.LoadScene(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
             }
 
         }
