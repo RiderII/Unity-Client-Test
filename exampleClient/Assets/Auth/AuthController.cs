@@ -7,6 +7,7 @@ using Facebook.Unity;
 
 public class AuthController : MonoBehaviour
 {
+    FirebaseAuth auth;
     private bool logged = false;
     private bool isNewUser = false;
     private bool fblogged = false;
@@ -24,6 +25,7 @@ public class AuthController : MonoBehaviour
 
     public void Awake()
     {
+        auth = FirebaseAuth.DefaultInstance;
         if (!FB.IsInitialized)
         {
             // Initialize the Facebook SDK
@@ -84,7 +86,8 @@ public class AuthController : MonoBehaviour
     }
     public void Login()
     {
-        FirebaseAuth.DefaultInstance.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text)
+        Debug.Log("hola");
+        auth.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text)
             .ContinueWith((task =>
             {
                 if (task.IsCanceled)
@@ -294,7 +297,15 @@ public class AuthController : MonoBehaviour
                 //isNewUser = true;
                 fblogged = true;
             }
-
         });
     }
+
+    public void FacebookShare(string username)
+    {
+        FB.ShareLink(new System.Uri("https://github.com/RiderII"), username + "Ha terminado una carrera!",
+            "RiderII es perfecto para ejercitar en cuarentena :D",
+            new System.Uri("https://avatars0.githubusercontent.com/u/65631755?s=200&v=4"));
+    }
 }
+
+
