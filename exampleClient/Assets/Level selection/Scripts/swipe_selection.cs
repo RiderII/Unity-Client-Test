@@ -51,6 +51,7 @@ public class swipe_selection : MonoBehaviour
 
             if (current_pos == previous_pos && buttonClicked)
             {
+                Debug.Log("Button was click");
                 switch (current_pos)
                 {
                     case var _ when current_pos > 0.9f: current_pos = 2f; break;
@@ -61,20 +62,6 @@ public class swipe_selection : MonoBehaviour
                 StartCoroutine(LoadAsynchronously(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text));
             }
 
-        }
-
-        IEnumerator LoadAsynchronously(string sceneName)
-        {
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-            while (!operation.isDone)
-            {
-                float progress = Mathf.Clamp01(operation.progress / .9f);
-
-                Debug.Log($"LOADING {progress}");
-
-                yield return null; // wait until next frame
-            }
         }
 
         if (run)
@@ -115,4 +102,19 @@ public class swipe_selection : MonoBehaviour
             }
         }
     }
+
+    IEnumerator LoadAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            Debug.Log($"LOADING {progress}");
+
+            yield return null; // wait until next frame
+        }
+    }
+
 }
