@@ -58,10 +58,25 @@ public class swipe_selection : MonoBehaviour
                     case var _ when current_pos < 0.1: current_pos = 0f; break;
                 }
                 Debug.Log(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
-                SceneManager.LoadScene(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
+                StartCoroutine(LoadAsynchronously(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text));
             }
 
         }
+
+        IEnumerator LoadAsynchronously(string sceneName)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+            while (!operation.isDone)
+            {
+                float progress = Mathf.Clamp01(operation.progress / .9f);
+
+                Debug.Log($"LOADING {progress}");
+
+                yield return null; // wait until next frame
+            }
+        }
+
         if (run)
         {
             pos = new float[transform.childCount];
