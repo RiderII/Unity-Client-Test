@@ -18,6 +18,7 @@ public class Player2 : MonoBehaviour
     public List<MapReport> mapReport;
     public float totalScore = 0;
     public string league = "amateur";
+    public List<string> steps = new List<string>();
 
     private float yVelocity = 0;
     public float gravity = -9.81f;
@@ -29,8 +30,12 @@ public class Player2 : MonoBehaviour
     public bool playPedaleo = false;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
+    public AudioClip bikeBrake;
+    public AudioClip rubbleCrash;
+    public AudioSource audioBikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
+    public AudioSource audioSourceRubbleCrash;
     //public AudioSource pedaleo;
 
     // Start is called before the first frame update
@@ -40,6 +45,8 @@ public class Player2 : MonoBehaviour
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
+        audioBikeBrake = AddAudio(false, false, 1.0f);
+        audioSourceRubbleCrash = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -93,6 +100,11 @@ public class Player2 : MonoBehaviour
             //detener pedaleo
             speed = 0;
         }
+        else
+        {
+            traveled_kilometers += (0.1f / 2) * speed * 0.1f;
+            burned_calories += (0.05f / 2) * speed * 0.1f;
+        }
 
         if (acceleration < 0)
         {
@@ -129,8 +141,24 @@ public class Player2 : MonoBehaviour
 
         if (reachedFinishLine && acceleration > 0)
         {
-            acceleration *= -1;
+            if (speed > 7)
+            {
+                acceleration *= -5;
+            }
+            else if (speed > 5)
+            {
+                acceleration *= -3;
+            }
+            else
+            {
+                acceleration *= -1;
+
+            }
+            
             playPedaleo = false;
+            audioBikeBrake.clip = bikeBrake;
+            audioBikeBrake.volume = speed;
+            audioBikeBrake.Play();
         }
     }
 
