@@ -59,7 +59,7 @@ public class TrainingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName == "Vaquita")
+        if (sceneName == "VaquitaS")
         {
             if (obstaclePointer < player.transform.parent.position.z)
             {

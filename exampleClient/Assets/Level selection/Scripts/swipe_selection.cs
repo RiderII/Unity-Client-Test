@@ -62,8 +62,18 @@ public class swipe_selection : MonoBehaviour
                 string levelName = transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text;
                 Client.instance.levelSelected = levelName;
                 Debug.Log($"Player level selected: {Client.instance.levelSelected}");
-                if (Client.instance.gameModeSelected == "")
-                StartCoroutine(LoadAsynchronously(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text));
+                if (Client.instance.gameModeSelected == "Multiplayer")
+                {
+                    StartCoroutine(LoadAsynchronously("Lobby"));
+                }
+                else if (Client.instance.gameModeSelected == "Singleplayer" && Client.instance.levelSelected == "Vaquita")
+                {
+                    StartCoroutine(LoadAsynchronously("VaquitaS"));
+                }
+                else
+                {
+                    StartCoroutine(LoadAsynchronously(levelName));
+                }
             }
 
         }

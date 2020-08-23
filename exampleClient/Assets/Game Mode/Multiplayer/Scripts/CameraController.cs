@@ -88,7 +88,7 @@ public class CameraController : MonoBehaviour
 
     private void Look()
     {
-        if (!GameManager.players[Client.instance.myId].finishedGame)
+        if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)
         {
             // centrar el celular para obtener el posicionamiento deseado
             if (gyroInstance.GetGyroActive())

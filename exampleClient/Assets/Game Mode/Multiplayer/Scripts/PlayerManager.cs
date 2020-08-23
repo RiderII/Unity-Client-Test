@@ -217,13 +217,11 @@ public class PlayerManager : MonoBehaviour
 
     private void updatePlayersResults()
     {
-        int countFinished = 0;
         foreach (PlayerManager player in GameManager.players.Values)
         {
             if (player.finishedGame)
             {
-                countFinished += 1;
-                playerLayers[player.placement - 1] = raceResults.transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
+                playerLayers[player.placement - 1] = raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
                 playerLayers[player.placement - 1].SetActive(true);
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
@@ -233,11 +231,6 @@ public class PlayerManager : MonoBehaviour
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.totalScore;
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "CATEGORIA:" + player.league;
             }
-        }
-
-        if (countFinished == GameManager.players.Count)
-        {
-            enabled = false;
         }
     }
 

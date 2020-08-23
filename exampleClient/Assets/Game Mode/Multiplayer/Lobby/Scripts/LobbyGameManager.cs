@@ -87,7 +87,8 @@ public class LobbyGameManager : MonoBehaviour
             if (Mathf.FloorToInt(startGameCounter) < 1)
             {
                 Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-                SceneManager.LoadScene("Multiplayer");
+                StartCoroutine(LoadAsynchronously(Client.instance.levelSelected));
+                
                 return;
             }
         }
@@ -97,7 +98,22 @@ public class LobbyGameManager : MonoBehaviour
     {
         if (!clientsInLobby.ContainsKey(_id))
         {
+            Debug.Log("in lobby");
             clientsInLobby.Add(_id, new User(_id, username, league));
+        }
+    }
+
+    IEnumerator LoadAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            Debug.Log($"LOADING {progress}");
+
+            yield return null; // wait until next frame
         }
     }
 }

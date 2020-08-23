@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         bool[] _inputs = null;
 
-        if (!GameManager.players[Client.instance.myId].finishedGame)
+        if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)
         {
             _inputs = new bool[]
             {
