@@ -17,7 +17,6 @@ public class FinishedLine2 : MonoBehaviour
             if (player.steps.Count == 4 && tag == "FinishLine")
             {
                 player.reachedFinishLine = true;
-                player.traveled_kilometers = player.transform.position.z;
             }
         }
     }

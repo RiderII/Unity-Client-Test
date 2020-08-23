@@ -32,10 +32,12 @@ public class Player2 : MonoBehaviour
     public AudioClip pedaleo;
     public AudioClip bikeBrake;
     public AudioClip rubbleCrash;
+    public AudioClip scrapeSound;
     public AudioSource audioBikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
     public AudioSource audioSourceRubbleCrash;
+    public AudioSource audioSourceScrapeSound;
     //public AudioSource pedaleo;
 
     // Start is called before the first frame update
@@ -47,6 +49,7 @@ public class Player2 : MonoBehaviour
         audioSourcePedalo = AddAudio(true, false, 0.1f);
         audioBikeBrake = AddAudio(false, false, 1.0f);
         audioSourceRubbleCrash = AddAudio(false, false, 1.0f);
+        audioSourceScrapeSound = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
