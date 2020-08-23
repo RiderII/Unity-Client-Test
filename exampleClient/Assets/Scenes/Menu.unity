@@ -7557,6 +7557,17 @@ MonoBehaviour:
           m_StringArgument: LevelSelection
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1308027675}
+        m_MethodName: setGameModeSelected
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Singleplayer
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1158274300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9687,6 +9698,8 @@ MonoBehaviour:
   myId: 0
   userName: miguel
   league: pro
+  levelSelected: 
+  gameModeSelected: 
 --- !u!4 &1402679939
 Transform:
   m_ObjectHideFlags: 0
@@ -10249,6 +10262,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: LevelSelection
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1308027675}
+        m_MethodName: setGameModeSelected
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Multiplayer
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1513857989

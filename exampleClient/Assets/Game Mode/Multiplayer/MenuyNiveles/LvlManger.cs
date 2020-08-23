@@ -27,10 +27,14 @@ public class LvlManger : MonoBehaviour
         medalCollection = new MedalCollection();
     }
 
-
     public void loadLevel(string pNombreNivel){
         Time.timeScale = 1;
         SceneManager.LoadScene(pNombreNivel); 
+    }
+
+    public void setGameModeSelected(string gameMode)
+    {
+        Client.instance.gameModeSelected = gameMode;
     }
 
     public void QuitGame()

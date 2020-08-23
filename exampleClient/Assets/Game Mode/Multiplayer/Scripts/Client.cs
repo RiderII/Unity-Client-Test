@@ -18,6 +18,8 @@ public class Client : MonoBehaviour
     public TCP tcp;
     public UDP udp;
     private bool isConnected = false;
+    public string levelSelected;
+    public string gameModeSelected;
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 

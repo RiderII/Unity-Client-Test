@@ -58,7 +58,11 @@ public class swipe_selection : MonoBehaviour
                     case var _ when current_pos >= 0.4f: current_pos = 1f; break;
                     case var _ when current_pos < 0.1: current_pos = 0f; break;
                 }
-                Debug.Log(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
+
+                string levelName = transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text;
+                Client.instance.levelSelected = levelName;
+                Debug.Log($"Player level selected: {Client.instance.levelSelected}");
+                if (Client.instance.gameModeSelected == "")
                 StartCoroutine(LoadAsynchronously(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text));
             }
 
@@ -116,5 +120,4 @@ public class swipe_selection : MonoBehaviour
             yield return null; // wait until next frame
         }
     }
-
 }
