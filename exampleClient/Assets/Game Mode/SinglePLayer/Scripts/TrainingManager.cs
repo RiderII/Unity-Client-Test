@@ -33,6 +33,7 @@ public class TrainingManager : MonoBehaviour
     private float gameTimer;
     private float finalTime;
     private bool isGameOver = false;
+    private string sceneName;
 
     public float gameOverTimer = 3f;
 
@@ -51,23 +52,29 @@ public class TrainingManager : MonoBehaviour
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
+
+        sceneName = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (obstaclePointer < player.transform.parent.position.z)
+        if (sceneName == "Vaquita")
         {
-            obstaclePointer += spawnDistanceFromObstacles;
+            if (obstaclePointer < player.transform.parent.position.z)
+            {
+                obstaclePointer += spawnDistanceFromObstacles;
 
-            GameObject obstacleObject = Instantiate(obstaclePrefab);
-            obstacleObject.transform.position = new Vector3(
-                Random.Range(-4f, 4f),
-                1.5f,
-                player.transform.parent.position.z + spawnDistanceFromPlayer
-            );
-            numberOfObstaclers += 1;
+                GameObject obstacleObject = Instantiate(obstaclePrefab);
+                obstacleObject.transform.position = new Vector3(
+                    Random.Range(-4f, 4f),
+                    1.5f,
+                    player.transform.parent.position.z + spawnDistanceFromPlayer
+                );
+                numberOfObstaclers += 1;
+            }
         }
+
 
         gameTimer += Time.deltaTime;
 
