@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
+    public GameObject localPlayerPrefabRigid;
+    public GameObject playerPrefabRigid;
     public GameObject obstaclePrefab;
-    private string sceneName;
+    public string sceneName;
 
     public void Awake()
     {
@@ -39,11 +41,25 @@ public class GameManager : MonoBehaviour
         GameObject _player;
         if (_id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            if (sceneName == "Vaquita")
+            {
+                _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            }
+            else
+            {
+                _player = Instantiate(localPlayerPrefabRigid, _position, _rotation);
+            }
         }
         else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            if (sceneName == "Vaquita")
+            {
+                _player = Instantiate(playerPrefab, _position, _rotation);
+            }
+            else
+            {
+                _player = Instantiate(playerPrefabRigid, _position, _rotation);
+            }
         }
 
         _player.GetComponent<PlayerManager>().Initialize(_id, _username);

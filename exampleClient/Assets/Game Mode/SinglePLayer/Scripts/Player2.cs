@@ -40,6 +40,13 @@ public class Player2 : MonoBehaviour
     public AudioSource audioSourceScrapeSound;
     //public AudioSource pedaleo;
 
+    private void Awake()
+    {
+        if (Client.instance.gameModeSelected == "Multiplayer")
+        {
+            gameObject.SetActive(false);
+        }
+    }
     // Start is called before the first frame update
     [SerializeField] private GameObject pausePanel;
     void Start()

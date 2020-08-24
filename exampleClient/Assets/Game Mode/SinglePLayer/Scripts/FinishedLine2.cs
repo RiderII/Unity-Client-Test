@@ -6,13 +6,17 @@ public class FinishedLine2 : MonoBehaviour
 {
     public Player2 player;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         if (Client.instance.gameModeSelected == "Multiplayer")
         {
             gameObject.SetActive(false);
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     private void OnTriggerEnter(Collider other)

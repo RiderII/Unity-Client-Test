@@ -11,6 +11,14 @@ public class CameraMouse2 : MonoBehaviour
     private float verticalRotation;
     private float horizontalRotation;
 
+    private void Awake()
+    {
+        if (Client.instance.gameModeSelected == "Multiplayer")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
