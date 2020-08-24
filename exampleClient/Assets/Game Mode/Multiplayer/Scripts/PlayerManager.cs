@@ -45,6 +45,9 @@ public class PlayerManager : MonoBehaviour
     private float gameTimer;
     private float finalTime;
 
+    public AudioClip bikeBrake;
+    public static AudioSource audioBikeBrake;
+
     [SerializeField] private GameObject raceResults;
 
     public void Initialize(int _id, string _username)
@@ -75,6 +78,16 @@ public class PlayerManager : MonoBehaviour
         collisions = _collision;
         CameraController.audioSourcePedalo.volume *= 0.20f;
         Debug.Log($"player {username} collided {collisions}");
+    }
+
+    public void playBrake(float _speed)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.loop = false;
+        newAudio.volume = _speed;
+        audioBikeBrake = newAudio;
+        audioBikeBrake.clip = bikeBrake;
+        audioBikeBrake.Play();
     }
 
     private void setPlayersPlacement(int placement, float bestPlacement)

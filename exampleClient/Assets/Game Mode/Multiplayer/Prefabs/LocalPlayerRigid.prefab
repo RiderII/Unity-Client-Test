@@ -2437,6 +2437,8 @@ MonoBehaviour:
   league: amateur
   finishedGame: 0
   reloadRequestSent: 0
+  bikeBrake: {fileID: 8300000, guid: afaa4e32f7b11cb44a70add48ff5b6a3, type: 3}
+  audioBikeBrake: {fileID: 0}
   raceResults: {fileID: 7867242737194059341}
 --- !u!1 &4111890193083672444
 GameObject:
@@ -5829,8 +5831,8 @@ MonoBehaviour:
   horizontalRotation: 0
   defaultVolumeCollision: 1
   playPedaleo: 0
-  vaquitamu: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
-  pedaleo: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
+  vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
+  pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
 --- !u!1 &8516933616715633554
 GameObject:
   m_ObjectHideFlags: 0

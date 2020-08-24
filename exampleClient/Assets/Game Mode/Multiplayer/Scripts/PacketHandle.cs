@@ -101,7 +101,9 @@ public class PacketHandle : MonoBehaviour
     public static void PlayerFinishedGame(Packet _packet)
     {
         int _id = _packet.ReadInt();
+        float _speed = _packet.ReadFloat();
 
+        GameManager.players[_id].playBrake(_speed);
         GameManager.players[_id].finishedGame = true;
     }
 }
