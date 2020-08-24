@@ -37,6 +37,14 @@ public class TrainingManager2 : MonoBehaviour
 
     [SerializeField] private GameObject raceResults;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        if (Client.instance.gameModeSelected == "Multiplayer")
+        {
+            gameObject.SetActive(false);
+        }
+    }
     void Start()
     {
         Time.timeScale = 1;
