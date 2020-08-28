@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "3.128.24.55";
+    public string ip = "10.147.17.18";
     public int port = 26950;
     public int myId = 0;
     public string userName = "miguel";
@@ -301,7 +301,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerCollided, PacketHandle.PlayerCollided },
             { (int)ServerPackets.obstacleSpawned, PacketHandle.ObstacleSpawned },
             { (int)ServerPackets.playerFinishedGame, PacketHandle.PlayerFinishedGame },
-            { (int)ServerPackets.restartPlayerPosition, PacketHandle.RestartPlayerPosition }
+            { (int)ServerPackets.restartPlayerPosition, PacketHandle.RestartPlayerPosition },
+            { (int)ServerPackets.playerCollidedWithOtherPlayer, PacketHandle.PlayerCollidedWithOtherPlayer },
         };
         Debug.Log("Initialized packets!");
     }

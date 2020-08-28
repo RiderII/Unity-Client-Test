@@ -46,7 +46,9 @@ public class PlayerManager : MonoBehaviour
     private float finalTime;
 
     public AudioClip bikeBrake;
+    public AudioClip bikeBrakecollision;
     public static AudioSource audioBikeBrake;
+    public static AudioSource audioBikeBrakeCollision;
 
     [SerializeField] private GameObject raceResults;
 
@@ -71,6 +73,18 @@ public class PlayerManager : MonoBehaviour
         }
 
         raceResults.SetActive(false);
+
+        audioBikeBrake = AddAudio(false, false, 0f);
+        audioBikeBrakeCollision = AddAudio(true, false, 1f);
+    }
+
+    public AudioSource AddAudio(bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
     }
 
     public void SetCollisions(int _collision)
@@ -82,12 +96,23 @@ public class PlayerManager : MonoBehaviour
 
     public void playBrake(float _speed)
     {
-        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
-        newAudio.loop = false;
-        newAudio.volume = _speed;
-        audioBikeBrake = newAudio;
+        audioBikeBrake.volume = _speed * 0.1f;
         audioBikeBrake.clip = bikeBrake;
         audioBikeBrake.Play();
+    }
+
+    public void playBrakeCollision(float _speed, bool playSound)
+    {
+        //if (playSound)
+        //{
+            audioBikeBrakeCollision.volume = 1f;
+            audioBikeBrakeCollision.clip = bikeBrakecollision;
+            audioBikeBrakeCollision.Play();
+        //}
+        //if(!playSound)
+        //{
+        //    audioBikeBrakeCollision.Stop();
+        //}
     }
 
     private void setPlayersPlacement(int placement, float bestPlacement)
