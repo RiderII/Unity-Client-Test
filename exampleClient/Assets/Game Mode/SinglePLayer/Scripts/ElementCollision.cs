@@ -16,9 +16,22 @@ public class ElementCollision : MonoBehaviour
             isColliding = true;
             StartCoroutine(Reset());
 
+            if (tag == "Tires")
+            {
+                player.audioSourceRubbleCrash.clip = player.rubbleCrash;
+                player.audioSourceRubbleCrash.Play();
+            }
+            else if (tag == "Rock"){
+                player.audioSourceScrapeSound.clip = player.scrapeSound;
+                player.audioSourceScrapeSound.volume = 0.5f;
+                player.audioSourceScrapeSound.Play();
+            }
+            else if (tag == "Tree")
+            {
+                player.audioSourceHitTree.clip = player.hitTree;
+                player.audioSourceHitTree.Play();
+            }
 
-            player.audioSourceRubbleCrash.clip = player.rubbleCrash;
-            player.audioSourceRubbleCrash.Play();
 
             player.audioSourcePedalo.volume *= 0.20f;
             player.speed *= 0.80f;
@@ -32,7 +45,7 @@ public class ElementCollision : MonoBehaviour
 
     IEnumerator Reset()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         isColliding = false;
     }
 }

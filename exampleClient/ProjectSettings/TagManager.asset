@@ -10,6 +10,9 @@ TagManager:
   - secondStep
   - thirdStep
   - Tires
+  - Obstacle
+  - Rock
+  - Tree
   layers:
   - Default
   - TransparentFX

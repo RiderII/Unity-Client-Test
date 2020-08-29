@@ -33,11 +33,13 @@ public class Player2 : MonoBehaviour
     public AudioClip bikeBrake;
     public AudioClip rubbleCrash;
     public AudioClip scrapeSound;
+    public AudioClip hitTree;
     public AudioSource audioBikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
     public AudioSource audioSourceRubbleCrash;
     public AudioSource audioSourceScrapeSound;
+    public AudioSource audioSourceHitTree;
     //public AudioSource pedaleo;
 
     private void Awake()
@@ -57,6 +59,7 @@ public class Player2 : MonoBehaviour
         audioBikeBrake = AddAudio(false, false, 1.0f);
         audioSourceRubbleCrash = AddAudio(false, false, 1.0f);
         audioSourceScrapeSound = AddAudio(false, false, 1.0f);
+        audioSourceHitTree = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
