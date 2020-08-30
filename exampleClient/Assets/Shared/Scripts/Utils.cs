@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Utils
 {
-    public static float CaloriesBurned(float weight, float minutes, float meterPerHour)
+    public static float CaloriesBurned(float weight, float meterPerHour)
     {
         float MET = CalculateMET(meterPerHour);
-        return ((MET*weight* 3.5f) / 200)*minutes;
+        return ((MET*weight* 3.5f) / 200f)*0.0006f;
     }
 
     private static float CalculateMET(float meterPerHour)
@@ -42,8 +42,11 @@ public class Utils
             case float n when (n < 9 && n > 5.5):
                 MET = Constants.leisureSlightLightEffortMET;
                 break;
-            case float n when (n <= 5.5):
+            case float n when (n == 5.5):
                 MET = Constants.leisureVeryLightEffortMET;
+                break;
+            default:
+                MET = (meterPerHour * 3.5f) / 5.5f;
                 break;
         }
 

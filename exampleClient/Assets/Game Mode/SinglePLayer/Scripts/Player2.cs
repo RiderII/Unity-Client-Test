@@ -15,14 +15,16 @@ public class Player2 : MonoBehaviour
     public float burned_calories = 0f;
     public float totalGameTime = 0f;
     public float weight = 90f;
-    public float timePlayed = 0f;
+    public int nextUpdate = 1;
     public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
     public float totalScore = 0;
     public string league = "amateur";
     public List<string> steps = new List<string>();
+    public float framesPerSecond = 0f;
     Vector3 oldPos;
+    Vector3 oldPos2;
 
     private float yVelocity = 0;
     public float gravity = -9.81f;
@@ -59,6 +61,7 @@ public class Player2 : MonoBehaviour
     {
         Time.timeScale = 1;
         oldPos = transform.position;
+        oldPos2 = transform.position;
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
@@ -78,9 +81,17 @@ public class Player2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        timePlayed += Time.deltaTime;
+        if (Time.time >= nextUpdate)
+        {
+            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+            Vector3 distanceVector = (transform.position - oldPos2);
+            float distanceThisFrame = distanceVector.magnitude;
+            oldPos2 = transform.position;
+
+            playerSpeed = distanceThisFrame; // mph
+        }
 
         //pause event
         if (Input.GetKeyUp(KeyCode.Escape))
@@ -98,8 +109,6 @@ public class Player2 : MonoBehaviour
         // Acceleration logic
 
         speed += acceleration * Time.deltaTime;
-
-        playerSpeed = player.velocity.magnitude * 2.237f; //speed in mph
 
         // Control pedaling volume if user is pedaling or not.
 
@@ -125,11 +134,11 @@ public class Player2 : MonoBehaviour
         }
         else
         {
-            Vector3 distanceVector = transform.position - oldPos;
+            Vector3 distanceVector = (transform.position - oldPos);
             float distanceThisFrame = distanceVector.magnitude;
             traveled_meters += distanceThisFrame;
             oldPos = transform.position;
-            burned_calories += Utils.CaloriesBurned(weight, timePlayed / 60, playerSpeed);
+            burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) *60);
         }
 
         if (acceleration < 0)
