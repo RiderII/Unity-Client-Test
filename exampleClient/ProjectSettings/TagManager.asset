@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Text
+  - FinishLine
+  - firstStep
+  - secondStep
+  - thirdStep
+  - Tires
+  - Obstacle
+  - Rock
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -14,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - Post
   - 
   - 
   - 

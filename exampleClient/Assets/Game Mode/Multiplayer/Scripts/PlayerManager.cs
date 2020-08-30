@@ -45,6 +45,11 @@ public class PlayerManager : MonoBehaviour
     private float gameTimer;
     private float finalTime;
 
+    public AudioClip bikeBrake;
+    public AudioClip bikeBrakecollision;
+    public static AudioSource audioBikeBrake;
+    public static AudioSource audioBikeBrakeCollision;
+
     [SerializeField] private GameObject raceResults;
 
     public void Initialize(int _id, string _username)
@@ -68,6 +73,18 @@ public class PlayerManager : MonoBehaviour
         }
 
         raceResults.SetActive(false);
+
+        audioBikeBrake = AddAudio(false, false, 0f);
+        audioBikeBrakeCollision = AddAudio(true, false, 1f);
+    }
+
+    public AudioSource AddAudio(bool loop, bool playAwake, float vol)
+    {
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.loop = loop;
+        newAudio.playOnAwake = playAwake;
+        newAudio.volume = vol;
+        return newAudio;
     }
 
     public void SetCollisions(int _collision)
@@ -75,6 +92,27 @@ public class PlayerManager : MonoBehaviour
         collisions = _collision;
         CameraController.audioSourcePedalo.volume *= 0.20f;
         Debug.Log($"player {username} collided {collisions}");
+    }
+
+    public void playBrake(float _speed)
+    {
+        audioBikeBrake.volume = _speed * 0.1f;
+        audioBikeBrake.clip = bikeBrake;
+        audioBikeBrake.Play();
+    }
+
+    public void playBrakeCollision(float _speed, bool playSound)
+    {
+        //if (playSound)
+        //{
+            audioBikeBrakeCollision.volume = 1f;
+            audioBikeBrakeCollision.clip = bikeBrakecollision;
+            audioBikeBrakeCollision.Play();
+        //}
+        //if(!playSound)
+        //{
+        //    audioBikeBrakeCollision.Stop();
+        //}
     }
 
     private void setPlayersPlacement(int placement, float bestPlacement)
@@ -221,7 +259,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (player.finishedGame)
             {
-                playerLayers[player.placement - 1] = raceResults.transform.GetChild(2).GetChild(0).GetChild(0).GetChild(player.placement - 1).gameObject;
+                playerLayers[player.placement - 1] = raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
                 playerLayers[player.placement - 1].SetActive(true);
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";

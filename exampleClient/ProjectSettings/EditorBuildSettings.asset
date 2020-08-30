@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 1e37d1d3089090647b0c04e1f2759a86
   - enabled: 1
-    path: Assets/Scenes/Multiplayer.unity
+    path: Assets/Scenes/Vaquita.unity
     guid: 9ac0e1af8f9b96f4d8e0fcca8ff0f94a
   - enabled: 1
-    path: Assets/Scenes/Vaquita.unity
+    path: Assets/Scenes/VaquitaS.unity
     guid: 973e92629f62fa74ca9acfb22857c50c
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
@@ -24,12 +24,12 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelection.unity
     guid: fd184e3ccda6a7f45bb7b5d11caa89be
   - enabled: 1
-    path: Assets/Scenes/Circuito cerrado.unity
+    path: Assets/Scenes/Levels/Circuito abierto.unity
     guid: ba8e4ae031f389e44bd2bd56125c81b3
   - enabled: 1
-    path: "Assets/Scenes/En las monta\xF1as.unity"
+    path: "Assets/Scenes/Levels/En las monta\xF1as.unity"
     guid: ba6f71033e2534740b1dedfe04cc9060
   - enabled: 1
-    path: Assets/Scenes/Circuito abierto.unity
-    guid: 1afed9a54347886428908a7ac44d0d4b
+    path: Assets/Scenes/Levels/Circuito cerrado.unity
+    guid: 447962233a31b7744b3d99b27b0d9cba
   m_configObjects: {}

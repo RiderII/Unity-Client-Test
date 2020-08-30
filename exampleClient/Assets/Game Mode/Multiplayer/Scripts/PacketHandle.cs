@@ -91,6 +91,13 @@ public class PacketHandle : MonoBehaviour
         CameraController.playVaquitaMu = true;
     }
 
+    public static void PlayerCollidedWithOtherPlayer(Packet _packet)
+    {
+        float speed = _packet.ReadFloat();
+        bool collision = _packet.ReadBool();
+        GameManager.players[Client.instance.myId].playBrakeCollision(speed, collision);
+    }
+
     public static void ObstacleSpawned(Packet _packet)
     {
         Vector3 _position = _packet.ReadVector3();
@@ -101,7 +108,9 @@ public class PacketHandle : MonoBehaviour
     public static void PlayerFinishedGame(Packet _packet)
     {
         int _id = _packet.ReadInt();
+        float _speed = _packet.ReadFloat();
 
+        GameManager.players[_id].playBrake(_speed);
         GameManager.players[_id].finishedGame = true;
     }
 }

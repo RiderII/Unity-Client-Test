@@ -51,17 +51,33 @@ public class swipe_selection : MonoBehaviour
 
             if (current_pos == previous_pos && buttonClicked)
             {
+                Debug.Log("Button was click");
                 switch (current_pos)
                 {
                     case var _ when current_pos > 0.9f: current_pos = 2f; break;
                     case var _ when current_pos >= 0.4f: current_pos = 1f; break;
                     case var _ when current_pos < 0.1: current_pos = 0f; break;
                 }
-                Debug.Log(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
-                SceneManager.LoadScene(transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text);
+
+                string levelName = transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text;
+                Client.instance.levelSelected = levelName;
+                Debug.Log($"Player level selected: {Client.instance.levelSelected}");
+                if (Client.instance.gameModeSelected == "Multiplayer")
+                {
+                    StartCoroutine(LoadAsynchronously("Lobby"));
+                }
+                else if (Client.instance.gameModeSelected == "Singleplayer" && Client.instance.levelSelected == "Vaquita")
+                {
+                    StartCoroutine(LoadAsynchronously("VaquitaS"));
+                }
+                else
+                {
+                    StartCoroutine(LoadAsynchronously(levelName));
+                }
             }
 
         }
+
         if (run)
         {
             pos = new float[transform.childCount];
@@ -98,6 +114,20 @@ public class swipe_selection : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    IEnumerator LoadAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            Debug.Log($"LOADING {progress}");
+
+            yield return null; // wait until next frame
         }
     }
 }

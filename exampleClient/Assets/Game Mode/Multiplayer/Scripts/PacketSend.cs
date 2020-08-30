@@ -24,6 +24,7 @@ public class PacketSend : MonoBehaviour
             _packet.Write(Client.instance.myId); //the server can confirm that the client claimed the correct Id.
             _packet.Write(Client.instance.userName);
             _packet.Write(Client.instance.league);
+            _packet.Write(Client.instance.levelSelected);
 
             SendTCPData(_packet);
         }

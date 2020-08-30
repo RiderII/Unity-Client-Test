@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
 
     public float sensitivity = 100f;
     public float clamAngle = 85f;
-    private float verticalRotation;
-    private float horizontalRotation;
+    public float verticalRotation;
+    public float horizontalRotation;
 
     public float defaultVolumeCollision = 1.0f;
 
@@ -88,7 +88,7 @@ public class CameraController : MonoBehaviour
 
     private void Look()
     {
-        if (!GameManager.players[Client.instance.myId].finishedGame)
+        if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)
         {
             // centrar el celular para obtener el posicionamiento deseado
             if (gyroInstance.GetGyroActive())
@@ -106,7 +106,14 @@ public class CameraController : MonoBehaviour
 
                 verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-                transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+                float rightSpan = 0f;
+
+                if (GameManager.instance.sceneName != "Vaquita")
+                {
+                    rightSpan = 90f;
+                }
+
+                transform.localRotation = Quaternion.Euler(verticalRotation, rightSpan, 0f);
                 player.transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
             }
         }
