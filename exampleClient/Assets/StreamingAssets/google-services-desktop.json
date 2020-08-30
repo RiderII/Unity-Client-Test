@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "449542506288-crpbk1ncf7r2c1a7rjb9f2hl6m8291ga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.upc.riderii",
+            "certificate_hash": "a678a1e2bf04363f852efd3fe340d875fe9f2ba7"
+          }
+        },
+        {
           "client_id": "449542506288-levg5k1oo3ddq54inuc8b1266io9qcn1.apps.googleusercontent.com",
           "client_type": 3
         }

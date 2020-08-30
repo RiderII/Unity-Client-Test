@@ -1,7 +1,8 @@
 {
   "dependencies": {
-    "com.google.firebase.auth": "6.15.0",
-    "com.google.firebase.database": "6.15.0",
+    "com.google.firebase.app": "6.15.2",
+    "com.google.firebase.auth": "6.15.2",
+    "com.google.firebase.database": "6.15.2",
     "com.unity.ads": "2.0.8",
     "com.unity.analytics": "3.2.3",
     "com.unity.package-manager-ui": "2.0.8",
