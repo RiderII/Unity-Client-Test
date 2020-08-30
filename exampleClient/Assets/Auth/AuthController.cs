@@ -4,6 +4,7 @@ using UnityEngine;
 using Firebase.Auth;
 using TMPro;
 using Facebook.Unity;
+using Firebase.Extensions;
 
 public class AuthController : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class AuthController : MonoBehaviour
 
     public void Awake()
     {
-        auth = FirebaseAuth.DefaultInstance;
         if (!FB.IsInitialized)
         {
             // Initialize the Facebook SDK
@@ -37,6 +37,28 @@ public class AuthController : MonoBehaviour
             FB.ActivateApp();
         }
     }
+    Firebase.DependencyStatus dependencyStatus = Firebase.DependencyStatus.UnavailableOther;
+    public void Start()
+    {
+        Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task => {
+            dependencyStatus = task.Result;
+            if (dependencyStatus == Firebase.DependencyStatus.Available)
+            {
+                InitializeFirebase();
+            }
+            else
+            {
+                Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
+            }
+        });
+    }
+
+    protected void InitializeFirebase()
+    {
+        Debug.Log("Setting up Firebase Auth");
+        auth = FirebaseAuth.DefaultInstance;
+    }
+
     private void InitCallback()
     {
         if (FB.IsInitialized)
@@ -306,6 +328,8 @@ public class AuthController : MonoBehaviour
             "RiderII es perfecto para ejercitar en cuarentena :D",
             new System.Uri("https://avatars0.githubusercontent.com/u/65631755?s=200&v=4"));
     }
+
+   
 }
 
 

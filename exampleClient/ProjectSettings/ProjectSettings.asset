@@ -252,8 +252,8 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 2800000, guid: 436d0126b6e7d45419662ba29e2c3398, type: 3}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: C:/UPC/9no/TP/Unity/Develop/Cliente/Unity-Client-Test/exampleClient/Key/user.keystore
+  AndroidKeyaliasName: rider2
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
