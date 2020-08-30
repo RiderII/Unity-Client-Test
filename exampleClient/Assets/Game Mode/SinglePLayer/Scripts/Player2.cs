@@ -11,14 +11,18 @@ public class Player2 : MonoBehaviour
     public string username = "diego";
     public string email = "test@test.com";
     public int collisions = 0;
-    public float traveled_kilometers = 0f;
+    public float traveled_meters = 0f;
     public float burned_calories = 0f;
     public float totalGameTime = 0f;
+    public float weight = 90f;
+    public float timePlayed = 0f;
+    public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
     public float totalScore = 0;
     public string league = "amateur";
     public List<string> steps = new List<string>();
+    Vector3 oldPos;
 
     private float yVelocity = 0;
     public float gravity = -9.81f;
@@ -53,6 +57,8 @@ public class Player2 : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
+        Time.timeScale = 1;
+        oldPos = transform.position;
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
@@ -74,6 +80,8 @@ public class Player2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        timePlayed += Time.deltaTime;
+
         //pause event
         if (Input.GetKeyUp(KeyCode.Escape))
         {
@@ -90,6 +98,8 @@ public class Player2 : MonoBehaviour
         // Acceleration logic
 
         speed += acceleration * Time.deltaTime;
+
+        playerSpeed = player.velocity.magnitude * 2.237f; //speed in mph
 
         // Control pedaling volume if user is pedaling or not.
 
@@ -115,8 +125,11 @@ public class Player2 : MonoBehaviour
         }
         else
         {
-            traveled_kilometers += (0.1f / 2) * speed * 0.1f;
-            burned_calories += (0.05f / 2) * speed * 0.1f;
+            Vector3 distanceVector = transform.position - oldPos;
+            float distanceThisFrame = distanceVector.magnitude;
+            traveled_meters += distanceThisFrame;
+            oldPos = transform.position;
+            burned_calories += Utils.CaloriesBurned(weight, timePlayed / 60, playerSpeed);
         }
 
         if (acceleration < 0)
