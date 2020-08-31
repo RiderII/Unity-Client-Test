@@ -7,6 +7,14 @@ public class ElementCollision : MonoBehaviour
     public Player2 player;
     private bool isColliding = false;
 
+    public void Awake()
+    {
+        if (Client.instance.gameModeSelected == "Multiplayer")
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

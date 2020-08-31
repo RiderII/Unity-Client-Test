@@ -98,6 +98,17 @@ public class PacketHandle : MonoBehaviour
         GameManager.players[Client.instance.myId].playBrakeCollision(speed, collision);
     }
 
+    public static void ElementCollision(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        string elementTag = _packet.ReadString();
+        int _collisions = _packet.ReadInt();
+        Vector3 _position = _packet.ReadVector3();
+
+        GameManager.players[_id].SetCollisions(_collisions);
+        CameraController.collisionPosition = _position;
+    }
+
     public static void ObstacleSpawned(Packet _packet)
     {
         Vector3 _position = _packet.ReadVector3();

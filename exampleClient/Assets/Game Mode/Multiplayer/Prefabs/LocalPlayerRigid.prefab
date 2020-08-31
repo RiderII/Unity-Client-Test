@@ -2388,8 +2388,8 @@ Transform:
   m_LocalScale: {x: 1.8208, y: 1, z: 1}
   m_Children:
   - {fileID: 4712286347322458405}
-  - {fileID: 7706990932335830859}
   - {fileID: 7937326002324376619}
+  - {fileID: 7706990932335830859}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3857,10 +3857,10 @@ Transform:
   m_GameObject: {fileID: 5617722454722869408}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000123, z: 1.0000141}
+  m_LocalScale: {x: 1, y: 1.0000123, z: 1.0000145}
   m_Children: []
   m_Father: {fileID: 7077217981078757892}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4245593231971822862
 MonoBehaviour:
@@ -5760,7 +5760,7 @@ Transform:
   - {fileID: 1109634182231218059}
   - {fileID: 2311041732543049833}
   m_Father: {fileID: 7077217981078757892}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!20 &2120909123629736106
 Camera:
@@ -5833,6 +5833,7 @@ MonoBehaviour:
   playPedaleo: 0
   vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
   pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
+  rubbleCrash: {fileID: 8300000, guid: 915ac68ce33192d40a74f4b89c2db6f2, type: 3}
 --- !u!1 &8516933616715633554
 GameObject:
   m_ObjectHideFlags: 0

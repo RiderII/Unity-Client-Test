@@ -303,6 +303,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerFinishedGame, PacketHandle.PlayerFinishedGame },
             { (int)ServerPackets.restartPlayerPosition, PacketHandle.RestartPlayerPosition },
             { (int)ServerPackets.playerCollidedWithOtherPlayer, PacketHandle.PlayerCollidedWithOtherPlayer },
+            { (int)ServerPackets.elementCollision, PacketHandle.ElementCollision }
         };
         Debug.Log("Initialized packets!");
     }

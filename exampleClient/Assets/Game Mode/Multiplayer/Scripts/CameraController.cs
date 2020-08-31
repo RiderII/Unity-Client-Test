@@ -16,11 +16,14 @@ public class CameraController : MonoBehaviour
 
     public bool playPedaleo = false;
     public static bool playVaquitaMu = false;
+    public static bool playRubbleCrash = false;
     public static Vector3 collisionPosition;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
+    public AudioClip rubbleCrash;
     public static AudioSource audioSourceVaquita;
     public static AudioSource audioSourcePedalo;
+    public static AudioSource audioSourceRubbleCrash;
 
     private void Start()
     {
@@ -30,6 +33,7 @@ public class CameraController : MonoBehaviour
         gyroInstance.EnableGyro();
         audioSourceVaquita = AddAudio(false, false, defaultVolumeCollision);
         audioSourcePedalo = AddAudio(true, false, 0.5f);
+        audioSourceRubbleCrash = AddAudio(false, false, defaultVolumeCollision);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -83,6 +87,18 @@ public class CameraController : MonoBehaviour
             audioSourceVaquita.volume = defaultVolumeCollision - soundVolume;
             audioSourceVaquita.clip = vaquitamu;
             audioSourceVaquita.Play();
+        }
+
+        if (playRubbleCrash)
+        {
+            playRubbleCrash = false;
+            float soundVolume = Mathf.Sqrt(Mathf.Pow((Mathf.Round(player.transform.position.x) - Mathf.Round(collisionPosition.x)), 2) + Mathf.Pow(Mathf.Round((player.transform.position.z) - Mathf.Round(collisionPosition.z)), 2));
+            soundVolume = soundVolume / 20f;
+            //if (soundVolume != 0) defaultVolumeCollision = 0.5f;
+            Debug.Log($"Volume {soundVolume}");
+            audioSourceRubbleCrash.volume = defaultVolumeCollision - soundVolume;
+            audioSourceRubbleCrash.clip = rubbleCrash;
+            audioSourceRubbleCrash.Play();
         }
     }
 
