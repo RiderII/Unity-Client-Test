@@ -81,17 +81,17 @@ public class Player2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Time.time >= nextUpdate)
-        {
-            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
-            Vector3 distanceVector = (transform.position - oldPos2);
-            float distanceThisFrame = distanceVector.magnitude;
-            oldPos2 = transform.position;
+        //if (Time.time >= nextUpdate)
+        //{
+        //    nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+        //    Vector3 distanceVector = (transform.position - oldPos2);
+        //    float distanceThisFrame = distanceVector.magnitude;
+        //    oldPos2 = transform.position;
 
-            playerSpeed = distanceThisFrame; // mph
-        }
+        //    playerSpeed = distanceThisFrame; // mph
+        //}
 
         //pause event
         if (Input.GetKeyUp(KeyCode.Escape))
@@ -137,6 +137,7 @@ public class Player2 : MonoBehaviour
             Vector3 distanceVector = (transform.position - oldPos);
             float distanceThisFrame = distanceVector.magnitude;
             traveled_meters += distanceThisFrame;
+            playerSpeed = distanceThisFrame * 30;
             oldPos = transform.position;
             burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) *60);
         }

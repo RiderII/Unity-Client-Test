@@ -51,7 +51,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-  m_ActiveColorSpace: 1
+  m_ActiveColorSpace: 0
   m_MTRendering: 1
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
@@ -252,7 +252,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 2800000, guid: 436d0126b6e7d45419662ba29e2c3398, type: 3}
-  AndroidKeystoreName: C:/UPC/9no/TP/Unity/Develop/Cliente/Unity-Client-Test/exampleClient/Key/user.keystore
+  AndroidKeystoreName: C:/Users/domin/Desktop/UPC IX/TP1/Rider II/Unity-Client-Test-new/exampleClient/Key/user.keystore
   AndroidKeyaliasName: rider2
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
