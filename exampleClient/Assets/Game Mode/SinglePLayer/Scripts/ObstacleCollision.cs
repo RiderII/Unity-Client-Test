@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObstacleCollision : MonoBehaviour
 {
+    public GameObject FloatingTextPrefab;
     private bool isColliding = false;
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -12,6 +13,7 @@ public class ObstacleCollision : MonoBehaviour
         {
             if (isColliding) return;
             Debug.Log("HITT!");
+            ShowFloatingText(hit.gameObject);
             isColliding = true;
             StartCoroutine(Reset());
 
@@ -33,5 +35,11 @@ public class ObstacleCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         isColliding = false;
+    }
+
+    void ShowFloatingText(GameObject obs)
+    {
+        Instantiate(FloatingTextPrefab, new Vector3(obs.transform.position.x,
+            obs.transform.position.y + 1f,obs.transform.position.z + 1.5f), Quaternion.identity, obs.transform);
     }
 }
