@@ -40,6 +40,6 @@ public class ObstacleCollision : MonoBehaviour
     void ShowFloatingText(GameObject obs)
     {
         Instantiate(FloatingTextPrefab, new Vector3(obs.transform.position.x,
-            obs.transform.position.y + 1f,obs.transform.position.z + 1.5f), Quaternion.identity, obs.transform);
+            obs.transform.position.y,obs.transform.position.z), Quaternion.identity, obs.transform);
     }
 }
