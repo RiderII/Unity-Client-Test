@@ -13,6 +13,7 @@ TagManager:
   - Obstacle
   - Rock
   - Tree
+  - Ramp
   layers:
   - Default
   - TransparentFX

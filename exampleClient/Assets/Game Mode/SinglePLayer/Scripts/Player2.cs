@@ -32,6 +32,7 @@ public class Player2 : MonoBehaviour
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
     public float speed = 10f;
+    public bool surpassSpeed = false;
     public bool reachedFinishLine = false;
     public bool playPedaleo = false;
     public AudioClip vaquitamu;
@@ -122,7 +123,7 @@ public class Player2 : MonoBehaviour
         }
 
 
-        if (speed > maximunSpeed)
+        if (speed > maximunSpeed && !surpassSpeed)
         {
             speed = maximunSpeed;
         }
