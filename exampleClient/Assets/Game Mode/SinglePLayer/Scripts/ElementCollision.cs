@@ -29,8 +29,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
             }
-            else if (tag == "Rock")
-            {
+            else if (tag == "Rock"){
                 player.audioSourceScrapeSound.clip = player.scrapeSound;
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
@@ -39,12 +38,6 @@ public class ElementCollision : MonoBehaviour
             {
                 player.audioSourceHitTree.clip = player.hitTree;
                 player.audioSourceHitTree.Play();
-            }
-
-            else if (tag == "Ramp")
-            {
-                player.speed += 5;
-                player.surpassSpeed = true;
             }
 
 
@@ -62,10 +55,5 @@ public class ElementCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isColliding = false;
-        player.surpassSpeed = false;
-        while (player.maximunSpeed <= player.speed)
-        {
-            player.speed -= 2;
-        }
     }
 }

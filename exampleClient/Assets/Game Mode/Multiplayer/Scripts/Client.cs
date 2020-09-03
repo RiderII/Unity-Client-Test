@@ -49,13 +49,8 @@ public class Client : MonoBehaviour
         Disconnect();
     }
 
-    public void ConnectToServer(string ip = null)
+    public void ConnectToServer()
     {
-        if (ip != null)
-        {
-            instance.ip = ip;
-        }
-
         if (!isConnected)
         {
             InitializeClientData();
