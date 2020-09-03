@@ -47,15 +47,16 @@ public class LvlManger : MonoBehaviour
     {
         mainMenu.SetActive(false);
         challengeMenu.SetActive(true);
+        var panel = challengeMenu.transform.GetChild(0);
+        var backbtn = challengeMenu.transform.GetChild(1);
         string mode = DataBridge.instance.GetMode();
         if ( mode == null || mode == "")
         {
-            var box = Instantiate(modeErrorBoxPrefab, challengeMenu.transform);
-            var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
+            var box = Instantiate(modeErrorBoxPrefab, panel.transform);
             Button btn = backbtn.GetComponent<Button>();
             btn.onClick.AddListener(delegate () {
                 mainMenu.SetActive(true);
-                foreach (Transform child in challengeMenu.transform)
+                foreach (Transform child in panel.transform)
                     Destroy(child.gameObject);
                 challengeMenu.SetActive(false);
             });
@@ -66,10 +67,9 @@ public class LvlManger : MonoBehaviour
 
             foreach (var t in lista)
             {
-                var challenge = Instantiate(challengePrefab, challengeMenu.transform);
+                var challenge = Instantiate(challengePrefab, panel.transform);
                 challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
             }
-            var backbtn = Instantiate(backbtnPrefab, challengeMenu.transform);
             Button btn = backbtn.GetComponent<Button>();
             btn.onClick.AddListener(delegate () {
                 mainMenu.SetActive(true);
