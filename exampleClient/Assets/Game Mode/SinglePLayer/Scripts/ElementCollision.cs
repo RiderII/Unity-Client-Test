@@ -37,8 +37,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
             }
-            else if (tag == "Rock")
-            {
+            else if (tag == "Rock"){
                 player.audioSourceScrapeSound.clip = player.scrapeSound;
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
@@ -49,6 +48,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceHitTree.Play();
             }
 
+<<<<<<< HEAD
             else if (tag == "RampUp")
             {
                 player.speed += 10;
@@ -60,6 +60,13 @@ public class ElementCollision : MonoBehaviour
             }
 
             if (tag != "RampUp" && tag != "RampDown")
+=======
+
+            player.audioSourcePedalo.volume *= 0.20f;
+            player.speed *= 0.80f;
+            player.collisions += 1;
+            if (player.totalScore != 0)
+>>>>>>> 25995152cbce397997f0fb82c718006d72fbd249
             {
                 player.audioSourcePedalo.volume *= 0.20f;
                 player.speed *= 0.80f;
@@ -77,11 +84,14 @@ public class ElementCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isColliding = false;
+<<<<<<< HEAD
     }
 
     IEnumerator SlowDown()
     {
         yield return new WaitForSeconds(2);
         player.surpassSpeed = false;
+=======
+>>>>>>> 25995152cbce397997f0fb82c718006d72fbd249
     }
 }
