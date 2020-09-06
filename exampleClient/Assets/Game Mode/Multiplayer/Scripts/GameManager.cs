@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnObstacle(Vector3 _position)
     {
-        if (sceneName != "Circuito cerrado")
+        if (sceneName != "200 metros")
         {
             Instantiate(obstaclePrefab, _position, obstaclePrefab.transform.rotation);
         }

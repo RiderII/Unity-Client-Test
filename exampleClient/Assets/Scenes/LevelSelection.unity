@@ -569,7 +569,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Circuito cerrado
+  m_Text: 200 metros
 --- !u!222 &212716898
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1239,7 +1239,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Circuito abierto
+  m_Text: 500 metros
 --- !u!222 &714156105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1513,7 +1513,7 @@ GameObject:
   - component: {fileID: 856322714}
   - component: {fileID: 856322713}
   m_Layer: 5
-  m_Name: Circuito abierto
+  m_Name: 500 metros
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1781,7 +1781,7 @@ GameObject:
   - component: {fileID: 1845705977}
   - component: {fileID: 1845705976}
   m_Layer: 5
-  m_Name: Circuito cerrado
+  m_Name: 200 metros
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -34,7 +34,7 @@ public class cube : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            SceneManager.LoadScene("Circuito cerrado");
+            SceneManager.LoadScene("200 metros");
         }
     }
 }
