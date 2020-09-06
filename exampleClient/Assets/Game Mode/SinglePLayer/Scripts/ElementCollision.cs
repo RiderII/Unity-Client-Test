@@ -31,7 +31,7 @@ public class ElementCollision : MonoBehaviour
             Debug.Log("HITT!");
             isColliding = true;
             StartCoroutine(Reset());
-            
+
             if (tag == "Tires")
             {
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
@@ -69,7 +69,7 @@ public class ElementCollision : MonoBehaviour
                     player.totalScore -= 5;
                 }
             }
-            
+
         }
     }
 
