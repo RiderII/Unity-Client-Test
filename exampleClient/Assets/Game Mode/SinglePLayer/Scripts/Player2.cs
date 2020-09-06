@@ -32,6 +32,7 @@ public class Player2 : MonoBehaviour
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
     public float speed = 10f;
+    public bool surpassSpeed = false;
     public bool reachedFinishLine = false;
     public bool playPedaleo = false;
     public AudioClip vaquitamu;
@@ -85,17 +86,17 @@ public class Player2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Time.time >= nextUpdate)
-        {
-            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
-            Vector3 distanceVector = (transform.position - oldPos2);
-            float distanceThisFrame = distanceVector.magnitude;
-            oldPos2 = transform.position;
+        //if (Time.time >= nextUpdate)
+        //{
+        //    nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+        //    Vector3 distanceVector = (transform.position - oldPos2);
+        //    float distanceThisFrame = distanceVector.magnitude;
+        //    oldPos2 = transform.position;
 
-            playerSpeed = distanceThisFrame; // mph
-        }
+        //    playerSpeed = distanceThisFrame; // mph
+        //}
 
         //pause event
         if (Input.GetKeyUp(KeyCode.Escape))
@@ -126,7 +127,7 @@ public class Player2 : MonoBehaviour
         }
 
 
-        if (speed > maximunSpeed)
+        if (speed > maximunSpeed && !surpassSpeed)
         {
             StartCoroutine(SlowDown());
         }
@@ -141,6 +142,7 @@ public class Player2 : MonoBehaviour
             Vector3 distanceVector = (transform.position - oldPos);
             float distanceThisFrame = distanceVector.magnitude;
             traveled_meters += distanceThisFrame;
+            playerSpeed = distanceThisFrame * 30;
             oldPos = transform.position;
             burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) *60);
         }
