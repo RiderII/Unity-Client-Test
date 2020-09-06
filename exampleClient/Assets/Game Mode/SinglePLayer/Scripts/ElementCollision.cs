@@ -9,7 +9,7 @@ public class ElementCollision : MonoBehaviour
 
     public void Awake()
     {
-        if (Client.instance.gameModeSelected == "Multiplayer")
+        if (Client.instance.gameModeSelected == "Multiplayer" && tag != "RampUp" && tag != "RampDown")
         {
             gameObject.SetActive(false);
         }
@@ -31,7 +31,7 @@ public class ElementCollision : MonoBehaviour
             Debug.Log("HITT!");
             isColliding = true;
             StartCoroutine(Reset());
-            
+
             if (tag == "Tires")
             {
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
@@ -49,14 +49,6 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceHitTree.Play();
             }
 
-<<<<<<< HEAD
-            else if (tag == "Ramp")
-            {
-                player.speed += 5;
-                player.surpassSpeed = true;
-            }
-
-=======
             else if (tag == "RampUp")
             {
                 player.speed += 10;
@@ -66,7 +58,6 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourcePedaleoFaster.volume = 1.5f;
                 player.audioSourcePedaleoFaster.Play();
             }
->>>>>>> d6a45e2d24f00da156a8c8dc08176ba267b6b754
 
             if (tag != "RampUp" && tag != "RampDown")
             {
@@ -78,7 +69,7 @@ public class ElementCollision : MonoBehaviour
                     player.totalScore -= 5;
                 }
             }
-            
+
         }
     }
 
@@ -86,11 +77,6 @@ public class ElementCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isColliding = false;
-        player.surpassSpeed = false;
-        while (player.maximunSpeed <= player.speed)
-        {
-            player.speed -= 2;
-        }
     }
 
     IEnumerator SlowDown()
