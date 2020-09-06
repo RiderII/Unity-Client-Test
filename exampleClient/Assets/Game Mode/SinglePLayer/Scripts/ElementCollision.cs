@@ -15,6 +15,14 @@ public class ElementCollision : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (tag == "RampUp")
+        {
+            StartCoroutine(SlowDown());
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -23,7 +31,7 @@ public class ElementCollision : MonoBehaviour
             Debug.Log("HITT!");
             isColliding = true;
             StartCoroutine(Reset());
-
+            
             if (tag == "Tires")
             {
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
@@ -41,20 +49,27 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceHitTree.Play();
             }
 
-            else if (tag == "Ramp")
+            else if (tag == "RampUp")
             {
-                player.speed += 5;
+                player.speed += 10;
                 player.surpassSpeed = true;
+                player.audioSourcePedalo.Stop();
+                player.audioSourcePedaleoFaster.clip = player.pedaleoFaster;
+                player.audioSourcePedaleoFaster.volume = 1.5f;
+                player.audioSourcePedaleoFaster.Play();
             }
 
-
-            player.audioSourcePedalo.volume *= 0.20f;
-            player.speed *= 0.80f;
-            player.collisions += 1;
-            if (player.totalScore != 0)
+            if (tag != "RampUp" && tag != "RampDown")
             {
-                player.totalScore -= 5;
+                player.audioSourcePedalo.volume *= 0.20f;
+                player.speed *= 0.80f;
+                player.collisions += 1;
+                if (player.totalScore != 0)
+                {
+                    player.totalScore -= 5;
+                }
             }
+            
         }
     }
 
@@ -62,10 +77,11 @@ public class ElementCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isColliding = false;
+    }
+
+    IEnumerator SlowDown()
+    {
+        yield return new WaitForSeconds(2);
         player.surpassSpeed = false;
-        while (player.maximunSpeed <= player.speed)
-        {
-            player.speed -= 2;
-        }
     }
 }

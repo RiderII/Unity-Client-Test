@@ -4,5 +4,29 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 7df2075252a670e4294d801ec414aa64
+  - enabled: 1
+    path: Assets/Scenes/LevelSelection.unity
+    guid: fd184e3ccda6a7f45bb7b5d11caa89be
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: aa4af710a16f8bd4fa71a364dbfc3d67
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 1e37d1d3089090647b0c04e1f2759a86
+  - enabled: 1
+    path: Assets/Scenes/Vaquita.unity
+    guid: 9ac0e1af8f9b96f4d8e0fcca8ff0f94a
+  - enabled: 1
+    path: Assets/Scenes/VaquitaS.unity
+    guid: 70b80db45d7213e45812150c0d3aa065
+  - enabled: 1
+    path: Assets/Scenes/Levels/Circuito abierto.unity
+    guid: ba8e4ae031f389e44bd2bd56125c81b3
+  - enabled: 1
+    path: Assets/Scenes/Levels/Circuito cerrado.unity
+    guid: 447962233a31b7744b3d99b27b0d9cba
   m_configObjects: {}
