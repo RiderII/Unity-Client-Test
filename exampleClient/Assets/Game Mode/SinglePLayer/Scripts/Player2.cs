@@ -41,12 +41,15 @@ public class Player2 : MonoBehaviour
     public AudioClip rubbleCrash;
     public AudioClip scrapeSound;
     public AudioClip hitTree;
+    public AudioClip pedaleoFaster;
     public AudioSource audioBikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
     public AudioSource audioSourceRubbleCrash;
     public AudioSource audioSourceScrapeSound;
     public AudioSource audioSourceHitTree;
+    public AudioSource audioSourcePedaleoFaster;
+
     //public AudioSource pedaleo;
 
     private void Awake()
@@ -70,6 +73,7 @@ public class Player2 : MonoBehaviour
         audioSourceRubbleCrash = AddAudio(false, false, 1.0f);
         audioSourceScrapeSound = AddAudio(false, false, 1.0f);
         audioSourceHitTree = AddAudio(false, false, 1.0f);
+        audioSourcePedaleoFaster = AddAudio(true, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -125,7 +129,7 @@ public class Player2 : MonoBehaviour
 
         if (speed > maximunSpeed && !surpassSpeed)
         {
-            speed = maximunSpeed;
+            StartCoroutine(SlowDown());
         }
 
         if (speed < 0)
@@ -210,5 +214,24 @@ public class Player2 : MonoBehaviour
         Time.timeScale = 1;
         pausePanel.SetActive(false);
         //enable the scripts again
+    }
+
+    IEnumerator SlowDown()
+    {
+        if (speed > maximunSpeed && !surpassSpeed)
+        {
+            speed -= 0.1f;
+            yield return new WaitForSeconds(0.2f);
+        }
+        if (audioSourcePedaleoFaster.isPlaying && !surpassSpeed)
+        {
+            audioSourcePedaleoFaster.volume -= 0.05f;
+            if (audioSourcePedaleoFaster.volume == 0f)
+            {
+                audioSourcePedaleoFaster.Stop();
+                audioSourcePedalo.clip = pedaleo;
+                audioSourcePedalo.Play();
+            }
+        }
     }
 }
