@@ -16,6 +16,7 @@ TagManager:
   - Ramp
   - RampUp
   - RampDown
+  - Cone
   layers:
   - Default
   - TransparentFX
