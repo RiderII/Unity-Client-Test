@@ -9,7 +9,7 @@ public class ElementCollision : MonoBehaviour
 
     public void Awake()
     {
-        if (Client.instance.gameModeSelected == "Multiplayer")
+        if (Client.instance.gameModeSelected == "Multiplayer" && tag != "RampUp" && tag != "RampDown")
         {
             gameObject.SetActive(false);
         }
