@@ -18,6 +18,7 @@ public class TrainingManager2 : MonoBehaviour
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public GameObject finishLine;
+    private GyroManager gyroInstance;
 
     // for race results
     private GameObject playersFrameResult;
@@ -47,6 +48,8 @@ public class TrainingManager2 : MonoBehaviour
     }
     void Start()
     {
+        gyroInstance = GyroManager.Instance;
+        gyroInstance.EnableGyro();
         Time.timeScale = 1;
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
@@ -58,10 +61,16 @@ public class TrainingManager2 : MonoBehaviour
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
         sceneName = SceneManager.GetActiveScene().name;
+
+        if (gyroInstance.GetGyroActive())
+        {
+            Client.instance.userName = DataBridge.instance.userProfile.username;
+            Client.instance.ConnectToServer("201.230.13.76");
+        }
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         gameTimer += Time.deltaTime;
 
