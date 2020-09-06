@@ -36,8 +36,8 @@ public class CameraMouse2 : MonoBehaviour
             // centrar el celular para obtener el posicionamiento deseado
             if (gyroInstance.GetGyroActive())
             {
-                player.transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 80.5f, 0f, 0f);
-                transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 80.5f + 110f, 0f);
+                player.transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 60.5f, 0f);
+                transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 60.5f, 0f, 0f);
             }
             else
             {

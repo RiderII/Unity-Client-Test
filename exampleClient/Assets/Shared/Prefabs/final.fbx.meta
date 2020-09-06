@@ -1,0 +1,410 @@
+fileFormatVersion: 2
+guid: a0c4cbac57286dd4f800e73e7177c353
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: ban_belakang.002
+    100002: ban_depan.002
+    100004: BezierCircle.002
+    100006: bike_body
+    100008: bike_chain
+    100010: bike_timon
+    100012: body
+    100014: Bone
+    100016: Bone 1
+    100018: Bone 2
+    100020: Bone_end
+    100022: Bone_end 1
+    100024: Bone_end 2
+    100026: Chest
+    100028: Cube
+    100030: Finger01.L
+    100032: Finger01.R
+    100034: Finger02.L
+    100036: Finger02.L_end
+    100038: Finger02.R
+    100040: Finger02.R_end
+    100042: Foot.L
+    100044: Foot.R
+    100046: gear_depan.002
+    100048: Hand.L
+    100050: Hand.R
+    100052: Head
+    100054: Head_end
+    100056: Hip
+    100058: Leg IK.L
+    100060: Leg IK.L_end
+    100062: Leg IK.R
+    100064: Leg IK.R_end
+    100066: Lower Arm.L
+    100068: Lower Arm.R
+    100070: Lower Leg.L
+    100072: Lower Leg.R
+    100074: Neck
+    100076: pedal_left
+    100078: pedal_right
+    100080: pedals_both
+    100082: Pole Target.L
+    100084: Pole Target.L_end
+    100086: Pole Target.R
+    100088: Pole Target.R_end
+    100090: Shoulder.L
+    100092: Shoulder.R
+    100094: Spine
+    100096: Thumb01.L
+    100098: Thumb01.R
+    100100: Thumb02.L
+    100102: Thumb02.L_end
+    100104: Thumb02.R
+    100106: Thumb02.R_end
+    100108: Toes.L
+    100110: Toes.L_end
+    100112: Toes.R
+    100114: Toes.R_end
+    100116: //RootNode
+    100118: Upper Arm.L
+    100120: Upper Arm.R
+    100122: Upper Leg.L
+    100124: Upper Leg.R
+    100126: wheel_back
+    100128: wheel_front
+    400000: ban_belakang.002
+    400002: ban_depan.002
+    400004: BezierCircle.002
+    400006: bike_body
+    400008: bike_chain
+    400010: bike_timon
+    400012: body
+    400014: Bone
+    400016: Bone 1
+    400018: Bone 2
+    400020: Bone_end
+    400022: Bone_end 1
+    400024: Bone_end 2
+    400026: Chest
+    400028: Cube
+    400030: Finger01.L
+    400032: Finger01.R
+    400034: Finger02.L
+    400036: Finger02.L_end
+    400038: Finger02.R
+    400040: Finger02.R_end
+    400042: Foot.L
+    400044: Foot.R
+    400046: gear_depan.002
+    400048: Hand.L
+    400050: Hand.R
+    400052: Head
+    400054: Head_end
+    400056: Hip
+    400058: Leg IK.L
+    400060: Leg IK.L_end
+    400062: Leg IK.R
+    400064: Leg IK.R_end
+    400066: Lower Arm.L
+    400068: Lower Arm.R
+    400070: Lower Leg.L
+    400072: Lower Leg.R
+    400074: Neck
+    400076: pedal_left
+    400078: pedal_right
+    400080: pedals_both
+    400082: Pole Target.L
+    400084: Pole Target.L_end
+    400086: Pole Target.R
+    400088: Pole Target.R_end
+    400090: Shoulder.L
+    400092: Shoulder.R
+    400094: Spine
+    400096: Thumb01.L
+    400098: Thumb01.R
+    400100: Thumb02.L
+    400102: Thumb02.L_end
+    400104: Thumb02.R
+    400106: Thumb02.R_end
+    400108: Toes.L
+    400110: Toes.L_end
+    400112: Toes.R
+    400114: Toes.R_end
+    400116: //RootNode
+    400118: Upper Arm.L
+    400120: Upper Arm.R
+    400122: Upper Leg.L
+    400124: Upper Leg.R
+    400126: wheel_back
+    400128: wheel_front
+    2100000: col_pelek.002
+    2100002: col_rangka.002
+    2100004: uv_rangka.002
+    2100006: col_ttp_btl.002
+    2100008: col_jok.002
+    2100010: col_jok_2.002
+    2100012: col_rem.002
+    2100014: col_pegangan.002
+    2100016: col_shock.002
+    2100018: Material.001
+    2100020: uv_bn_depan.002
+    2100022: col_ban.002
+    2100024: col_cakram.002
+    2100026: col_whel_or_rangka.002
+    2100028: uv_ban_belakang.002
+    2300000: ban_belakang.002
+    2300002: ban_depan.002
+    2300004: BezierCircle.002
+    2300006: bike_body
+    2300008: bike_chain
+    2300010: bike_timon
+    2300012: gear_depan.002
+    2300014: pedal_left
+    2300016: pedal_right
+    3300000: ban_belakang.002
+    3300002: ban_depan.002
+    3300004: BezierCircle.002
+    3300006: bike_body
+    3300008: bike_chain
+    3300010: bike_timon
+    3300012: gear_depan.002
+    3300014: pedal_left
+    3300016: pedal_right
+    4300000: pedal_right
+    4300002: pedal_left
+    4300004: bike_body
+    4300006: BezierCircle.002
+    4300008: bike_chain
+    4300010: bike_timon
+    4300012: Cube
+    4300014: ban_depan.002
+    4300016: ban_belakang.002
+    4300018: gear_depan.002
+    7400000: pedal_right|Armature.002Action
+    7400002: pedal_right|Armature.003Action
+    7400004: pedal_right|Bicicle
+    7400006: pedal_right|pedal_kanan.002Action
+    7400008: pedal_right|pedal_kiri.002Action
+    7400010: pedal_left|Armature.002Action
+    7400012: pedal_left|Armature.003Action
+    7400014: pedal_left|Bicicle
+    7400016: pedal_left|pedal_kanan.002Action
+    7400018: pedal_left|pedal_kiri.002Action
+    7400020: body|Armature.002Action
+    7400022: body|Armature.003Action
+    7400024: body|ArmatureAction
+    7400026: body|Bicicle
+    7400028: body|pedal_kanan.002Action
+    7400030: body|pedal_kiri.002Action
+    7400032: wheel_front|Armature.002Action
+    7400034: wheel_front|Armature.003Action
+    7400036: wheel_front|Bicicle
+    7400038: wheel_front|pedal_kanan.002Action
+    7400040: wheel_front|pedal_kiri.002Action
+    7400042: wheel_back|Armature.002Action
+    7400044: wheel_back|Armature.003Action
+    7400046: wheel_back|Bicicle
+    7400048: wheel_back|pedal_kanan.002Action
+    7400050: wheel_back|pedal_kiri.002Action
+    7400052: pedals_both|Armature.002Action
+    7400054: pedals_both|Armature.003Action
+    7400056: pedals_both|Bicicle
+    7400058: pedals_both|pedal_kanan.002Action
+    7400060: pedals_both|pedal_kiri.002Action
+    9500000: //RootNode
+    13700000: Cube
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: body|ArmatureAction
+      takeName: body|ArmatureAction
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: wheel_front|Bicicle
+      takeName: wheel_front|Bicicle
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: wheel_back|Armature.002Action
+      takeName: wheel_back|Armature.002Action
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: pedals_both|Armature.003Action
+      takeName: pedals_both|Armature.003Action
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
