@@ -7,7 +7,7 @@ public class CameraMouse2 : MonoBehaviour
     public Player2 player;
     private GyroManager gyroInstance;
     public float sensitivity = 100f;
-    public float clamAngle = 85f;
+    public float clamAngle = 45f;
     private float verticalRotation;
     private float horizontalRotation;
 
@@ -49,7 +49,7 @@ public class CameraMouse2 : MonoBehaviour
 
                 verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-                transform.rotation = Quaternion.Euler(0f, horizontalRotation + 110f, transform.rotation.z);
+                transform.rotation = Quaternion.Euler(transform.rotation.x, horizontalRotation + 110f, transform.rotation.z);
                 player.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, transform.rotation.z);
             }
         }

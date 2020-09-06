@@ -40,8 +40,8 @@ public class CameraMouse : MonoBehaviour
 
                 verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-                transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
-                player.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+                transform.rotation = Quaternion.Euler(transform.rotation.x, horizontalRotation, transform.rotation.z);
+                player.transform.localRotation = Quaternion.Euler(verticalRotation, 0f, transform.rotation.z);
             }
         }
     }
