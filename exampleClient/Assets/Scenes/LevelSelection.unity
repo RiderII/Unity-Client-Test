@@ -1239,7 +1239,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
+<<<<<<< HEAD
   m_Text: 500 metros
+=======
+  m_Text: Circuito abierto
+>>>>>>> fc849b445e64ef58ca36b4b7e18e666c691e7175
 --- !u!222 &714156105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1513,7 +1517,11 @@ GameObject:
   - component: {fileID: 856322714}
   - component: {fileID: 856322713}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: 500 metros
+=======
+  m_Name: Circuito abierto
+>>>>>>> fc849b445e64ef58ca36b4b7e18e666c691e7175
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
