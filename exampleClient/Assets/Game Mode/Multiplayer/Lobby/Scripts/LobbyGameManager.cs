@@ -36,6 +36,8 @@ public class LobbyGameManager : MonoBehaviour
 
     void Start()
     {
+        clientsInLobby.Clear();
+        readyUsers = new List<int>();
         Client.instance.userName = DataBridge.instance.userProfile.username;
         Client.instance.ConnectToServer();
 

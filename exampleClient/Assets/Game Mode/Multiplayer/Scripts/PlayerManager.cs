@@ -203,19 +203,22 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            displayInfoFrame.SetActive(true);
-            displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
-            gameOverTimer -= Time.deltaTime;
-            if (gameOverTimer <= 0f)
+            if (tag != "otherPlayer")
             {
-                playerCanvas.gameObject.SetActive(false);
-                ShowFinishDashboard();
-                updatePlayersResults();
-                //if (!reloadRequestSent)
-                //{
-                //    PacketSend.RequestGameRestart();
-                //    reloadRequestSent = true;
-                //}
+                displayInfoFrame.SetActive(true);
+                displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
+                gameOverTimer -= Time.deltaTime;
+                if (gameOverTimer <= 0f)
+                {
+                    playerCanvas.gameObject.SetActive(false);
+                    ShowFinishDashboard();
+                    updatePlayersResults();
+                    //if (!reloadRequestSent)
+                    //{
+                    //    PacketSend.RequestGameRestart();
+                    //    reloadRequestSent = true;
+                    //}
+                }
             }
         }
     }
