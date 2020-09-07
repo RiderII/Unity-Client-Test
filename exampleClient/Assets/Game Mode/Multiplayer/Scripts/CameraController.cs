@@ -17,13 +17,16 @@ public class CameraController : MonoBehaviour
     public bool playPedaleo = false;
     public static bool playVaquitaMu = false;
     public static bool playRubbleCrash = false;
+    public static bool playPedaleoFaster = false;
     public static Vector3 collisionPosition;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
     public AudioClip rubbleCrash;
+    public AudioClip pedaleoFaster;
     public static AudioSource audioSourceVaquita;
     public static AudioSource audioSourcePedalo;
     public static AudioSource audioSourceRubbleCrash;
+    public static AudioSource audioSourcePedaleoFaster;
 
     private void Start()
     {
@@ -34,6 +37,7 @@ public class CameraController : MonoBehaviour
         audioSourceVaquita = AddAudio(false, false, defaultVolumeCollision);
         audioSourcePedalo = AddAudio(true, false, 0.5f);
         audioSourceRubbleCrash = AddAudio(false, false, defaultVolumeCollision);
+        audioSourcePedaleoFaster = AddAudio(true, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -87,6 +91,19 @@ public class CameraController : MonoBehaviour
             audioSourceVaquita.volume = defaultVolumeCollision - soundVolume;
             audioSourceVaquita.clip = vaquitamu;
             audioSourceVaquita.Play();
+        }
+
+        if (playPedaleoFaster)
+        {
+            playPedaleoFaster = false;
+            float soundVolume = Mathf.Sqrt(Mathf.Pow((Mathf.Round(player.transform.position.x) - Mathf.Round(collisionPosition.x)), 2) + Mathf.Pow(Mathf.Round((player.transform.position.z) - Mathf.Round(collisionPosition.z)), 2));
+            soundVolume = soundVolume / 20f;
+            //if (soundVolume != 0) defaultVolumeCollision = 0.5f;
+            Debug.Log($"Volume {soundVolume}");
+
+            audioSourcePedaleoFaster.volume = defaultVolumeCollision - soundVolume;
+            audioSourcePedaleoFaster.clip = pedaleoFaster;
+            audioSourcePedaleoFaster.Play();
         }
 
         if (playRubbleCrash)
