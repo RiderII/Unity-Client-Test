@@ -94,13 +94,13 @@ public class ElementCollision : MonoBehaviour
         GameObject puntaje =Instantiate(FloatingTextPrefab, new Vector3(player.transform.position.x,
             player.transform.position.y, player.transform.position.z), 
             player.transform.rotation, player.transform);
-        //StartCoroutine(DestroyPrefab(puntaje));
+        StartCoroutine(DestroyPrefab(puntaje));
 
     }
 
     IEnumerator DestroyPrefab(GameObject obj)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         Destroy(obj);
     }
 }
