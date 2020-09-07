@@ -13,7 +13,7 @@ public class ObstacleCollision : MonoBehaviour
         {
             if (isColliding) return;
             Debug.Log("HITT!");
-            ShowFloatingText(hit.gameObject);
+            ShowFloatingText();
             isColliding = true;
             StartCoroutine(Reset());
 
@@ -37,9 +37,17 @@ public class ObstacleCollision : MonoBehaviour
         isColliding = false;
     }
 
-    void ShowFloatingText(GameObject obs)
+    void ShowFloatingText()
     {
-        Instantiate(FloatingTextPrefab, new Vector3(obs.transform.position.x,
-            obs.transform.position.y,obs.transform.position.z), Quaternion.identity, obs.transform);
+        GameObject puntaje = Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
+            transform.position.y, transform.position.z), Quaternion.identity, transform);
+
+        StartCoroutine(DestroyPrefab(puntaje));
+    }
+
+    IEnumerator DestroyPrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(obj);
     }
 }
