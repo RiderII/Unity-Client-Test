@@ -214,6 +214,10 @@ public class Client : MonoBehaviour
 
         public void Connect(int _localPort) //the users port number not the server
         {
+            if (endPoint == null)
+            {
+                endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
+            }
             socket = new UdpClient(_localPort);
 
             socket.Connect(endPoint);
@@ -308,7 +312,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerFinishedGame, PacketHandle.PlayerFinishedGame },
             { (int)ServerPackets.restartPlayerPosition, PacketHandle.RestartPlayerPosition },
             { (int)ServerPackets.playerCollidedWithOtherPlayer, PacketHandle.PlayerCollidedWithOtherPlayer },
-            { (int)ServerPackets.elementCollision, PacketHandle.ElementCollision }
+            { (int)ServerPackets.elementCollision, PacketHandle.ElementCollision },
+            { (int)ServerPackets.speedUp, PacketHandle.SpeedUp }
+
         };
         Debug.Log("Initialized packets!");
     }
@@ -327,7 +333,6 @@ public class Client : MonoBehaviour
             {
                 udp.socket.Close();
             }
-
             Debug.Log("Disconnected from server.");
         }
     }

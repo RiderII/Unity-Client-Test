@@ -91,6 +91,21 @@ public class PacketHandle : MonoBehaviour
         CameraController.playVaquitaMu = true;
     }
 
+    public static void SpeedUp(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        bool speedUp = _packet.ReadBool();
+        if (Client.instance.myId == _id)
+        {
+            CameraController.audioSourcePedalo.Stop();
+        }
+        if (!speedUp)
+        {
+            CameraController.audioSourcePedaleoFaster.Stop();
+        }
+        CameraController.playPedaleoFaster = speedUp;
+    }
+
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)
     {
         float speed = _packet.ReadFloat();
