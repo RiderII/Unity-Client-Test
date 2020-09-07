@@ -38,6 +38,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
                 ShowFloatingText();
+                player.points -= 100;
             }
             else if (tag == "Rock")
             {
@@ -45,6 +46,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
                 ShowFloatingText();
+                player.points -= 100;
             }
             else if (tag == "Tree")
             {

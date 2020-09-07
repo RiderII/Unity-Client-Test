@@ -93,11 +93,12 @@ public class TrainingManager2 : MonoBehaviour
                 CheckRecords(mapReport);
             }
 
-            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
-            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Velocidad: " + Mathf.FloorToInt((player.playerSpeed * 60 * 60 )/ 1000) + " kmph";
-            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(player.traveled_meters, 2) + " m";
-            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
-            statisticsFrame.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + player.collisions;
+            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;
+            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
+            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Velocidad: " + Mathf.FloorToInt((player.playerSpeed * 60 * 60 )/ 1000) + " kmph";
+            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(player.traveled_meters, 2) + " m";
+            statisticsFrame.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
+            statisticsFrame.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + player.collisions;
         }
         else
         {
@@ -174,7 +175,7 @@ public class TrainingManager2 : MonoBehaviour
         playersFrameResult.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
         playersFrameResult.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
         playersFrameResult.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
-        playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.totalScore;
+        playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
         playersFrameResult.transform.GetChild(1).GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
     }
 

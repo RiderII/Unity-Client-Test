@@ -23,6 +23,7 @@ public class ObstacleCollision : MonoBehaviour
             player.audioSourcePedalo.volume *= 0.20f;
             player.speed *= player.obstacleSlowDown;
             player.collisions += 1;
+            player.points -= 100;
             if (player.totalScore != 0)
             {
                 player.totalScore -= 5;
