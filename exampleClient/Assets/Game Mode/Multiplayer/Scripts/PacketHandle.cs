@@ -95,13 +95,17 @@ public class PacketHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         bool speedUp = _packet.ReadBool();
-        if (Client.instance.myId == _id)
+        if (Client.instance.myId == _id && speedUp)
         {
             CameraController.audioSourcePedalo.Stop();
         }
         if (!speedUp)
         {
             CameraController.audioSourcePedaleoFaster.Stop();
+            if (Client.instance.myId == _id)
+            {
+                CameraController.audioSourcePedalo.Play();
+            }
         }
         CameraController.playPedaleoFaster = speedUp;
     }
