@@ -18,7 +18,7 @@ public class ElementCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (tag == "RampUp")
+        if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer")
         {
             StartCoroutine(SlowDown());
         }
@@ -52,7 +52,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceHitTree.Play();           
             }
 
-            else if (tag == "RampUp")
+            else if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer")
             {
                 player.speed += 10;
                 player.surpassSpeed = true;
