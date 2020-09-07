@@ -8300,6 +8300,7 @@ MonoBehaviour:
   vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
   pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
   rubbleCrash: {fileID: 8300000, guid: 915ac68ce33192d40a74f4b89c2db6f2, type: 3}
+  pedaleoFaster: {fileID: 8300000, guid: ab20a7becbf2fc84a9da3315bd982d32, type: 3}
 --- !u!1 &8516933616715633554
 GameObject:
   m_ObjectHideFlags: 0
