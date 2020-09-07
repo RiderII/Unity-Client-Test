@@ -13,6 +13,8 @@ public class User
     public string league;
     public string lobbyState = "Pendiente";
     public string mode;
+    public float weight;
+    public float bikeWheelDiameter; 
 
     public User() { }
 
@@ -27,6 +29,8 @@ public class User
         this.username = username;
         this.email = email;
         mode = "";
+        weight = 0;
+        bikeWheelDiameter = 0;
     }
     public User(string id, string username, string email, string mode)
     {
