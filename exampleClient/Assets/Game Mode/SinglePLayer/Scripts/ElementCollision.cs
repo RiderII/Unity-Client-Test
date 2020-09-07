@@ -5,6 +5,7 @@ using UnityEngine;
 public class ElementCollision : MonoBehaviour
 {
     public Player2 player;
+    public GameObject FloatingTextPrefab;
     private bool isColliding = false;
 
     public void Awake()
@@ -36,17 +37,19 @@ public class ElementCollision : MonoBehaviour
             {
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
+                ShowFloatingText();
             }
             else if (tag == "Rock")
             {
                 player.audioSourceScrapeSound.clip = player.scrapeSound;
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
+                ShowFloatingText();
             }
             else if (tag == "Tree")
             {
                 player.audioSourceHitTree.clip = player.hitTree;
-                player.audioSourceHitTree.Play();
+                player.audioSourceHitTree.Play();           
             }
 
             else if (tag == "RampUp")
@@ -83,5 +86,11 @@ public class ElementCollision : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         player.surpassSpeed = false;
+    }
+
+    void ShowFloatingText()
+    {
+        Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
+            transform.position.y + 3.5f, transform.position.z), Quaternion.identity, transform);
     }
 }
