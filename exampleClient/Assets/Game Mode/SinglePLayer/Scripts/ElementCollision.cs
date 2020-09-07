@@ -90,7 +90,17 @@ public class ElementCollision : MonoBehaviour
 
     void ShowFloatingText()
     {
-        Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
-            transform.position.y + 3.5f, transform.position.z), Quaternion.identity, transform);
+        
+        GameObject puntaje =Instantiate(FloatingTextPrefab, new Vector3(player.transform.position.x,
+            player.transform.position.y, player.transform.position.z), 
+            player.transform.rotation, player.transform);
+        //StartCoroutine(DestroyPrefab(puntaje));
+
+    }
+
+    IEnumerator DestroyPrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(obj);
     }
 }
