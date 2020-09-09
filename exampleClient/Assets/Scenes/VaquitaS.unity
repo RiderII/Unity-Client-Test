@@ -1029,6 +1029,7 @@ MonoBehaviour:
   username: diego
   email: test@test.com
   collisions: 0
+  points: 5000
   traveled_kilometers: 0
   burned_calories: 0
   totalGameTime: 0

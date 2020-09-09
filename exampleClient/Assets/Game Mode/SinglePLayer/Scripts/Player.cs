@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public string username = "diego";
     public string email = "test@test.com";
     public int collisions = 0;
+    public int points = 5000;
     public float traveled_kilometers = 0f;
     public float burned_calories = 0f;
     public float totalGameTime = 0f;

@@ -38,6 +38,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
                 ShowFloatingText();
+                player.points -= 100;
             }
             else if (tag == "Rock")
             {
@@ -45,6 +46,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
                 ShowFloatingText();
+                player.points -= 100;
             }
             else if (tag == "Tree")
             {
@@ -90,7 +92,17 @@ public class ElementCollision : MonoBehaviour
 
     void ShowFloatingText()
     {
-        Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
-            transform.position.y + 3.5f, transform.position.z), Quaternion.identity, transform);
+        
+        GameObject puntaje =Instantiate(FloatingTextPrefab, new Vector3(player.transform.position.x,
+            player.transform.position.y, player.transform.position.z), 
+            player.transform.rotation, player.transform);
+        StartCoroutine(DestroyPrefab(puntaje));
+
+    }
+
+    IEnumerator DestroyPrefab(GameObject obj)
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(obj);
     }
 }
