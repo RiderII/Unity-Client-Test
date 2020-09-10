@@ -10,15 +10,18 @@ public class Player : MonoBehaviour
     public int dbId;
     public string username = "diego";
     public string email = "test@test.com";
-    public int collisions = 0;
     public int points = 5000;
-    public float traveled_kilometers = 0f;
+    public int collisions = 0;
+    public float traveled_meters = 0f;
     public float burned_calories = 0f;
     public float totalGameTime = 0f;
+    public float weight = 90f;
+    public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
     public float totalScore = 0;
     public string league = "amateur";
+    Vector3 oldPos;
 
     private float yVelocity = 0;
     public float gravity = -9.81f;
@@ -38,6 +41,8 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
+        Time.timeScale = 1;
+        oldPos = transform.position;
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
@@ -104,6 +109,15 @@ public class Player : MonoBehaviour
         {
             //detener pedaleo
             speed = 0;
+        }
+        else
+        {
+            Vector3 distanceVector = (transform.position - oldPos);
+            float distanceThisFrame = distanceVector.magnitude;
+            traveled_meters += distanceThisFrame;
+            playerSpeed = distanceThisFrame * 30;
+            oldPos = transform.position;
+            burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) * 60);
         }
 
         if (acceleration < 0)

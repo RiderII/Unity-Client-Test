@@ -32,7 +32,7 @@ public class Player2 : MonoBehaviour
     public float acceleration = 0.6f;
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
-    public float speed = 10f;
+    public float speed = 0f;
     public bool surpassSpeed = false;
     public bool reachedFinishLine = false;
     public bool playPedaleo = false;
