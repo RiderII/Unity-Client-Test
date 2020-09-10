@@ -313,7 +313,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.restartPlayerPosition, PacketHandle.RestartPlayerPosition },
             { (int)ServerPackets.playerCollidedWithOtherPlayer, PacketHandle.PlayerCollidedWithOtherPlayer },
             { (int)ServerPackets.elementCollision, PacketHandle.ElementCollision },
-            { (int)ServerPackets.speedUp, PacketHandle.SpeedUp }
+            { (int)ServerPackets.speedUp, PacketHandle.SpeedUp },
+            { (int)ServerPackets.sendPlayerStatisticsToAll, PacketHandle.UpdatePlayerStatistic },
 
         };
         Debug.Log("Initialized packets!");

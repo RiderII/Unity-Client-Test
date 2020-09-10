@@ -4882,8 +4882,10 @@ MonoBehaviour:
   username: 
   email: test@test.com
   collisions: 0
-  traveled_kilometers: 0
+  traveled_meters: 0
   burned_calories: 0
+  weight: 90
+  playerSpeed: 0
   totalGameTime: 0
   totalScore: 0
   league: amateur
@@ -8301,6 +8303,7 @@ MonoBehaviour:
   vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
   pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
   rubbleCrash: {fileID: 0}
+  pedaleoFaster: {fileID: 0}
 --- !u!1 &8166826683060554487
 GameObject:
   m_ObjectHideFlags: 0

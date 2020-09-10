@@ -70,6 +70,24 @@ public class PacketSend : MonoBehaviour
         }
     }
 
+    public static void SendPlayerStatistics(PlayerManager player)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendPlayerStatistics))
+        {
+            if (GameManager.players.ContainsKey(Client.instance.myId))
+            {
+                _packet.Write(player.id);
+                _packet.Write(player.burned_calories);
+                _packet.Write(player.traveled_meters);
+                _packet.Write(player.totalScore);
+                _packet.Write(player.finalTime);
+                _packet.Write(player.placement);
+            }
+
+            SendTCPData(_packet);
+        }
+    }
+
     public static void RequestGameRestart()
     {
         using (Packet _packet = new Packet((int)ClientPackets.restartScene))

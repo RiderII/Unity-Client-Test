@@ -110,6 +110,22 @@ public class PacketHandle : MonoBehaviour
         CameraController.playPedaleoFaster = speedUp;
     }
 
+    public static void UpdatePlayerStatistic(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        float burned_calories = _packet.ReadFloat();
+        float traveled_meters = _packet.ReadFloat();
+        float totalScore = _packet.ReadFloat();
+        float finalTime = _packet.ReadFloat();
+        int placement = _packet.ReadInt();
+
+        GameManager.players[playerId].burned_calories = burned_calories;
+        GameManager.players[playerId].traveled_meters = traveled_meters;
+        GameManager.players[playerId].totalScore = totalScore;
+        GameManager.players[playerId].finalTime = finalTime;
+        GameManager.players[playerId].placement = placement;
+    }
+
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)
     {
         float speed = _packet.ReadFloat();
@@ -132,7 +148,9 @@ public class PacketHandle : MonoBehaviour
     {
         Vector3 _position = _packet.ReadVector3();
 
-        GameManager.instance.SpawnObstacle(_position);
+        if (GameManager.instance != null) {
+            GameManager.instance.SpawnObstacle(_position);
+        }
     }
 
     public static void PlayerFinishedGame(Packet _packet)
