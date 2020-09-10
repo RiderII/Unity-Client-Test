@@ -50,6 +50,11 @@ public class TrainingManager2 : MonoBehaviour
     {
         gyroInstance = GyroManager.Instance;
         gyroInstance.EnableGyro();
+        if (gyroInstance.GetGyroActive())
+        {
+            Client.instance.userName = DataBridge.instance.userProfile.username;
+            Client.instance.ConnectToServer("18.191.13.53");
+        }
         Time.timeScale = 1;
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
@@ -61,12 +66,6 @@ public class TrainingManager2 : MonoBehaviour
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
         sceneName = SceneManager.GetActiveScene().name;
-
-        if (gyroInstance.GetGyroActive())
-        {
-            Client.instance.userName = DataBridge.instance.userProfile.username;
-            Client.instance.ConnectToServer("201.230.13.76");
-        }
     }
 
     // Update is called once per frame

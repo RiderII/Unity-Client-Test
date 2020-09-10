@@ -42,13 +42,5 @@ public class ObstacleCollision : MonoBehaviour
     {
         GameObject puntaje = Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
             transform.position.y, transform.position.z), Quaternion.identity, transform);
-
-        StartCoroutine(DestroyPrefab(puntaje));
-    }
-
-    IEnumerator DestroyPrefab(GameObject obj)
-    {
-        yield return new WaitForSeconds(5);
-        Destroy(obj);
     }
 }

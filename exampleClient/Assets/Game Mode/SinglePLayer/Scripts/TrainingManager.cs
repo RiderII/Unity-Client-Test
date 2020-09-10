@@ -19,6 +19,7 @@ public class TrainingManager : MonoBehaviour
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public GameObject finishLine;
+    private GyroManager gyroInstance;
 
     // for race results
     private GameObject playersFrameResult;
@@ -41,6 +42,13 @@ public class TrainingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gyroInstance = GyroManager.Instance;
+        gyroInstance.EnableGyro();
+        if (gyroInstance.GetGyroActive())
+        {
+            Client.instance.userName = DataBridge.instance.userProfile.username;
+            Client.instance.ConnectToServer("18.191.13.53");
+        }
         Time.timeScale = 1;
         finishLine.transform.position = new Vector3(0, 0, finishLinePosition);
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
@@ -59,6 +67,8 @@ public class TrainingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameTimer += Time.deltaTime;
+
         if (sceneName == "VaquitaS")
         {
             if (obstaclePointer < player.transform.parent.position.z)
@@ -75,8 +85,6 @@ public class TrainingManager : MonoBehaviour
             }
         }
 
-
-        gameTimer += Time.deltaTime;
 
         if (isGameOver == false)
         {
@@ -155,8 +163,8 @@ public class TrainingManager : MonoBehaviour
 
     private void CalculateScore()
     {
-        double distance = System.Math.Round(player.controller.transform.position.z, 2);
-        double calories = System.Math.Round(player.controller.transform.position.z / 50, 2);
+        double distance = System.Math.Round(player.traveled_meters, 2);
+        double calories = System.Math.Round(player.burned_calories, 2);
 
         switch (distance)
         {
