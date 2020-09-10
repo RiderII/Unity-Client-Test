@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject localPlayerPrefabRigid;
     public GameObject playerPrefabRigid;
     public GameObject obstaclePrefab;
+    public GameObject floatingTextPrefab;
     public string sceneName;
 
     public void Awake()
@@ -72,5 +73,12 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(obstaclePrefab, _position, obstaclePrefab.transform.rotation);
         }
+    }
+
+    public void SpawnFloatingPrefab(Vector3 _position, PlayerManager player)
+    {
+        Instantiate(floatingTextPrefab, new Vector3(player.transform.position.x,
+            player.transform.position.y, player.transform.position.z),
+            player.transform.rotation, player.transform);
     }
 }

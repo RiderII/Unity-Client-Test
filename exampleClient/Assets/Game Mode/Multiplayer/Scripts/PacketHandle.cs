@@ -89,6 +89,7 @@ public class PacketHandle : MonoBehaviour
         GameManager.players[_id].SetCollisions(_collisions);
         CameraController.collisionPosition = _position;
         CameraController.playVaquitaMu = true;
+        GameManager.instance.SpawnFloatingPrefab(_position, GameManager.players[_id]);
     }
 
     public static void SpeedUp(Packet _packet)
