@@ -19,6 +19,7 @@ public class TrainingManager2 : MonoBehaviour
     private GameObject raceRankFrame;
     public GameObject finishLine;
     private GyroManager gyroInstance;
+    private int previouSteps = 0;
 
     // for race results
     private GameObject playersFrameResult;
@@ -30,6 +31,7 @@ public class TrainingManager2 : MonoBehaviour
     private float obstaclePointer;
 
     private float gameTimer;
+    private float distanceTimer;
     private float finalTime;
     private bool isGameOver = false;
     private string sceneName;
@@ -65,6 +67,7 @@ public class TrainingManager2 : MonoBehaviour
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
+
         sceneName = SceneManager.GetActiveScene().name;
     }
 
@@ -72,6 +75,7 @@ public class TrainingManager2 : MonoBehaviour
     void Update()
     {
         gameTimer += Time.deltaTime;
+        distanceTimer += Time.deltaTime;
 
         if (isGameOver == false)
         {
@@ -90,6 +94,14 @@ public class TrainingManager2 : MonoBehaviour
                 DataBridge.instance.SaveReport(mapReport);
                 //verificar si gano una medalla
                 CheckRecords(mapReport);
+            }
+
+            if (distanceTimer >= 5f)
+            {
+                int stepsPassed = player.steps.Count - previouSteps;
+                CalculatePoints(stepsPassed);
+                previouSteps = player.steps.Count;
+                distanceTimer = 0f;
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;
@@ -146,6 +158,17 @@ public class TrainingManager2 : MonoBehaviour
             {
                 DataBridge.instance.SaveUserMedal("three");
             }
+        }
+    }
+
+    private void CalculatePoints(int stepsPassed)
+    {
+        switch (stepsPassed)
+        {
+            case var _ when stepsPassed >= 12: player.points += 250; break;
+            case var _ when stepsPassed >= 10: player.points += 200; break;
+            case var _ when stepsPassed >= 8: player.points += 150; break;
+            case var _ when stepsPassed >= 6: player.points += 100; break;
         }
     }
 

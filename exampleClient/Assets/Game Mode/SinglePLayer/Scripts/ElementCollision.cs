@@ -38,7 +38,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
                 ShowFloatingText();
-                player.points -= 100;
+                DecreasePoints();
             }
             else if (tag == "Rock")
             {
@@ -46,7 +46,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceScrapeSound.volume = 0.5f;
                 player.audioSourceScrapeSound.Play();
                 ShowFloatingText();
-                player.points -= 100;
+                DecreasePoints();
             }
             else if (tag == "Tree")
             {
@@ -95,5 +95,17 @@ public class ElementCollision : MonoBehaviour
         GameObject puntaje = Instantiate(FloatingTextPrefab, new Vector3(player.transform.position.x,
             player.transform.position.y, player.transform.position.z), 
             player.transform.rotation, player.transform);
+    }
+
+    void DecreasePoints()
+    {
+        if (player.points - 100 > 0)
+        {
+            player.points -= 100;
+        }
+        else
+        {
+            player.points = 0;
+        }
     }
 }

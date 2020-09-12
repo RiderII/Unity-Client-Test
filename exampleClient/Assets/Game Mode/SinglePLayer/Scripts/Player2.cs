@@ -10,7 +10,7 @@ public class Player2 : MonoBehaviour
     public int dbId;
     public string username = "diego";
     public string email = "test@test.com";
-    public int points = 5000;
+    public int points = 0;
     public int collisions = 0;
     public float traveled_meters = 0f;
     public float burned_calories = 0f;

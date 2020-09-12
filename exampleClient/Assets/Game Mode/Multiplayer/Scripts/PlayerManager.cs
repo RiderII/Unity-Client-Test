@@ -28,6 +28,8 @@ public class PlayerManager : MonoBehaviour
     public int placement;
     public string username = "diego";
     public string email = "test@test.com";
+    public int points = 0;
+    public int steps;
     public int collisions;
     public float traveled_meters = 0f;
     public float burned_calories = 0f;
@@ -42,10 +44,13 @@ public class PlayerManager : MonoBehaviour
     public bool reloadRequestSent = false;
     private bool isGameOver = false;
     Vector3 oldPos;
+    Vector3 initialPos;
+    Vector3 previousPos;
 
     private float gameOverTimer = 3f;
 
     private float gameTimer;
+    private float distanceTimer;
     public float finalTime;
 
     public AudioClip bikeBrake;
@@ -59,6 +64,8 @@ public class PlayerManager : MonoBehaviour
     {
         Time.timeScale = 1;
         oldPos = transform.position;
+        initialPos = transform.position;
+        previousPos = transform.position;
         id = _id;
         username = _username;
         userNameText.text = username;
@@ -111,6 +118,39 @@ public class PlayerManager : MonoBehaviour
         audioBikeBrakeCollision.volume = 1f;
         audioBikeBrakeCollision.clip = bikeBrakecollision;
         audioBikeBrakeCollision.Play();
+    }
+
+    private void setPlayersPlacementHoudini(int placement, float bestPlacement)
+    {
+        int playerId = 0;
+
+        foreach (PlayerManager player in GameManager.players.Values)
+        {
+            if (!playerPlacement.Contains(player.id))
+            {
+                if (player.steps > bestPlacement)
+                {
+                    bestPlacement = player.steps;
+                    playerId = player.id;
+                }
+            }
+        }
+
+        if (GameManager.players.ContainsKey(playerId))
+        {
+            GameManager.players[playerId].placement = placement;
+        }
+
+        playerPlacement.Add(playerId);
+
+        if (GameManager.players.Count == playerPlacement.Count)
+        {
+            return;
+        }
+        else
+        {
+            setPlayersPlacementHoudini(++placement, 0);
+        }
     }
 
     private void setPlayersPlacement(int placement, float bestPlacement)
@@ -187,12 +227,31 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            if (!finishedGame) {
+            if (!finishedGame && SceneManager.GetActiveScene().name == "Vaquita")
+            {
                 setPlayersPlacement(1, 0);
+                playerPlacement.Clear();
+            }
+            else
+            {
+                setPlayersPlacementHoudini(1, 0);
                 playerPlacement.Clear();
             }
 
             gameTimer += Time.deltaTime;
+            distanceTimer += Time.deltaTime;
+
+            if (transform.position.z - previousPos.z > 0f)
+            {
+                float distancePoints = (transform.position.z - initialPos.z);
+                previousPos = transform.position;
+                if (distancePoints >= 50f)
+                {
+                    points += Utils.CalculatePoints(distanceTimer);
+                    distanceTimer = 0f;
+                    initialPos = transform.position;
+                }
+            }
 
             Vector3 distanceVector = (transform.position - oldPos);
             float distanceThisFrame = distanceVector.magnitude;

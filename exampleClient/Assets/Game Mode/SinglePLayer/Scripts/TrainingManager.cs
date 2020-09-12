@@ -28,10 +28,13 @@ public class TrainingManager : MonoBehaviour
     public float spawnDistanceFromObstacles = 10f;
     public float finishLinePosition = 200f;
     public int numberOfObstaclers = 0;
+    Vector3 initialPos;
+    Vector3 previousPos;
 
     private float obstaclePointer;
 
     private float gameTimer;
+    private float distanceTimer;
     private float finalTime;
     private bool isGameOver = false;
     private string sceneName;
@@ -61,6 +64,8 @@ public class TrainingManager : MonoBehaviour
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
 
+        initialPos = transform.position;
+        previousPos = transform.position;
         sceneName = SceneManager.GetActiveScene().name;
     }
 
@@ -68,6 +73,7 @@ public class TrainingManager : MonoBehaviour
     void Update()
     {
         gameTimer += Time.deltaTime;
+        distanceTimer += Time.deltaTime;
 
         if (sceneName == "VaquitaS")
         {
@@ -104,6 +110,19 @@ public class TrainingManager : MonoBehaviour
                 //verificar si gano una medalla
                 CheckRecords(mapReport);
             }
+
+            if (player.transform.position.z - previousPos.z > 0f)
+            {
+                float distancePoints = (player.transform.position.z - initialPos.z);
+                previousPos = player.transform.position;
+                if (distancePoints >= 50f)
+                {
+                    player.points += Utils.CalculatePoints(distanceTimer);
+                    distanceTimer = 0f;
+                    initialPos = player.transform.position;
+                }
+            }
+
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;
             statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
             statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Velocidad: " + Mathf.FloorToInt((player.playerSpeed * 60 * 60) / 1000) + " kmph";

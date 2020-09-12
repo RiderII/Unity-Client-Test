@@ -315,7 +315,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.elementCollision, PacketHandle.ElementCollision },
             { (int)ServerPackets.speedUp, PacketHandle.SpeedUp },
             { (int)ServerPackets.sendPlayerStatisticsToAll, PacketHandle.UpdatePlayerStatistic },
-
+            { (int)ServerPackets.updatePlayerSteps, PacketHandle.UpdatePlayerSteps },
         };
         Debug.Log("Initialized packets!");
     }

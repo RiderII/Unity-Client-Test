@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int dbId;
     public string username = "diego";
     public string email = "test@test.com";
-    public int points = 5000;
+    public int points = 0;
     public int collisions = 0;
     public float traveled_meters = 0f;
     public float burned_calories = 0f;
@@ -117,6 +117,7 @@ public class Player : MonoBehaviour
             traveled_meters += distanceThisFrame;
             playerSpeed = distanceThisFrame * 30;
             oldPos = transform.position;
+            
             burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) * 60);
         }
 

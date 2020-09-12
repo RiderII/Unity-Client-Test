@@ -127,6 +127,13 @@ public class PacketHandle : MonoBehaviour
         GameManager.players[playerId].placement = placement;
     }
 
+    public static void UpdatePlayerSteps(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        int steps = _packet.ReadInt();
+        GameManager.players[playerId].steps = steps;
+    }
+
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)
     {
         float speed = _packet.ReadFloat();
