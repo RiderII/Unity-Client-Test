@@ -79,7 +79,7 @@ public class PacketSend : MonoBehaviour
                 _packet.Write(player.id);
                 _packet.Write(player.burned_calories);
                 _packet.Write(player.traveled_meters);
-                _packet.Write(player.totalScore);
+                _packet.Write(player.points);
                 _packet.Write(player.finalTime);
                 _packet.Write(player.placement);
             }

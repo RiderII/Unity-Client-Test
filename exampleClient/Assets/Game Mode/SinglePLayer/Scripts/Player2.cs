@@ -20,7 +20,7 @@ public class Player2 : MonoBehaviour
     public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
-    public float totalScore = 0;
+    //public float totalScore = 0;
     public string league = "amateur";
     public List<string> steps = new List<string>();
     public float framesPerSecond = 0f;

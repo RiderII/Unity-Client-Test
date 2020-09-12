@@ -22,7 +22,8 @@ public enum ServerPackets
     elementCollision,
     speedUp,
     sendPlayerStatisticsToAll,
-    updatePlayerSteps
+    updatePlayerSteps,
+    updatePlayerPoints
 }
 
 /// <summary>Sent from client to server.</summary> 

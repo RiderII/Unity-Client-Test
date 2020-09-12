@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     public float totalGameTime = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
-    public float totalScore = 0;
+    //public float totalScore = 0;
     public string league = "amateur";
     public bool finishedGame = false;
     public bool reloadRequestSent = false;
@@ -192,7 +192,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (finishedGame)
             {
-                CalculateScore();
+                //CalculateScore();
                 isGameOver = true;
                 finalTime = gameTimer;
                 totalGameTime = finalTime;
@@ -231,6 +231,17 @@ public class PlayerManager : MonoBehaviour
             {
                 setPlayersPlacement(1, 0);
                 playerPlacement.Clear();
+                if (transform.position.z - previousPos.z > 0f)
+                {
+                    float distancePoints = (transform.position.z - initialPos.z);
+                    previousPos = transform.position;
+                    if (distancePoints >= 30f)
+                    {
+                        points += Utils.CalculatePoints(distanceTimer);
+                        distanceTimer = 0f;
+                        initialPos = transform.position;
+                    }
+                }
             }
             else
             {
@@ -241,18 +252,6 @@ public class PlayerManager : MonoBehaviour
             gameTimer += Time.deltaTime;
             distanceTimer += Time.deltaTime;
 
-            if (transform.position.z - previousPos.z > 0f)
-            {
-                float distancePoints = (transform.position.z - initialPos.z);
-                previousPos = transform.position;
-                if (distancePoints >= 50f)
-                {
-                    points += Utils.CalculatePoints(distanceTimer);
-                    distanceTimer = 0f;
-                    initialPos = transform.position;
-                }
-            }
-
             Vector3 distanceVector = (transform.position - oldPos);
             float distanceThisFrame = distanceVector.magnitude;
             traveled_meters += distanceThisFrame;
@@ -260,7 +259,7 @@ public class PlayerManager : MonoBehaviour
             oldPos = transform.position;
             burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) * 60);
 
-            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Puntos: " + totalScore;
+            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + points;
             statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
             statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Velocidad: " + Mathf.FloorToInt((playerSpeed * 60 * 60) / 1000) + " kmph";
             statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(traveled_meters, 2) + " m";
@@ -303,25 +302,25 @@ public class PlayerManager : MonoBehaviour
         displayInfoFrame.SetActive(false);
     }
 
-    private void CalculateScore()
-    {
-        double distance = traveled_meters;
-        double calories = burned_calories;
+    //private void CalculateScore()
+    //{
+    //    double distance = traveled_meters;
+    //    double calories = burned_calories;
 
-        switch (distance)
-        {
-            case var _ when distance > 100: totalScore += 50; break;
-            case var _ when distance > 200: totalScore += 100; break;
-            case var _ when distance > 300: totalScore += 200; break;
-        }
+    //    switch (distance)
+    //    {
+    //        case var _ when distance > 100: totalScore += 50; break;
+    //        case var _ when distance > 200: totalScore += 100; break;
+    //        case var _ when distance > 300: totalScore += 200; break;
+    //    }
 
-        switch (calories)
-        {
-            case var _ when calories > 2: totalScore += 30; break;
-            case var _ when calories > 4: totalScore += 60; break;
-            case var _ when calories > 10: totalScore += 90; break;
-        }
-    }
+    //    switch (calories)
+    //    {
+    //        case var _ when calories > 2: totalScore += 30; break;
+    //        case var _ when calories > 4: totalScore += 60; break;
+    //        case var _ when calories > 10: totalScore += 90; break;
+    //    }
+    //}
 
     private void updatePlayersResults()
     {
@@ -338,7 +337,7 @@ public class PlayerManager : MonoBehaviour
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.totalScore;
+                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
                 if (playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text == "Categoría: 0")
                 {
                     playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;

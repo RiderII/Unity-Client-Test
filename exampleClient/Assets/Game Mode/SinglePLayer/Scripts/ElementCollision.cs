@@ -69,9 +69,9 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourcePedalo.volume *= 0.20f;
                 player.speed *= 0.80f;
                 player.collisions += 1;
-                if (player.totalScore != 0)
+                if (player.points != 0)
                 {
-                    player.totalScore -= 5;
+                    player.points -= 5;
                 }
             }
 

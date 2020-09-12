@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
-    public float totalScore = 0;
+    //public float totalScore = 0;
     public string league = "amateur";
     Vector3 oldPos;
 

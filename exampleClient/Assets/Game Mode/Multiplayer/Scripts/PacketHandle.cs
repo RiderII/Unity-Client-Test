@@ -116,13 +116,13 @@ public class PacketHandle : MonoBehaviour
         int playerId = _packet.ReadInt();
         float burned_calories = _packet.ReadFloat();
         float traveled_meters = _packet.ReadFloat();
-        float totalScore = _packet.ReadFloat();
+        int points = _packet.ReadInt();
         float finalTime = _packet.ReadFloat();
         int placement = _packet.ReadInt();
 
         GameManager.players[playerId].burned_calories = burned_calories;
         GameManager.players[playerId].traveled_meters = traveled_meters;
-        GameManager.players[playerId].totalScore = totalScore;
+        GameManager.players[playerId].points = points;
         GameManager.players[playerId].finalTime = finalTime;
         GameManager.players[playerId].placement = placement;
     }
@@ -132,6 +132,13 @@ public class PacketHandle : MonoBehaviour
         int playerId = _packet.ReadInt();
         int steps = _packet.ReadInt();
         GameManager.players[playerId].steps = steps;
+    }
+
+    public static void UpdatePlayerPoints(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        int points = _packet.ReadInt();
+        GameManager.players[playerId].points = points;
     }
 
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)

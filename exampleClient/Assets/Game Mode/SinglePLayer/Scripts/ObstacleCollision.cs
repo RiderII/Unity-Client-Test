@@ -24,9 +24,9 @@ public class ObstacleCollision : MonoBehaviour
             player.speed *= player.obstacleSlowDown;
             player.collisions += 1;
             DecreasePoints(player);
-            if (player.totalScore != 0)
+            if (player.points != 0)
             {
-                player.totalScore -= 5;
+                player.points -= 5;
             }
         }
     }

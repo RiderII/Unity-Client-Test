@@ -316,6 +316,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.speedUp, PacketHandle.SpeedUp },
             { (int)ServerPackets.sendPlayerStatisticsToAll, PacketHandle.UpdatePlayerStatistic },
             { (int)ServerPackets.updatePlayerSteps, PacketHandle.UpdatePlayerSteps },
+            { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints }
         };
         Debug.Log("Initialized packets!");
     }
