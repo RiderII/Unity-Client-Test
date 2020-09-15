@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -148,6 +148,8 @@ MonoBehaviour:
   localPlayerPrefabRigid: {fileID: 0}
   playerPrefabRigid: {fileID: 0}
   obstaclePrefab: {fileID: 8741390336517382331, guid: e150fdc558e0ec9408c30562d4d1612d,
+    type: 3}
+  floatingTextPrefab: {fileID: 6350158981543189537, guid: 556594eab8146444b895c3362d3dab1d,
     type: 3}
   sceneName: 
 --- !u!4 &10714616

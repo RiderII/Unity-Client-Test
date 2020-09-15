@@ -52,5 +52,19 @@ public class Utils
 
         return MET;
     }
+
+    public static int CalculatePoints(float distanceTimer)
+    {
+        int points = 0;
+        switch (distanceTimer)
+        {
+            case var _ when distanceTimer <= 3: points += 250; break;
+            case var _ when distanceTimer <= 5: points += 200; break;
+            case var _ when distanceTimer <= 7: points += 150; break;
+            case var _ when distanceTimer <= 10: points += 100; break;
+        }
+
+        return points;
+    }
 }
 

@@ -23,10 +23,10 @@ public class ObstacleCollision : MonoBehaviour
             player.audioSourcePedalo.volume *= 0.20f;
             player.speed *= player.obstacleSlowDown;
             player.collisions += 1;
-            player.points -= 100;
-            if (player.totalScore != 0)
+            DecreasePoints(player);
+            if (player.points != 0)
             {
-                player.totalScore -= 5;
+                player.points -= 5;
             }
         }
     }
@@ -42,13 +42,17 @@ public class ObstacleCollision : MonoBehaviour
     {
         GameObject puntaje = Instantiate(FloatingTextPrefab, new Vector3(transform.position.x,
             transform.position.y, transform.position.z), Quaternion.identity, transform);
-
-        StartCoroutine(DestroyPrefab(puntaje));
     }
 
-    IEnumerator DestroyPrefab(GameObject obj)
+    void DecreasePoints(Player player)
     {
-        yield return new WaitForSeconds(5);
-        Destroy(obj);
+        if (player.points - 100 > 0)
+        {
+            player.points -= 100;
+        }
+        else
+        {
+            player.points = 0;
+        }
     }
 }

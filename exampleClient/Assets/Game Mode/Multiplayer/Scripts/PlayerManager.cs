@@ -28,22 +28,30 @@ public class PlayerManager : MonoBehaviour
     public int placement;
     public string username = "diego";
     public string email = "test@test.com";
+    public int points = 0;
+    public int steps;
     public int collisions;
-    public float traveled_kilometers;
-    public float burned_calories;
+    public float traveled_meters = 0f;
+    public float burned_calories = 0f;
+    public float weight = 90f;
+    public float playerSpeed = 0f;
     public float totalGameTime = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
-    public float totalScore = 0;
+    //public float totalScore = 0;
     public string league = "amateur";
     public bool finishedGame = false;
     public bool reloadRequestSent = false;
     private bool isGameOver = false;
+    Vector3 oldPos;
+    Vector3 initialPos;
+    Vector3 previousPos;
 
     private float gameOverTimer = 3f;
 
     private float gameTimer;
-    private float finalTime;
+    private float distanceTimer;
+    public float finalTime;
 
     public AudioClip bikeBrake;
     public AudioClip bikeBrakecollision;
@@ -54,6 +62,10 @@ public class PlayerManager : MonoBehaviour
 
     public void Initialize(int _id, string _username)
     {
+        Time.timeScale = 1;
+        oldPos = transform.position;
+        initialPos = transform.position;
+        previousPos = transform.position;
         id = _id;
         username = _username;
         userNameText.text = username;
@@ -103,16 +115,42 @@ public class PlayerManager : MonoBehaviour
 
     public void playBrakeCollision(float _speed, bool playSound)
     {
-        //if (playSound)
-        //{
-            audioBikeBrakeCollision.volume = 1f;
-            audioBikeBrakeCollision.clip = bikeBrakecollision;
-            audioBikeBrakeCollision.Play();
-        //}
-        //if(!playSound)
-        //{
-        //    audioBikeBrakeCollision.Stop();
-        //}
+        audioBikeBrakeCollision.volume = 1f;
+        audioBikeBrakeCollision.clip = bikeBrakecollision;
+        audioBikeBrakeCollision.Play();
+    }
+
+    private void setPlayersPlacementHoudini(int placement, float bestPlacement)
+    {
+        int playerId = 0;
+
+        foreach (PlayerManager player in GameManager.players.Values)
+        {
+            if (!playerPlacement.Contains(player.id))
+            {
+                if (player.steps > bestPlacement)
+                {
+                    bestPlacement = player.steps;
+                    playerId = player.id;
+                }
+            }
+        }
+
+        if (GameManager.players.ContainsKey(playerId))
+        {
+            GameManager.players[playerId].placement = placement;
+        }
+
+        playerPlacement.Add(playerId);
+
+        if (GameManager.players.Count == playerPlacement.Count)
+        {
+            return;
+        }
+        else
+        {
+            setPlayersPlacementHoudini(++placement, 0);
+        }
     }
 
     private void setPlayersPlacement(int placement, float bestPlacement)
@@ -154,12 +192,11 @@ public class PlayerManager : MonoBehaviour
         {
             if (finishedGame)
             {
-                CalculateScore();
+                //CalculateScore();
                 isGameOver = true;
                 finalTime = gameTimer;
                 totalGameTime = finalTime;
-                traveled_kilometers = (float)System.Math.Round(transform.position.z, 2);
-                burned_calories = (float)System.Math.Round(transform.position.z / 50, 2);
+                PacketSend.SendPlayerStatistics(this);
             }
 
             foreach (PlayerManager player in GameManager.players.Values)
@@ -190,15 +227,44 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            setPlayersPlacement(1, 0);
-
-            playerPlacement.Clear();
+            if (!finishedGame && SceneManager.GetActiveScene().name == "Vaquita")
+            {
+                setPlayersPlacement(1, 0);
+                playerPlacement.Clear();
+                if (transform.position.z - previousPos.z > 0f)
+                {
+                    float distancePoints = (transform.position.z - initialPos.z);
+                    previousPos = transform.position;
+                    if (distancePoints >= 30f)
+                    {
+                        points += Utils.CalculatePoints(distanceTimer);
+                        distanceTimer = 0f;
+                        initialPos = transform.position;
+                    }
+                }
+            }
+            else
+            {
+                setPlayersPlacementHoudini(1, 0);
+                playerPlacement.Clear();
+            }
 
             gameTimer += Time.deltaTime;
-            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
-            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(transform.position.z, 2) + " Km";
-            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(transform.position.z / 50, 2) + " Kcal";
-            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + collisions;
+            distanceTimer += Time.deltaTime;
+
+            Vector3 distanceVector = (transform.position - oldPos);
+            float distanceThisFrame = distanceVector.magnitude;
+            traveled_meters += distanceThisFrame;
+            playerSpeed = distanceThisFrame * 30;
+            oldPos = transform.position;
+            burned_calories += Utils.CaloriesBurned(weight, (playerSpeed * 60) * 60);
+
+            statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + points;
+            statisticsFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Tiempo: " + Mathf.FloorToInt(gameTimer) + " s";
+            statisticsFrame.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Velocidad: " + Mathf.FloorToInt((playerSpeed * 60 * 60) / 1000) + " kmph";
+            statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(traveled_meters, 2) + " m";
+            statisticsFrame.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(burned_calories, 2) + " Kcal";
+            statisticsFrame.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + collisions;
             raceRankFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Posición: " + placement;
         }
         else
@@ -226,7 +292,7 @@ public class PlayerManager : MonoBehaviour
     public void RestartProperties()
     {
         collisions = 0;
-        traveled_kilometers = 0f;
+        traveled_meters = 0f;
         burned_calories = 0f;
         finishedGame = false;
         reloadRequestSent = false;
@@ -236,25 +302,25 @@ public class PlayerManager : MonoBehaviour
         displayInfoFrame.SetActive(false);
     }
 
-    private void CalculateScore()
-    {
-        double distance = System.Math.Round(transform.position.z, 2);
-        double calories = System.Math.Round(transform.position.z / 50, 2);
+    //private void CalculateScore()
+    //{
+    //    double distance = traveled_meters;
+    //    double calories = burned_calories;
 
-        switch (distance)
-        {
-            case var _ when distance > 100: totalScore += 50; break;
-            case var _ when distance > 200: totalScore += 100; break;
-            case var _ when distance > 300: totalScore += 200; break;
-        }
+    //    switch (distance)
+    //    {
+    //        case var _ when distance > 100: totalScore += 50; break;
+    //        case var _ when distance > 200: totalScore += 100; break;
+    //        case var _ when distance > 300: totalScore += 200; break;
+    //    }
 
-        switch (calories)
-        {
-            case var _ when calories > 2: totalScore += 30; break;
-            case var _ when calories > 4: totalScore += 60; break;
-            case var _ when calories > 10: totalScore += 90; break;
-        }
-    }
+    //    switch (calories)
+    //    {
+    //        case var _ when calories > 2: totalScore += 30; break;
+    //        case var _ when calories > 4: totalScore += 60; break;
+    //        case var _ when calories > 10: totalScore += 90; break;
+    //    }
+    //}
 
     private void updatePlayersResults()
     {
@@ -262,15 +328,21 @@ public class PlayerManager : MonoBehaviour
         {
             if (player.finishedGame)
             {
+
+                raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject.SetActive(true);
                 playerLayers[player.placement - 1] = raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
-                playerLayers[player.placement - 1].SetActive(true);
+                // playerLayers[player.placement - 1].SetActive(true);
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + player.burned_calories + " Km";
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + player.traveled_kilometers + " Kcal";
+                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
+                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.totalScore;
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "CATEGORIA:" + player.league;
+                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
+                if (playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text == "Categoría: 0")
+                {
+                    playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
+                }
+                
             }
         }
     }

@@ -1028,11 +1028,13 @@ MonoBehaviour:
   dbId: 0
   username: diego
   email: test@test.com
+  points: 0
   collisions: 0
-  points: 5000
-  traveled_kilometers: 0
+  traveled_meters: 0
   burned_calories: 0
   totalGameTime: 0
+  weight: 90
+  playerSpeed: 0
   totalScore: 0
   league: amateur
   gravity: -9.81

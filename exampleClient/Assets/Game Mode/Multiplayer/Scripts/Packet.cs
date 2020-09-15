@@ -20,7 +20,10 @@ public enum ServerPackets
     restartPlayerPosition,
     playerCollidedWithOtherPlayer,
     elementCollision,
-    speedUp
+    speedUp,
+    sendPlayerStatisticsToAll,
+    updatePlayerSteps,
+    updatePlayerPoints
 }
 
 /// <summary>Sent from client to server.</summary> 
@@ -30,7 +33,8 @@ public enum ClientPackets
     sendReadyState,
     sendToGame,
     playerMovement,
-    restartScene
+    restartScene,
+    sendPlayerStatistics
 }
 
 public class Packet : IDisposable

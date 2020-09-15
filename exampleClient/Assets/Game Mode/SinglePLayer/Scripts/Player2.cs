@@ -10,7 +10,7 @@ public class Player2 : MonoBehaviour
     public int dbId;
     public string username = "diego";
     public string email = "test@test.com";
-    public int points = 5000;
+    public int points = 0;
     public int collisions = 0;
     public float traveled_meters = 0f;
     public float burned_calories = 0f;
@@ -20,7 +20,7 @@ public class Player2 : MonoBehaviour
     public float playerSpeed = 0f;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
-    public float totalScore = 0;
+    //public float totalScore = 0;
     public string league = "amateur";
     public List<string> steps = new List<string>();
     public float framesPerSecond = 0f;
@@ -32,7 +32,7 @@ public class Player2 : MonoBehaviour
     public float acceleration = 0.6f;
     public float maximunSpeed = 10f;
     public float obstacleSlowDown = 0.25f;
-    public float speed = 10f;
+    public float speed = 0f;
     public bool surpassSpeed = false;
     public bool reachedFinishLine = false;
     public bool playPedaleo = false;

@@ -19,6 +19,7 @@ public class TrainingManager2 : MonoBehaviour
     private GameObject raceRankFrame;
     public GameObject finishLine;
     private GyroManager gyroInstance;
+    private int previouSteps = 0;
 
     // for race results
     private GameObject playersFrameResult;
@@ -30,6 +31,7 @@ public class TrainingManager2 : MonoBehaviour
     private float obstaclePointer;
 
     private float gameTimer;
+    private float distanceTimer;
     private float finalTime;
     private bool isGameOver = false;
     private string sceneName;
@@ -50,6 +52,11 @@ public class TrainingManager2 : MonoBehaviour
     {
         gyroInstance = GyroManager.Instance;
         gyroInstance.EnableGyro();
+        if (gyroInstance.GetGyroActive())
+        {
+            Client.instance.userName = DataBridge.instance.userProfile.username;
+            Client.instance.ConnectToServer("18.191.13.53");
+        }
         Time.timeScale = 1;
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
@@ -60,19 +67,15 @@ public class TrainingManager2 : MonoBehaviour
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
-        sceneName = SceneManager.GetActiveScene().name;
 
-        if (gyroInstance.GetGyroActive())
-        {
-            Client.instance.userName = DataBridge.instance.userProfile.username;
-            Client.instance.ConnectToServer("201.230.13.76");
-        }
+        sceneName = SceneManager.GetActiveScene().name;
     }
 
     // Update is called once per frame
     void Update()
     {
         gameTimer += Time.deltaTime;
+        distanceTimer += Time.deltaTime;
 
         if (isGameOver == false)
         {
@@ -91,6 +94,14 @@ public class TrainingManager2 : MonoBehaviour
                 DataBridge.instance.SaveReport(mapReport);
                 //verificar si gano una medalla
                 CheckRecords(mapReport);
+            }
+
+            if (distanceTimer >= 5f)
+            {
+                int stepsPassed = player.steps.Count - previouSteps;
+                CalculatePoints(stepsPassed);
+                previouSteps = player.steps.Count;
+                distanceTimer = 0f;
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;
@@ -150,24 +161,35 @@ public class TrainingManager2 : MonoBehaviour
         }
     }
 
+    private void CalculatePoints(int stepsPassed)
+    {
+        switch (stepsPassed)
+        {
+            case var _ when stepsPassed >= 12: player.points += 250; break;
+            case var _ when stepsPassed >= 10: player.points += 200; break;
+            case var _ when stepsPassed >= 8: player.points += 150; break;
+            case var _ when stepsPassed >= 6: player.points += 100; break;
+        }
+    }
+
     private void CalculateScore()
     {
-        double distance = System.Math.Round(player.traveled_meters, 2);
-        double calories = System.Math.Round(player.burned_calories, 2);
+        //double distance = System.Math.Round(player.traveled_meters, 2);
+        //double calories = System.Math.Round(player.burned_calories, 2);
 
-        switch (distance)
-        {
-            case var _ when distance > 100: player.totalScore += 50; break;
-            case var _ when distance > 200: player.totalScore += 100; break;
-            case var _ when distance > 300: player.totalScore += 200; break;
-        }
+        //switch (distance)
+        //{
+        //    case var _ when distance > 100: player.totalScore += 50; break;
+        //    case var _ when distance > 200: player.totalScore += 100; break;
+        //    case var _ when distance > 300: player.totalScore += 200; break;
+        //}
 
-        switch (calories)
-        {
-            case var _ when calories > 2: player.totalScore += 30; break;
-            case var _ when calories > 4: player.totalScore += 60; break;
-            case var _ when calories > 10: player.totalScore += 90; break;
-        }
+        //switch (calories)
+        //{
+        //    case var _ when calories > 2: player.totalScore += 30; break;
+        //    case var _ when calories > 4: player.totalScore += 60; break;
+        //    case var _ when calories > 10: player.totalScore += 90; break;
+        //}
 
         playersFrameResult = raceResults.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
         playersFrameResult.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = player.username;

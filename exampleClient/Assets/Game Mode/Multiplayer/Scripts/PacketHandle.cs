@@ -89,6 +89,7 @@ public class PacketHandle : MonoBehaviour
         GameManager.players[_id].SetCollisions(_collisions);
         CameraController.collisionPosition = _position;
         CameraController.playVaquitaMu = true;
+        GameManager.instance.SpawnFloatingPrefab(_position, GameManager.players[_id]);
     }
 
     public static void SpeedUp(Packet _packet)
@@ -108,6 +109,36 @@ public class PacketHandle : MonoBehaviour
             }
         }
         CameraController.playPedaleoFaster = speedUp;
+    }
+
+    public static void UpdatePlayerStatistic(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        float burned_calories = _packet.ReadFloat();
+        float traveled_meters = _packet.ReadFloat();
+        int points = _packet.ReadInt();
+        float finalTime = _packet.ReadFloat();
+        int placement = _packet.ReadInt();
+
+        GameManager.players[playerId].burned_calories = burned_calories;
+        GameManager.players[playerId].traveled_meters = traveled_meters;
+        GameManager.players[playerId].points = points;
+        GameManager.players[playerId].finalTime = finalTime;
+        GameManager.players[playerId].placement = placement;
+    }
+
+    public static void UpdatePlayerSteps(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        int steps = _packet.ReadInt();
+        GameManager.players[playerId].steps = steps;
+    }
+
+    public static void UpdatePlayerPoints(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        int points = _packet.ReadInt();
+        GameManager.players[playerId].points = points;
     }
 
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)
@@ -132,7 +163,9 @@ public class PacketHandle : MonoBehaviour
     {
         Vector3 _position = _packet.ReadVector3();
 
-        GameManager.instance.SpawnObstacle(_position);
+        if (GameManager.instance != null) {
+            GameManager.instance.SpawnObstacle(_position);
+        }
     }
 
     public static void PlayerFinishedGame(Packet _packet)
