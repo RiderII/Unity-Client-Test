@@ -231,6 +231,12 @@ public class AuthController : MonoBehaviour
             case AuthError.UserNotFound:
                 msg = "Correo electrónico no encontrado. Ingrese un correo registrado";
                 break;
+            case AuthError.TooManyRequests:
+                msg = "Muchos intentos fallidos. Porfavor intentelo más tarde.";
+                break;
+            case AuthError.WeakPassword:
+                msg = "La contraseña debe tener 6 carácteres como mínimo.";
+                break;
         }
 
         errorPanel.SetActive(true);
