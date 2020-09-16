@@ -24,6 +24,12 @@ public class PacketHandle : MonoBehaviour
         LobbyGameManager.instance.SendToLobby(_clientId, _playerName, _league);
     }
 
+    public static void AssignMiddleware(Packet _packet)
+    {
+        int _clientId = _packet.ReadInt();
+        Client.instance.hasMiddleware = true;
+    }
+
     public static void SendReadyState(Packet _packet)
     {
         int _clientId = _packet.ReadInt();

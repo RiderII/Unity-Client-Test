@@ -10,11 +10,12 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "10.147.17.18";
+    public string ip = "127.0.0.1";
     public int port = 26950;
     public int myId = 0;
     public string userName = "miguel";
     public string league = "pro";
+    public bool hasMiddleware = false;
     public TCP tcp;
     public UDP udp;
     private bool isConnected = false;
@@ -316,7 +317,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.speedUp, PacketHandle.SpeedUp },
             { (int)ServerPackets.sendPlayerStatisticsToAll, PacketHandle.UpdatePlayerStatistic },
             { (int)ServerPackets.updatePlayerSteps, PacketHandle.UpdatePlayerSteps },
-            { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints }
+            { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints },
+            { (int)ServerPackets.assignMiddlewareToUser, PacketHandle.AssignMiddleware }
         };
         Debug.Log("Initialized packets!");
     }

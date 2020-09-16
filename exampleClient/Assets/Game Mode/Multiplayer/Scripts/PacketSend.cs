@@ -40,6 +40,16 @@ public class PacketSend : MonoBehaviour
         }
     }
 
+    public static void StartMiddleware()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.startMiddleware))
+        {
+            _packet.Write(Client.instance.myId);
+
+            SendTCPData(_packet);
+        }
+    }
+
     public static void SendIntoGame()
     {
         using (Packet _packet = new Packet((int)ClientPackets.sendToGame))

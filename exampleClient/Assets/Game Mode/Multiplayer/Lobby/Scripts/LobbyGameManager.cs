@@ -117,5 +117,10 @@ public class LobbyGameManager : MonoBehaviour
 
             yield return null; // wait until next frame
         }
+
+        if (Client.instance.hasMiddleware)
+        {
+            PacketSend.StartMiddleware();
+        }
     }
 }
