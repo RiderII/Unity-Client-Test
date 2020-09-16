@@ -45,13 +45,6 @@ public class TrainingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gyroInstance = GyroManager.Instance;
-        gyroInstance.EnableGyro();
-        if (gyroInstance.GetGyroActive())
-        {
-            Client.instance.userName = DataBridge.instance.userProfile.username;
-            Client.instance.ConnectToServer("18.191.13.53");
-        }
         Time.timeScale = 1;
         finishLine.transform.position = new Vector3(0, 0, finishLinePosition);
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
