@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int nextUpdate = 1;
+    private int frames = 0;
+
     private void Start()
     {
+        Time.timeScale = 1;
         //sp.Open();
         //sp.ReadTimeout = 1;
     }
 
     private void Update()
     {
+
         SendInputToServer();
 
         
@@ -55,6 +60,14 @@ public class PlayerController : MonoBehaviour
 
     private void SendInputToServer()
     {
+        frames++;
+        if (Time.time >= nextUpdate)
+        {
+            nextUpdate = Mathf.FloorToInt(Time.time) + 1;
+            Debug.Log(frames);
+        }
+
+
         bool[] _inputs = null;
 
         if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)

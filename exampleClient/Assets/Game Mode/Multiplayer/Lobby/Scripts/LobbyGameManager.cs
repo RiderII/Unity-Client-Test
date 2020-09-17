@@ -61,7 +61,8 @@ public class LobbyGameManager : MonoBehaviour
             }
         }
 
-        if (clientsInLobby.Count > 1 || SystemInfo.supportsGyroscope || true)
+        //if (clientsInLobby.Count > 1 || SystemInfo.supportsGyroscope || true)
+        if (clientsInLobby.Count > 1)
         {
             lobbyCanvas.transform.GetChild(1).gameObject.SetActive(true);
 
@@ -75,7 +76,8 @@ public class LobbyGameManager : MonoBehaviour
         }
 
 
-        if ((readyUsers.Count == clientsInLobby.Count) && (readyUsers.Count > 1 || SystemInfo.supportsGyroscope || true))
+        //if ((readyUsers.Count == clientsInLobby.Count) && (readyUsers.Count > 1 || SystemInfo.supportsGyroscope || true))
+        if ((readyUsers.Count == clientsInLobby.Count) && readyUsers.Count > 1)
         {
             playersFrame.SetActive(false);
             lobbyCanvas.transform.GetChild(1).gameObject.SetActive(false);

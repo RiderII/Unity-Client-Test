@@ -1,17 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-guid: 733c37ece0e98d84b9a87b7c361e1f3f
-=======
-guid: 491e49f858586e04389e9b41f1ce9156
->>>>>>> d6a45e2d24f00da156a8c8dc08176ba267b6b754
-=======
-guid: 101898764622bf24aa736d42f0be22d8
->>>>>>> 017b5e1f0396c1b24d24cb2b16279fadf9e5d850
-=======
-guid: 39e1871c88aca3c4fb563f5e9ac469db
->>>>>>> dcc8636324af4d5f404577fbd9de25bf242541c1
+guid: 99862f578da33f94c848133ba0712a3f
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 8574412962073106934
