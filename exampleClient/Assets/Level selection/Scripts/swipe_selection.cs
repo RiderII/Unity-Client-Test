@@ -54,6 +54,7 @@ public class swipe_selection : MonoBehaviour
                 Debug.Log("Button was click");
                 switch (current_pos)
                 {
+                    case var _ when current_pos >= 1f: current_pos = 3f; break;
                     case var _ when current_pos > 0.9f: current_pos = 2f; break;
                     case var _ when current_pos >= 0.4f: current_pos = 1f; break;
                     case var _ when current_pos < 0.1: current_pos = 0f; break;
