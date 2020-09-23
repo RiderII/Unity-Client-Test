@@ -12,4 +12,7 @@ public class Constants
     public const float leisureVigorousEffortMET = 10f;
     public const float racingMET = 12f;
     public const float vigorousRacingMET = 15.8f;
+
+    public const int twoHundredmeterLaps = 3;
+    public const int fiveHundredmeterLaps = 2;
 }

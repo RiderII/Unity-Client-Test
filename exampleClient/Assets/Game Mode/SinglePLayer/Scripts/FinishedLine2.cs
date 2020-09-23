@@ -6,12 +6,20 @@ using UnityEngine.SceneManagement;
 public class FinishedLine2 : MonoBehaviour
 {
     public Player2 player;
+    private int laps = 1;
+    private int lapsDone = 0;
 
     private void Awake()
     {
         if (Client.instance.gameModeSelected == "Multiplayer")
         {
             gameObject.SetActive(false);
+        }
+
+        switch (Client.instance.levelSelected)
+        {
+            case "200 metros": laps = Constants.twoHundredmeterLaps; break;
+            case "500 metros": laps = Constants.fiveHundredmeterLaps; break;
         }
     }
 
@@ -30,11 +38,27 @@ public class FinishedLine2 : MonoBehaviour
             }
             if (player.steps.Count == 86 && SceneManager.GetActiveScene().name == "200 metros")
             {
-                player.reachedFinishLine = true;
+                if (this.name == "86")
+                {
+                    lapsDone++;
+                    if (lapsDone == laps)
+                    {
+                        player.reachedFinishLine = true;
+                    }
+                    player.steps.Clear();
+                }
             }
             if (player.steps.Count == 146 && SceneManager.GetActiveScene().name == "500 metros")
             {
-                player.reachedFinishLine = true;
+                if (this.name == "146")
+                {
+                    lapsDone++;
+                    if (lapsDone == laps)
+                    {
+                        player.reachedFinishLine = true;
+                    }
+                    player.steps.Clear();
+                }
             }
         }
     }
