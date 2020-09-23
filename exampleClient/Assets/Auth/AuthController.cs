@@ -24,6 +24,8 @@ public class AuthController : MonoBehaviour
 
     public GameObject errorPanel;
 
+    private Dictionary<string, int> intentosFallidos = new Dictionary<string, int>();
+
     public void Awake()
     {
         if (!FB.IsInitialized)
@@ -108,9 +110,14 @@ public class AuthController : MonoBehaviour
     }
     public void Login()
     {
-        Debug.Log("hola");
-        auth.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text)
-            .ContinueWith((task =>
+        if (intentosFallidos.ContainsKey(emailLogin.text) && intentosFallidos[emailLogin.text] == 3){
+            
+            error = true;
+            errorType = AuthError.WrongPassword;
+        }
+        else
+        {
+            auth.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text).ContinueWith((task =>
             {
                 if (task.IsCanceled)
                 {
@@ -138,6 +145,7 @@ public class AuthController : MonoBehaviour
                     logged = true;
                 }
             }));
+        }  
     }
 
     public void LoginAnonymous() {
@@ -222,8 +230,28 @@ public class AuthController : MonoBehaviour
             case AuthError.MissingEmail:
                 msg = "Ingrese un correo electrónico";
                 break;
-                ; case AuthError.WrongPassword:
-                msg = "Contraseña incorrecta";
+            case AuthError.WrongPassword:
+                if (intentosFallidos.ContainsKey(emailLogin.text))
+                {
+                    if(intentosFallidos[emailLogin.text] == 1)
+                    {
+                        intentosFallidos[emailLogin.text] = intentosFallidos[emailLogin.text] + 1;
+                        msg = "Contraseña incorrecta. Un intento fallido más bloqueará la cuenta por 30 minutos";
+                    }else if(intentosFallidos[emailLogin.text] == 2)
+                    {
+                        intentosFallidos[emailLogin.text] = intentosFallidos[emailLogin.text] + 1;
+                        msg = "Contraseña incorrecta. Se ha bloqueado su cuenta por 30 minutos";
+                    }
+                    else
+                    {
+                        msg = "Cuenta bloqueada. Por favor intentelo más tarde";
+                    }
+                }
+                else
+                {
+                    intentosFallidos.Add(emailLogin.text, 1);
+                    msg = "Contraseña incorrecta";
+                }
                 break;
             case AuthError.InvalidEmail:
                 msg = "Correo electrónico inválido";
