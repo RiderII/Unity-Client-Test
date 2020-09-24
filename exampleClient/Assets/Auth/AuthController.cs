@@ -5,6 +5,7 @@ using Firebase.Auth;
 using TMPro;
 using Facebook.Unity;
 using Firebase.Extensions;
+using UnityEngine.Networking;
 
 public class AuthController : MonoBehaviour
 {
@@ -110,13 +111,6 @@ public class AuthController : MonoBehaviour
     }
     public void Login()
     {
-        if (intentosFallidos.ContainsKey(emailLogin.text) && intentosFallidos[emailLogin.text] == 3){
-            
-            error = true;
-            errorType = AuthError.WrongPassword;
-        }
-        else
-        {
             auth.SignInWithEmailAndPasswordAsync(emailLogin.text, pwdLogin.text).ContinueWith((task =>
             {
                 if (task.IsCanceled)
@@ -144,8 +138,7 @@ public class AuthController : MonoBehaviour
                         newUser.DisplayName, newUser.UserId);
                     logged = true;
                 }
-            }));
-        }  
+            }));  
     }
 
     public void LoginAnonymous() {
@@ -241,10 +234,7 @@ public class AuthController : MonoBehaviour
                     {
                         intentosFallidos[emailLogin.text] = intentosFallidos[emailLogin.text] + 1;
                         msg = "Contraseña incorrecta. Se ha bloqueado su cuenta por 30 minutos";
-                    }
-                    else
-                    {
-                        msg = "Cuenta bloqueada. Por favor intentelo más tarde";
+                        StartCoroutine(GetRequest(emailLogin.text));
                     }
                 }
                 else
@@ -252,6 +242,9 @@ public class AuthController : MonoBehaviour
                     intentosFallidos.Add(emailLogin.text, 1);
                     msg = "Contraseña incorrecta";
                 }
+                break;
+            case AuthError.UserDisabled:
+                msg = "Su cuenta ha sido deshabilitada intentelo más tarde";
                 break;
             case AuthError.InvalidEmail:
                 msg = "Correo electrónico inválido";
@@ -363,7 +356,23 @@ public class AuthController : MonoBehaviour
             new System.Uri("https://avatars0.githubusercontent.com/u/65631755?s=200&v=4"));
     }
 
-   
+    IEnumerator GetRequest(string email)
+    {
+        string uri = "https://us-central1-riderii.cloudfunctions.net/disableUser?email=" + email;
+        UnityWebRequest uwr = UnityWebRequest.Get(uri);
+        yield return uwr.SendWebRequest();
+
+        if (uwr.isNetworkError)
+        {
+            Debug.Log("Error While Sending: " + uwr.error);
+        }
+        else
+        {
+            Debug.Log("Received: " + uwr.downloadHandler.text);
+        }
+    }
+
+
 }
 
 
