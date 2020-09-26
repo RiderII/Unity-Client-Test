@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class FinishedLine2 : MonoBehaviour
 {
@@ -16,16 +17,19 @@ public class FinishedLine2 : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        switch (Client.instance.levelSelected)
-        {
-            case "200 metros": laps = Constants.twoHundredmeterLaps; break;
-            case "500 metros": laps = Constants.fiveHundredmeterLaps; break;
+        if (SceneManager.GetActiveScene().name != "4.6 kilómetros") {
+            switch (Client.instance.levelSelected)
+            {
+                case "200 metros": laps = Constants.twoHundredmeterLaps; break;
+                case "500 metros": laps = Constants.fiveHundredmeterLaps; break;
+            }
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,6 +45,11 @@ public class FinishedLine2 : MonoBehaviour
                 if (this.name == "86")
                 {
                     lapsDone++;
+                    if (SceneManager.GetActiveScene().name != "4.6 kilómetros")
+                    {
+                        TrainingManager2.lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + (lapsDone + 1).ToString() + " / " + laps.ToString();
+                    }
+                        
                     if (lapsDone == laps)
                     {
                         player.reachedFinishLine = true;
@@ -53,6 +62,10 @@ public class FinishedLine2 : MonoBehaviour
                 if (this.name == "146")
                 {
                     lapsDone++;
+                    if (SceneManager.GetActiveScene().name != "4.6 kilómetros")
+                    {
+                        TrainingManager2.lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + (lapsDone + 1).ToString() + " / " + laps.ToString();
+                    }
                     if (lapsDone == laps)
                     {
                         player.reachedFinishLine = true;

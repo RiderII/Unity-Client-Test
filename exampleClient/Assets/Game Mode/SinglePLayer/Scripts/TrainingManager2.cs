@@ -17,9 +17,11 @@ public class TrainingManager2 : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
+    public static GameObject lapsFrame;
     public GameObject finishLine;
     private GyroManager gyroInstance;
     private int previouSteps = 0;
+    private int lapsNum;
 
     // for race results
     private GameObject playersFrameResult;
@@ -63,16 +65,30 @@ public class TrainingManager2 : MonoBehaviour
         statisticsFrame = uiPanel.transform.GetChild(1).gameObject;
         displayInfoFrame = uiPanel.transform.GetChild(2).gameObject;
         raceRankFrame = uiPanel.transform.GetChild(3).gameObject;
+        lapsFrame = uiPanel.transform.GetChild(4).gameObject;
         displayInfoFrame.SetActive(false);
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
 
         sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName != "4.6 kilómetros")
+        {
+            switch (Client.instance.levelSelected)
+            {
+                case "200 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.twoHundredmeterLaps.ToString(); break;
+                case "500 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.fiveHundredmeterLaps.ToString(); break;
+            }
+        }
+        else
+        {
+            lapsFrame.SetActive(false);
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()   
     {
         gameTimer += Time.deltaTime;
         distanceTimer += Time.deltaTime;
@@ -81,6 +97,7 @@ public class TrainingManager2 : MonoBehaviour
         {
             if (player.reachedFinishLine == true)
             {
+                lapsFrame.SetActive(false);
                 CalculateScore();
                 isGameOver = true;
                 finalTime = gameTimer;
