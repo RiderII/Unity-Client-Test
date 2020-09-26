@@ -17,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 1e37d1d3089090647b0c04e1f2759a86
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/VaquitaS.unity
     guid: 70b80db45d7213e45812150c0d3aa065
@@ -30,12 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/500 metros.unity
     guid: ba8e4ae031f389e44bd2bd56125c81b3
   - enabled: 1
-    path: "Assets/Scenes/Levels/20 kil\xF3metros.unity"
+    path: "Assets/Scenes/Levels/4.6 kil\xF3metros.unity"
     guid: a1c89cde068752747b6511ec36c33a40
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   m_configObjects: {}

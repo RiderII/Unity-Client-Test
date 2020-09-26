@@ -2205,7 +2205,7 @@ GameObject:
   - component: {fileID: 1174565375}
   - component: {fileID: 1174565374}
   m_Layer: 5
-  m_Name: "20 kil\xF3metros"
+  m_Name: "4.6 kil\xF3metros"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2449,7 +2449,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "20 kil\xF3metros"
+  m_Text: "4.6 kil\xF3metros"
 --- !u!222 &1345656714
 CanvasRenderer:
   m_ObjectHideFlags: 0
