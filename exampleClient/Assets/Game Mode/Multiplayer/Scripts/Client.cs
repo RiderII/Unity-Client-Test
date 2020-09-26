@@ -317,6 +317,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.speedUp, PacketHandle.SpeedUp },
             { (int)ServerPackets.sendPlayerStatisticsToAll, PacketHandle.UpdatePlayerStatistic },
             { (int)ServerPackets.updatePlayerSteps, PacketHandle.UpdatePlayerSteps },
+            { (int)ServerPackets.updatePlayerLaps, PacketHandle.UpdatePlayerLaps },
             { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints },
             { (int)ServerPackets.assignMiddlewareToUser, PacketHandle.AssignMiddleware }
         };

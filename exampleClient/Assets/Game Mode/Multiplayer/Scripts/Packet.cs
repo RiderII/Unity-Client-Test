@@ -23,9 +23,10 @@ public enum ServerPackets
     speedUp,
     sendPlayerStatisticsToAll,
     updatePlayerSteps,
+    updatePlayerLaps,
     updatePlayerPoints,
     assignMiddlewareToUser,
-    startMiddleware
+    startMiddleware,
 }
 
 /// <summary>Sent from client to server.</summary> 
