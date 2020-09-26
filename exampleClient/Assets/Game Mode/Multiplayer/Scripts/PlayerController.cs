@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (Time.time >= nextUpdate)
         {
             nextUpdate = Mathf.FloorToInt(Time.time) + 1;
-            Debug.Log(frames);
+            //Debug.Log(frames);
         }
 
 
