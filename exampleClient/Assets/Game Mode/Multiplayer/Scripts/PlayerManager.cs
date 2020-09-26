@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
+    public static GameObject lapsFrame;
     GameObject[] playerLayers = new GameObject[4];
     public List<int> playerPlacement = new List<int>();
     
@@ -74,7 +75,21 @@ public class PlayerManager : MonoBehaviour
         statisticsFrame = uiPanel.transform.GetChild(1).gameObject;
         displayInfoFrame = uiPanel.transform.GetChild(2).gameObject;
         raceRankFrame = uiPanel.transform.GetChild(3).gameObject;
+        lapsFrame = uiPanel.transform.GetChild(4).gameObject;
         displayInfoFrame.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name != "4.6 kilómetros")
+        {
+            switch (Client.instance.levelSelected)
+            {
+                case "200 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.twoHundredmeterLaps.ToString(); break;
+                case "500 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.fiveHundredmeterLaps.ToString(); break;
+            }
+        }
+        else
+        {
+            lapsFrame.SetActive(false);
+        }
 
         foreach (Transform child in playersFrame.transform)
         {

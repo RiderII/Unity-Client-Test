@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PacketHandle : MonoBehaviour
 {
@@ -140,6 +142,24 @@ public class PacketHandle : MonoBehaviour
         int playerId = _packet.ReadInt();
         int steps = _packet.ReadInt();
         GameManager.players[playerId].steps = steps;
+    }
+
+    public static void UpdatePlayerLaps(Packet _packet)
+    {
+        int playerId = _packet.ReadInt();
+        int laps = _packet.ReadInt();
+        int totalLaps = 3;
+
+        if (SceneManager.GetActiveScene().name != "4.6 kilómetros")
+        {
+            switch (Client.instance.levelSelected)
+            {
+                case "200 metros": totalLaps = Constants.twoHundredmeterLaps; break;
+                case "500 metros": totalLaps = Constants.fiveHundredmeterLaps; break;
+            }
+        }
+
+        PlayerManager.lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
     }
 
     public static void UpdatePlayerPoints(Packet _packet)
