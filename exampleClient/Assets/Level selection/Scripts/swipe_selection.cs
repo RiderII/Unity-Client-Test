@@ -64,7 +64,7 @@ public class swipe_selection : MonoBehaviour
                 Client.instance.levelSelected = levelName;
                 Debug.Log($"Player level selected: {Client.instance.levelSelected}");
                 //if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope || true)
-                if (Client.instance.gameModeSelected == "Multiplayer")
+                if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope)
                 {
                     StartCoroutine(LoadAsynchronously("Lobby"));
                 }
