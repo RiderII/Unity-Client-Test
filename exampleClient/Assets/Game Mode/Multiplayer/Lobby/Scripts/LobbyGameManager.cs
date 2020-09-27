@@ -14,6 +14,7 @@ public class LobbyGameManager : MonoBehaviour
     private GameObject playersFrame;
     public static LobbyGameManager instance;
     private bool startGame = false;
+    private bool enteredGame = false;
     private float startGameCounter = 6f;
 
     // store all players info in the client side.
@@ -90,10 +91,12 @@ public class LobbyGameManager : MonoBehaviour
 
             if (Mathf.FloorToInt(startGameCounter) < 1)
             {
-                Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
-                StartCoroutine(LoadAsynchronously(Client.instance.levelSelected));
-                
-                return;
+                if (!enteredGame)
+                {
+                    Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+                    StartCoroutine(LoadAsynchronously(Client.instance.levelSelected));
+                    enteredGame = true;
+                }
             }
         }
     }
