@@ -2405,6 +2405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d78678655983314285ff6f1de09d4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextUpdate: 1
 --- !u!114 &8764606068780086334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2429,14 +2430,18 @@ MonoBehaviour:
   placement: 0
   username: 
   email: test@test.com
+  points: 0
+  steps: 0
   collisions: 0
-  traveled_kilometers: 0
+  traveled_meters: 0
   burned_calories: 0
+  weight: 90
+  playerSpeed: 0
   totalGameTime: 0
-  totalScore: 0
   league: amateur
   finishedGame: 0
   reloadRequestSent: 0
+  finalTime: 0
   bikeBrake: {fileID: 8300000, guid: afaa4e32f7b11cb44a70add48ff5b6a3, type: 3}
   bikeBrakecollision: {fileID: 8300000, guid: 5e8f25e348a8b774fa340fe2ae8fb1b5, type: 3}
   raceResults: {fileID: 7867242737194059341}

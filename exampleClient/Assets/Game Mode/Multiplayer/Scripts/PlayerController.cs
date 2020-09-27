@@ -70,27 +70,30 @@ public class PlayerController : MonoBehaviour
 
         bool[] _inputs = null;
 
-        if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)
+        if (!Client.instance.hasMiddleware)
         {
-            _inputs = new bool[]
+            if (GameManager.players.ContainsKey(Client.instance.myId) && !GameManager.players[Client.instance.myId].finishedGame)
             {
+                _inputs = new bool[]
+                {
                 Input.GetKey(KeyCode.W),
                 false,
                 false,
                 false
-            };
-        }
-        else
-        {
-            _inputs = new bool[]
-           {
+                };
+            }
+            else
+            {
+                _inputs = new bool[]
+               {
                 false,
                 false,
                 false,
                 false
-           };
-        }
+               };
+            }
 
-        PacketSend.PlayerMovement(_inputs);
+            PacketSend.PlayerMovement(_inputs);
+        }
     }
 }

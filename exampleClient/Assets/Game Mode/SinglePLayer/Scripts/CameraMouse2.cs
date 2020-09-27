@@ -13,7 +13,7 @@ public class CameraMouse2 : MonoBehaviour
 
     private void Awake()
     {
-        if (Client.instance.gameModeSelected == "Multiplayer")
+        if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope)
         {
             gameObject.SetActive(false);
         }

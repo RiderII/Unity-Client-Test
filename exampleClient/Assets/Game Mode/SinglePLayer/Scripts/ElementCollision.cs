@@ -10,7 +10,7 @@ public class ElementCollision : MonoBehaviour
 
     public void Awake()
     {
-        if (Client.instance.gameModeSelected == "Multiplayer" && tag != "RampUp" && tag != "RampDown")
+        if ((Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope) && tag != "RampUp" && tag != "RampDown")
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class ElementCollision : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer")
+        if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer" && !SystemInfo.supportsGyroscope)
         {
             StartCoroutine(SlowDown());
         }
@@ -54,7 +54,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourceHitTree.Play();           
             }
 
-            else if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer")
+            else if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer" && !SystemInfo.supportsGyroscope)
             {
                 player.speed += 10;
                 player.surpassSpeed = true;
