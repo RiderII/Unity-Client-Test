@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     public Canvas playerCanvas;
     public TextMesh userNameText;
     private GameObject playersFrame;
-    private GameObject statisticsFrame;
+    public static GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public static GameObject lapsFrame;
