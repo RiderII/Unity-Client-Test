@@ -51,7 +51,7 @@ public class PacketHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet _packet)
     {
-        PlayerManager.statisticsFrame.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = System.DateTime.Now.ToString("hh.mm.ss.ffff");
+        Client.instance.timeStamp = System.DateTime.Now.ToString("hh.mm.ss.ffff");
         Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
 
         int _id = _packet.ReadInt();
@@ -87,7 +87,7 @@ public class PacketHandle : MonoBehaviour
     public static void PlayerDisconnected(Packet _packet)
     {
         int _id = _packet.ReadInt();
-
+ 
         Destroy(GameManager.players[_id].gameObject);
         GameManager.players.Remove(_id);
     }

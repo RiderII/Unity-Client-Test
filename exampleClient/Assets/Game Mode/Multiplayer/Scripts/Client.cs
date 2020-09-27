@@ -21,6 +21,7 @@ public class Client : MonoBehaviour
     private bool isConnected = false;
     public string levelSelected;
     public string gameModeSelected;
+    public string timeStamp = "";
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 

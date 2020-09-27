@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     public Canvas playerCanvas;
     public TextMesh userNameText;
     private GameObject playersFrame;
-    public static GameObject statisticsFrame;
+    private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public static GameObject lapsFrame;
@@ -280,6 +280,7 @@ public class PlayerManager : MonoBehaviour
             statisticsFrame.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(traveled_meters, 2) + " m";
             statisticsFrame.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(burned_calories, 2) + " Kcal";
             statisticsFrame.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + collisions;
+            statisticsFrame.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = Client.instance.timeStamp;
             raceRankFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Posición: " + placement;
         }
         else
