@@ -215,10 +215,6 @@ public class Client : MonoBehaviour
 
         public void Connect(int _localPort) //the users port number not the server
         {
-            if (endPoint == null)
-            {
-                endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
-            }
             socket = new UdpClient(_localPort);
 
             socket.Connect(endPoint);
