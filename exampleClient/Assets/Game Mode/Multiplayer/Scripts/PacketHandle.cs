@@ -51,6 +51,7 @@ public class PacketHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet _packet)
     {
+        PlayerManager.statisticsFrame.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = System.DateTime.Now.ToString("hh.mm.ss.ffff");
         Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
