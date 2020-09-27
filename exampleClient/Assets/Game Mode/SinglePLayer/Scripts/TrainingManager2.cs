@@ -52,13 +52,13 @@ public class TrainingManager2 : MonoBehaviour
     }
     void Start()
     {
-        gyroInstance = GyroManager.Instance;
-        gyroInstance.EnableGyro();
-        if (gyroInstance.GetGyroActive())
-        {
-            Client.instance.userName = DataBridge.instance.userProfile.username;
-            Client.instance.ConnectToServer("18.191.13.53");
-        }
+        //gyroInstance = GyroManager.Instance;
+        //gyroInstance.EnableGyro();
+        //if (gyroInstance.GetGyroActive())
+        //{
+        //    Client.instance.userName = DataBridge.instance.userProfile.username;
+        //    Client.instance.ConnectToServer("18.191.13.53");
+        //}
         Time.timeScale = 1;
         Image uiPanel = Instantiate(UIpanel, playerCanvas.transform);
         playersFrame = uiPanel.transform.GetChild(0).gameObject;
