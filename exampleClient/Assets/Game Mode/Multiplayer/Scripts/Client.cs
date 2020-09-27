@@ -320,7 +320,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.updatePlayerSteps, PacketHandle.UpdatePlayerSteps },
             { (int)ServerPackets.updatePlayerLaps, PacketHandle.UpdatePlayerLaps },
             { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints },
-            { (int)ServerPackets.assignMiddlewareToUser, PacketHandle.AssignMiddleware }
+            { (int)ServerPackets.assignMiddlewareToUser, PacketHandle.AssignMiddleware },
+            { (int)ServerPackets.playerHandleRotation, PacketHandle.HandleRotation }
         };
         Debug.Log("Initialized packets!");
     }

@@ -78,10 +78,16 @@ public class PacketHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.readQuaternion();
 
-        if (GameManager.players.ContainsKey(_id))
+        if (GameManager.players.ContainsKey(_id) && _id != Client.instance.myId)
         {
             GameManager.players[_id].transform.rotation = _rotation;
         }
+    }
+
+    public static void HandleRotation(Packet _packet)
+    {
+        Quaternion _rotation = _packet.readQuaternion();
+        GameManager.players[Client.instance.myId].transform.rotation = _rotation;
     }
 
     public static void PlayerDisconnected(Packet _packet)
