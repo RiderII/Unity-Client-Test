@@ -7379,7 +7379,6 @@ GameObject:
   - component: {fileID: 8757768423255704898}
   - component: {fileID: 2339474953680647679}
   - component: {fileID: 8929500053681947764}
-  - component: {fileID: 5423082436411994979}
   m_Layer: 5
   m_Name: colorPanel
   m_TagString: Untagged
@@ -7387,25 +7386,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5423082436411994979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5423082436411994978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60448792a015cb54d8b0f1187a3e373f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lerpTime: 2
-  myColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 1, g: 0.97351444, b: 0, a: 1}
-  - {r: 1, g: 0, b: 0.970881, a: 1}
-  - {r: 0, g: 0.2797284, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0.04313922, a: 1}
 --- !u!224 &5509833768692176176
 RectTransform:
   m_ObjectHideFlags: 0
