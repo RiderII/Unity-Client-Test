@@ -117,9 +117,9 @@ public class ProfileManager : MonoBehaviour
             var row = Instantiate(recordPrefab, container.transform);
 
             Text title = row.transform.GetChild(0).GetComponent<Text>();
-            TextMeshProUGUI calorias = row.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI time = row.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
-            TextMeshProUGUI distance = row.transform.GetChild(6).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI calorias = row.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI time = row.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI distance = row.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
 
             title.text = r.datetime;
             calorias.text = $"{r.burned_calories}";

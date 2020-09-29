@@ -78,7 +78,7 @@ public class LobbyGameManager : MonoBehaviour
 
 
         //if ((readyUsers.Count == clientsInLobby.Count) && (readyUsers.Count > 1 || SystemInfo.supportsGyroscope || true))
-        if ((readyUsers.Count == clientsInLobby.Count) && readyUsers.Count > 1 || SystemInfo.supportsGyroscope)
+        if ((readyUsers.Count == clientsInLobby.Count) && (readyUsers.Count > 1 || (clientsInLobby.Count >= 1 && SystemInfo.supportsGyroscope)))
         {
             playersFrame.SetActive(false);
             lobbyCanvas.transform.GetChild(1).gameObject.SetActive(false);

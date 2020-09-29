@@ -74,7 +74,7 @@ public class LvlManger : MonoBehaviour
             Button btn = backbtn.GetComponent<Button>();
             btn.onClick.AddListener(delegate () {
                 mainMenu.SetActive(true);
-                foreach (Transform child in challengeMenu.transform)
+                foreach (Transform child in panel.transform)
                     Destroy(child.gameObject);
 
                 challengeMenu.SetActive(false);
