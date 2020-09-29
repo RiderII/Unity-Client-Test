@@ -23,7 +23,7 @@ public class AuthController : MonoBehaviour
     public TMP_InputField emailLogin;
     public TMP_InputField pwdLogin;
 
-    public GameObject errorPanel;
+    public GameObject backdrop;
 
     private Dictionary<string, int> intentosFallidos = new Dictionary<string, int>();
 
@@ -260,8 +260,8 @@ public class AuthController : MonoBehaviour
                 break;
         }
 
-        errorPanel.SetActive(true);
-        TextMeshProUGUI message = errorPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        backdrop.SetActive(true);
+        TextMeshProUGUI message = backdrop.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         message.text = msg;
 
     }
