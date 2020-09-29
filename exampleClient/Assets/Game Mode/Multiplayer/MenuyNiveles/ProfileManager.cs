@@ -40,8 +40,8 @@ public class ProfileManager : MonoBehaviour
         if (DataBridge.instance.GetMode() != mode) //ver playerrefs
         {
             confirmationPanel.SetActive(true);
-            yesBtn = confirmationPanel.transform.GetChild(1).gameObject.GetComponent<Button>();
-            noBtn = confirmationPanel.transform.GetChild(2).gameObject.GetComponent<Button>();
+            yesBtn = confirmationPanel.transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Button>();
+            noBtn = confirmationPanel.transform.GetChild(0).transform.GetChild(2).gameObject.GetComponent<Button>();
 
             noBtn.onClick.RemoveAllListeners();
             yesBtn.onClick.RemoveAllListeners();
