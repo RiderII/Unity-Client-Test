@@ -215,7 +215,7 @@ public class TrainingManager2 : MonoBehaviour
         playersFrameResult.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
         playersFrameResult.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
         playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
-        playersFrameResult.transform.GetChild(1).GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
+        playersFrameResult.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
     }
 
     private void ShowFinishDashboard()
