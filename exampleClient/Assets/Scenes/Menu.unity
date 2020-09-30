@@ -629,7 +629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64069567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2916,7 +2916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &274125532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10910,7 +10910,7 @@ MonoBehaviour:
     type: 3}
   medalOnPrefab: {fileID: 4505136382878108854, guid: 13e84f8881873794fbd9be0078ebf2c0,
     type: 3}
-  modeErrorBoxPrefab: {fileID: 3924232835672145321, guid: 0badcb78dcee21c4b838b43b715c6d44,
+  modeErrorBoxPrefab: {fileID: 2512578788399471942, guid: 46fd511b72034294a97f70bd6bd494de,
     type: 3}
 --- !u!1 &1316753494
 GameObject:
