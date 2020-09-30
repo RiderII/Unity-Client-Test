@@ -18,6 +18,7 @@ public class TrainingManager : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
+    private GameObject lapsFrame;
     public GameObject finishLine;
     private GyroManager gyroInstance;
 
@@ -52,10 +53,12 @@ public class TrainingManager : MonoBehaviour
         statisticsFrame = uiPanel.transform.GetChild(1).gameObject;
         displayInfoFrame = uiPanel.transform.GetChild(2).gameObject;
         raceRankFrame = uiPanel.transform.GetChild(3).gameObject;
+        lapsFrame = uiPanel.transform.GetChild(4).gameObject;
         displayInfoFrame.SetActive(false);
         raceRankFrame.SetActive(false);
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
+        lapsFrame.SetActive(false);
 
         initialPos = transform.position;
         previousPos = transform.position;
