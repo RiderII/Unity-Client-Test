@@ -129,7 +129,6 @@ public class TrainingManager : MonoBehaviour
         else
         {
             displayInfoFrame.SetActive(true);
-            displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
             gameOverTimer -= Time.deltaTime;
 
             if (gameOverTimer <= 0f)
@@ -195,14 +194,14 @@ public class TrainingManager : MonoBehaviour
         //    case var _ when calories > 10: player.totalScore += 90; break;
         //}
 
-        playersFrameResult = raceResults.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).gameObject;
+        playersFrameResult = raceResults.transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         playersFrameResult.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = Client.instance.userName;
         playersFrameResult.transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(gameTimer) + " s";
         playersFrameResult.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
         playersFrameResult.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
         playersFrameResult.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
         playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
-        playersFrameResult.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
+        playersFrameResult.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = System.DateTime.Now.ToString();
     }
 
     private void ShowFinishDashboard()
