@@ -17,6 +17,9 @@ public class ProfileManager : MonoBehaviour
     public Button checkBtn;
     public Button cancelBtn;
     public List<MapReport> records;
+    public GameObject medalsPanel;
+    public GameObject medalOffPrefab;
+    public GameObject medalOnPrefab;
 
     public GameObject recordPrefab;
 
@@ -127,6 +130,34 @@ public class ProfileManager : MonoBehaviour
             distance.text = $"{r.traveled_kilometers} m";
 
         }
+    }
+
+    public async void LoadMedals()
+    {
+        var board = medalsPanel.transform.GetChild(0);
+        var lista = await DataBridge.instance.LoadUserMedals();
+        foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
+        {
+            if (lista.Contains(entry.Key))
+            {
+                GameObject medal = Instantiate(medalOnPrefab, board.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.on;
+            }
+            else
+            {
+                GameObject medal = Instantiate(medalOffPrefab, board.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.off;
+            }
+        }
+
+        var profileBackBtn = medalsPanel.transform.Find("backBtn").GetComponent<Button>();
+        profileBackBtn.onClick.AddListener(delegate () {
+            medalsPanel.SetActive(false);
+            foreach (Transform child in board.transform)
+                Destroy(child.gameObject);
+
+            this.gameObject.SetActive(true);
+        });
     }
 
     public void HistoricBackClick()

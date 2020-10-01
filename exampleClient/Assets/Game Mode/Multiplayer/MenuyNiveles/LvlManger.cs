@@ -16,16 +16,9 @@ public class LvlManger : MonoBehaviour
 
     public GameObject challengePrefab;
     public GameObject backbtnPrefab;
-    public GameObject medalOffPrefab;
-    public GameObject medalOnPrefab;
     public GameObject modeErrorBoxPrefab;
 
-    private MedalCollection medalCollection;
 
-    private void Start()
-    {
-        medalCollection = new MedalCollection();
-    }
 
     public void loadLevel(string pNombreNivel){
         Time.timeScale = 1;
@@ -87,7 +80,6 @@ public class LvlManger : MonoBehaviour
         mainMenu.SetActive(false);
         profileMenu.SetActive(true);
 
-        GameObject board = profileMenu.transform.GetChild(0).gameObject;
         GameObject Username = profileMenu.transform.GetChild(1).gameObject;
         GameObject Weight = profileMenu.transform.GetChild(2).gameObject;
         GameObject Diameter = profileMenu.transform.GetChild(3).gameObject;
@@ -95,26 +87,12 @@ public class LvlManger : MonoBehaviour
         TMP_InputField weightInput = Weight.transform.GetChild(0).GetComponent<TMP_InputField>();
         TMP_InputField diameterInput = Diameter.transform.GetChild(0).GetComponent<TMP_InputField>();
 
-
-        //medallas
-        var lista = await DataBridge.instance.LoadUserMedals();
+        
         User user = DataBridge.instance.userProfile;
         usernameInput.text = user.username;
         weightInput.text = Convert.ToString(user.weight);
         diameterInput.text = Convert.ToString(user.bikeWheelDiameter);
 
-        foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)
-        {
-            if(lista.Contains(entry.Key)){
-                GameObject medal = Instantiate(medalOnPrefab, board.transform);
-                medal.GetComponent<Image>().sprite = entry.Value.on;
-            }
-            else
-            {
-                GameObject medal = Instantiate(medalOffPrefab, board.transform);
-                medal.GetComponent<Image>().sprite = entry.Value.off;
-            }
-        }
 
         //RECORDS
         //passing all records to profilemanager
@@ -132,10 +110,6 @@ public class LvlManger : MonoBehaviour
         var profileBackBtn = profileMenu.transform.Find("backBtn").GetComponent<Button>();
         profileBackBtn.onClick.AddListener(delegate () {
             mainMenu.SetActive(true);
-            foreach (Transform child in board.transform)
-                Destroy(child.gameObject);
-
-            mainMenu.SetActive(true);
             profileMenu.SetActive(false);
         });
 
@@ -143,23 +117,26 @@ public class LvlManger : MonoBehaviour
 
 }
 
-public class MedalCollection
+public static class MedalCollection
 {
 
     private const string path = "Design/UI/medallas/";
-    public Dictionary<string, MedalSprites> sprites;
+    public static Dictionary<string, MedalSprites> sprites;
 
-    public MedalCollection()
+    public static Dictionary<string, MedalSprites> Sprites()
     {
+        sprites = null;
         sprites = new Dictionary<string, MedalSprites>();
         sprites.Add("one", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "cup_gold"),
-            off = Resources.Load<Sprite>(path + "cup") });
+            off = Resources.Load<Sprite>(path + "cup")
+        });
         sprites.Add("two", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "medal_gold"),
-            off = Resources.Load<Sprite>(path + "medal") });
+            off = Resources.Load<Sprite>(path + "medal")
+        });
         sprites.Add("three", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "reward_gold"),
@@ -170,9 +147,11 @@ public class MedalCollection
             on = Resources.Load<Sprite>(path + "trophy_gold"),
             off = Resources.Load<Sprite>(path + "trophy")
         });
+
+        return sprites;
     }
 
-   
+
 }
 public class MedalSprites
 {
