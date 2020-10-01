@@ -161,10 +161,9 @@ public class DataBridge : MonoBehaviour
         }));
     }
     
-    public async Task<List<Challenge>> LoadDataChallenges()
+    public async Task<List<Challenge>> LoadDataChallenges(string mode)
     {
         List<Challenge> lista = new List<Challenge>();
-        string mode = GetMode();
         await FirebaseDatabase.DefaultInstance.GetReference("Challenges").Child(mode).GetValueAsync()
             .ContinueWith((task => {
                 if (task.IsCanceled)
