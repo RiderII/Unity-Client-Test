@@ -100,7 +100,7 @@ public class DataBridge : MonoBehaviour
     {
         print("saving medal");
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-        dbReference.Child("UserMedals").Child(userid).Child("ID" + id).SetValueAsync(id);
+        dbReference.Child("UserMedals").Child(userid).Child(userProfile.mode).Child("ID" + id).SetValueAsync(id);
     }
 
     public void SaveUserPreferences(string mode)
@@ -108,8 +108,7 @@ public class DataBridge : MonoBehaviour
         SetMode(mode);
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
         dbReference.Child("Users").Child(userid).Child("mode").SetValueAsync(mode);
-        dbReference.Child("UserMedals").Child(userid).RemoveValueAsync();
-        print("Modo cambiado, medallas borradas");
+        print("Modo cambiado");
     }
 
     public void LoadUser(string userid)
@@ -193,11 +192,38 @@ public class DataBridge : MonoBehaviour
         
     }
 
-    public async Task<List<string>> LoadUserMedals()
+    public async Task<List<string>> LoadUserMedalsFitness()
     {
         List<string> lista = new List<string>();
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).GetValueAsync()
+        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).Child("Fitness").GetValueAsync()
+            .ContinueWith((task => {
+                if (task.IsCanceled)
+                {
+
+                }
+                if (task.IsFaulted)
+                {
+
+                }
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var child in snapshot.Children)
+                    {
+                        string t = child.Value.ToString();
+                        lista.Add(t);
+                    }
+                }
+            }));
+
+        return lista;
+    }
+    public async Task<List<string>> LoadUserMedalsFun()
+    {
+        List<string> lista = new List<string>();
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).Child("Fun").GetValueAsync()
             .ContinueWith((task => {
                 if (task.IsCanceled)
                 {

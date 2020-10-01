@@ -134,18 +134,33 @@ public class ProfileManager : MonoBehaviour
 
     public async void LoadMedals()
     {
-        var board = medalsPanel.transform.GetChild(0);
-        var lista = await DataBridge.instance.LoadUserMedals();
+        var boardFitness = medalsPanel.transform.GetChild(0);
+        var boardFun = medalsPanel.transform.GetChild(1);
+        var listaFit = await DataBridge.instance.LoadUserMedalsFitness();
         foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
         {
-            if (lista.Contains(entry.Key))
+            if (listaFit.Contains(entry.Key))
             {
-                GameObject medal = Instantiate(medalOnPrefab, board.transform);
+                GameObject medal = Instantiate(medalOnPrefab, boardFitness.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.on;
             }
             else
             {
-                GameObject medal = Instantiate(medalOffPrefab, board.transform);
+                GameObject medal = Instantiate(medalOffPrefab, boardFitness.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.off;
+            }
+        }
+        var listaFun = await DataBridge.instance.LoadUserMedalsFun();
+        foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
+        {
+            if (listaFun.Contains(entry.Key))
+            {
+                GameObject medal = Instantiate(medalOnPrefab, boardFun.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.on;
+            }
+            else
+            {
+                GameObject medal = Instantiate(medalOffPrefab, boardFun.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.off;
             }
         }
@@ -153,7 +168,9 @@ public class ProfileManager : MonoBehaviour
         var profileBackBtn = medalsPanel.transform.Find("backBtn").GetComponent<Button>();
         profileBackBtn.onClick.AddListener(delegate () {
             medalsPanel.SetActive(false);
-            foreach (Transform child in board.transform)
+            foreach (Transform child in boardFun.transform)
+                Destroy(child.gameObject);
+            foreach (Transform child in boardFitness.transform)
                 Destroy(child.gameObject);
 
             this.gameObject.SetActive(true);
