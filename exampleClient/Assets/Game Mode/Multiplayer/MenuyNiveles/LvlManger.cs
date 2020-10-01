@@ -36,43 +36,30 @@ public class LvlManger : MonoBehaviour
         Application.Quit();
     }
 
-    public async void LoadChallenges()
+    public async void LoadChallenges(string mode)
     {
-        mainMenu.SetActive(false);
-        challengeMenu.SetActive(true);
-        var panel = challengeMenu.transform.GetChild(0);
-        var backbtn = challengeMenu.transform.GetChild(2);
-        string mode = DataBridge.instance.GetMode();
-        if ( mode == null || mode == "")
-        {
-            var box = Instantiate(modeErrorBoxPrefab, panel.transform);
-            Button btn = backbtn.GetComponent<Button>();
-            btn.onClick.AddListener(delegate () {
-                mainMenu.SetActive(true);
-                foreach (Transform child in panel.transform)
-                    Destroy(child.gameObject);
-                challengeMenu.SetActive(false);
-            });
-        }
-        else
-        {
-            var lista = await DataBridge.instance.LoadDataChallenges();
+        var opciones = challengeMenu.transform.GetChild(1).gameObject;
+        var desafios = challengeMenu.transform.GetChild(2).gameObject;
 
-            foreach (var t in lista)
-            {
-                var challenge = Instantiate(challengePrefab, panel.transform);
-                challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
-            }
-            Button btn = backbtn.GetComponent<Button>();
-            btn.onClick.AddListener(delegate () {
-                mainMenu.SetActive(true);
-                foreach (Transform child in panel.transform)
-                    Destroy(child.gameObject);
+        var panel = desafios.transform.GetChild(0);
+        var backbtn = desafios.transform.GetChild(1);
 
-                challengeMenu.SetActive(false);
-            });
-            print("loaded");
+        var lista = await DataBridge.instance.LoadDataChallenges(mode);
+
+        foreach (var t in lista)
+        {
+            var challenge = Instantiate(challengePrefab, panel.transform);
+            challenge.GetComponentInChildren<TextMeshProUGUI>().text = t.Descripcion;
         }
+        Button btn = backbtn.GetComponent<Button>();
+        btn.onClick.AddListener(delegate () {
+            foreach (Transform child in panel.transform)
+                Destroy(child.gameObject);
+
+            desafios.SetActive(false);
+            opciones.SetActive(true);
+        });
+        
     }
 
     public async void LoadProfile()
