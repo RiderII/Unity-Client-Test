@@ -17,12 +17,7 @@ public class SearchPlayers : MonoBehaviour
 
     public GameObject medalOffPrefab;
     public GameObject medalOnPrefab;
-    private MedalCollection medalCollection;
 
-    private void Start()
-    {
-        medalCollection = new MedalCollection();
-    }
 
     public async void SearchUsers(string usersearch)
     {
@@ -66,7 +61,7 @@ public class SearchPlayers : MonoBehaviour
 
         //medals
         var lista = await DataBridge.instance.LoadPlayerMedals(u.ID);
-        foreach (KeyValuePair<string, MedalSprites> entry in medalCollection.sprites)
+        foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
         {
             if (lista.Contains(entry.Key))
             {

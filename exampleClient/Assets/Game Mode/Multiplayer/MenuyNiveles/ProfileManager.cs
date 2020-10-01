@@ -17,6 +17,9 @@ public class ProfileManager : MonoBehaviour
     public Button checkBtn;
     public Button cancelBtn;
     public List<MapReport> records;
+    public GameObject medalsPanel;
+    public GameObject medalOffPrefab;
+    public GameObject medalOnPrefab;
 
     public GameObject recordPrefab;
 
@@ -127,6 +130,51 @@ public class ProfileManager : MonoBehaviour
             distance.text = $"{r.traveled_kilometers} m";
 
         }
+    }
+
+    public async void LoadMedals()
+    {
+        var boardFitness = medalsPanel.transform.GetChild(0);
+        var boardFun = medalsPanel.transform.GetChild(1);
+        var listaFit = await DataBridge.instance.LoadUserMedalsFitness();
+        foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
+        {
+            if (listaFit.Contains(entry.Key))
+            {
+                GameObject medal = Instantiate(medalOnPrefab, boardFitness.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.on;
+            }
+            else
+            {
+                GameObject medal = Instantiate(medalOffPrefab, boardFitness.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.off;
+            }
+        }
+        var listaFun = await DataBridge.instance.LoadUserMedalsFun();
+        foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
+        {
+            if (listaFun.Contains(entry.Key))
+            {
+                GameObject medal = Instantiate(medalOnPrefab, boardFun.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.on;
+            }
+            else
+            {
+                GameObject medal = Instantiate(medalOffPrefab, boardFun.transform);
+                medal.GetComponent<Image>().sprite = entry.Value.off;
+            }
+        }
+
+        var profileBackBtn = medalsPanel.transform.Find("backBtn").GetComponent<Button>();
+        profileBackBtn.onClick.AddListener(delegate () {
+            medalsPanel.SetActive(false);
+            foreach (Transform child in boardFun.transform)
+                Destroy(child.gameObject);
+            foreach (Transform child in boardFitness.transform)
+                Destroy(child.gameObject);
+
+            this.gameObject.SetActive(true);
+        });
     }
 
     public void HistoricBackClick()
