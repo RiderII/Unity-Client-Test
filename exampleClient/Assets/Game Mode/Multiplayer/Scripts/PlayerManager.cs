@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
         lapsFrame = uiPanel.transform.GetChild(4).gameObject;
         displayInfoFrame.SetActive(false);
 
-        if (SceneManager.GetActiveScene().name != "4.6 kilómetros")
+        if (SceneManager.GetActiveScene().name != "4.6 kilómetros" && SceneManager.GetActiveScene().name != "Vaquita")
         {
             switch (Client.instance.levelSelected)
             {
@@ -345,19 +345,16 @@ public class PlayerManager : MonoBehaviour
             if (player.finishedGame)
             {
 
-                raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject.SetActive(true);
-                playerLayers[player.placement - 1] = raceResults.transform.GetChild(1).transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
+                raceResults.transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject.SetActive(true);
+                playerLayers[player.placement - 1] = raceResults.transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
                 // playerLayers[player.placement - 1].SetActive(true);
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = player.username;
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
-                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
-                if (playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text == "Categoría: 0")
-                {
-                    playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
-                }
+                playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = player.username;
+                playerLayers[player.placement - 1].transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
+                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
+                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
+                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
+                playerLayers[player.placement - 1].transform.GetChild(1).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
+                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
                 
             }
         }

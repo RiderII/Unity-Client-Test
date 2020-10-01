@@ -7269,11 +7269,8 @@ MonoBehaviour:
   mainMenu: {fileID: 0}
   title: {fileID: 0}
   profileMenu: {fileID: 0}
-  profileBackBtn: {fileID: 0}
   challengePrefab: {fileID: 0}
   backbtnPrefab: {fileID: 0}
-  medalOffPrefab: {fileID: 0}
-  medalOnPrefab: {fileID: 0}
   modeErrorBoxPrefab: {fileID: 0}
 --- !u!4 &1624790745
 Transform:
