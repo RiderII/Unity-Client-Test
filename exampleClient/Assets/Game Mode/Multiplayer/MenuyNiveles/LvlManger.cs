@@ -13,7 +13,6 @@ public class LvlManger : MonoBehaviour
     public GameObject mainMenu;
     public GameObject title;
     public GameObject profileMenu;
-    public Button profileBackBtn;
 
     public GameObject challengePrefab;
     public GameObject backbtnPrefab;
@@ -49,7 +48,7 @@ public class LvlManger : MonoBehaviour
         mainMenu.SetActive(false);
         challengeMenu.SetActive(true);
         var panel = challengeMenu.transform.GetChild(0);
-        var backbtn = challengeMenu.transform.GetChild(1);
+        var backbtn = challengeMenu.transform.GetChild(2);
         string mode = DataBridge.instance.GetMode();
         if ( mode == null || mode == "")
         {
@@ -86,7 +85,6 @@ public class LvlManger : MonoBehaviour
     public async void LoadProfile()
     {
         mainMenu.SetActive(false);
-        title.SetActive(false);
         profileMenu.SetActive(true);
 
         GameObject board = profileMenu.transform.GetChild(0).gameObject;
@@ -131,14 +129,13 @@ public class LvlManger : MonoBehaviour
         time.text = words[1];
         distance.text = words[2];
 
-
+        var profileBackBtn = profileMenu.transform.Find("backBtn").GetComponent<Button>();
         profileBackBtn.onClick.AddListener(delegate () {
             mainMenu.SetActive(true);
             foreach (Transform child in board.transform)
                 Destroy(child.gameObject);
 
             mainMenu.SetActive(true);
-            title.SetActive(true);
             profileMenu.SetActive(false);
         });
 
