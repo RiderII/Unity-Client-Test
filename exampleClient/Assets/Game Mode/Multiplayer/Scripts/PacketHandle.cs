@@ -51,8 +51,8 @@ public class PacketHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet _packet)
     {
-        Client.instance.timeStamp = System.DateTime.Now.ToString("hh.mm.ss.ffff");
-        Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
+        //Client.instance.timeStamp = System.DateTime.Now.ToString("hh.mm.ss.ffff");
+        //Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
 
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
@@ -171,8 +171,7 @@ public class PacketHandle : MonoBehaviour
                 case "500 metros": totalLaps = Constants.fiveHundredmeterLaps; break;
             }
         }
-
-        PlayerManager.lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
+        GameManager.players[playerId].lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
     }
 
     public static void UpdatePlayerPoints(Packet _packet)

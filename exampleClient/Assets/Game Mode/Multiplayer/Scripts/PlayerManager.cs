@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
-    public static GameObject lapsFrame;
+    public GameObject lapsFrame;
     GameObject[] playerLayers = new GameObject[4];
     public List<int> playerPlacement = new List<int>();
     
