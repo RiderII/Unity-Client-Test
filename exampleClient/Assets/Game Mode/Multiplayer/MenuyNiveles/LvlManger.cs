@@ -18,13 +18,35 @@ public class LvlManger : MonoBehaviour
     public GameObject backbtnPrefab;
     public GameObject modeErrorBoxPrefab;
 
-
-
     public void loadLevel(string pNombreNivel){
         Time.timeScale = 1;
         SceneManager.LoadScene(pNombreNivel); 
     }
 
+    public void loadGameLevel(string pNombreNivel) {
+        Time.timeScale = 1;
+        Client.instance.levelSelected = pNombreNivel;
+        Debug.Log($"Player level selected: {Client.instance.levelSelected}");
+        //if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope || true)
+        if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope)
+        {
+            StartCoroutine(LoadAsynchronously("Lobby"));
+        }
+        else if (Client.instance.gameModeSelected == "Singleplayer" && Client.instance.levelSelected == "Vaquita")
+        {
+            StartCoroutine(LoadAsynchronously("VaquitaS"));
+        }
+        else
+        {
+            StartCoroutine(LoadAsynchronously(pNombreNivel));
+        }
+    }
+
+    public void setDescriptionPanel(GameObject panelContainer)
+    {
+        panelContainer.SetActive(!panelContainer.activeSelf);
+    }
+        
     public void setGameModeSelected(string gameMode)
     {
         Client.instance.gameModeSelected = gameMode;
@@ -115,6 +137,19 @@ public class LvlManger : MonoBehaviour
 
     }
 
+    IEnumerator LoadAsynchronously(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+
+            Debug.Log($"LOADING {progress}");
+
+            yield return null; // wait until next frame
+        }
+    }
 }
 
 public static class MedalCollection
@@ -150,8 +185,6 @@ public static class MedalCollection
 
         return sprites;
     }
-
-
 }
 public class MedalSprites
 {

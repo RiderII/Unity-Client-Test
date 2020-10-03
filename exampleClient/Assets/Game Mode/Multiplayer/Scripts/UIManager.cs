@@ -67,6 +67,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
     }
+
     public void Continue()
     {
         Cursor.visible = false;

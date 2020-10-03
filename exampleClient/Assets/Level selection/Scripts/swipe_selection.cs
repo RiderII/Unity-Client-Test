@@ -24,61 +24,61 @@ public class swipe_selection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (Transform child in transform)
-        {
-            child.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                buttonClicked = true;
-            });
-        }
+        //foreach (Transform child in transform)
+        //{
+        //    child.GetComponent<Button>().onClick.AddListener(() =>
+        //    {
+        //        buttonClicked = true;
+        //    });
+        //}
 
-        if (Input.GetMouseButton(0))
-        {
-            run = true;
-        }
+        //if (Input.GetMouseButton(0))
+        //{
+        //    run = true;
+        //}
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            previous_pos = scrollbar.GetComponent<Scrollbar>().value;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    previous_pos = scrollbar.GetComponent<Scrollbar>().value;
 
-            Debug.Log($"PREV { previous_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            current_pos = scrollbar.GetComponent<Scrollbar>().value;
+        //    Debug.Log($"PREV { previous_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
+        //}
+        //if (Input.GetMouseButtonUp(0))
+        //{
+        //    current_pos = scrollbar.GetComponent<Scrollbar>().value;
 
-            Debug.Log($"Current { current_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
+        //    Debug.Log($"Current { current_pos}, {scrollbar.GetComponent<Scrollbar>().value}");
 
-            if (current_pos == previous_pos && buttonClicked)
-            {
-                Debug.Log("Button was click");
-                switch (current_pos)
-                {
-                    case var _ when current_pos >= 0.9f: current_pos = 3f; break;
-                    case var _ when current_pos > 0.6f: current_pos = 2f; break;
-                    case var _ when current_pos >= 0.3f: current_pos = 1f; break;
-                    case var _ when current_pos < 0.1: current_pos = 0f; break;
-                }
+        //    if (current_pos == previous_pos && buttonClicked)
+        //    {
+        //        Debug.Log("Button was click");
+        //        switch (current_pos)
+        //        {
+        //            case var _ when current_pos >= 0.9f: current_pos = 3f; break;
+        //            case var _ when current_pos > 0.6f: current_pos = 2f; break;
+        //            case var _ when current_pos >= 0.3f: current_pos = 1f; break;
+        //            case var _ when current_pos < 0.1: current_pos = 0f; break;
+        //        }
 
-                string levelName = transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text;
-                Client.instance.levelSelected = levelName;
-                Debug.Log($"Player level selected: {Client.instance.levelSelected}");
-                //if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope || true)
-                if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope)
-                {
-                    StartCoroutine(LoadAsynchronously("Lobby"));
-                }
-                else if (Client.instance.gameModeSelected == "Singleplayer" && Client.instance.levelSelected == "Vaquita")
-                {
-                    StartCoroutine(LoadAsynchronously("VaquitaS"));
-                }
-                else
-                {
-                    StartCoroutine(LoadAsynchronously(levelName));
-                }
-            }
+        //        string levelName = transform.GetChild(Mathf.RoundToInt(current_pos)).GetComponent<Button>().transform.GetChild(0).GetComponent<Text>().text;
+        //        Client.instance.levelSelected = levelName;
+        //        Debug.Log($"Player level selected: {Client.instance.levelSelected}");
+        //        //if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope || true)
+        //        if (Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope)
+        //        {
+        //            StartCoroutine(LoadAsynchronously("Lobby"));
+        //        }
+        //        else if (Client.instance.gameModeSelected == "Singleplayer" && Client.instance.levelSelected == "Vaquita")
+        //        {
+        //            StartCoroutine(LoadAsynchronously("VaquitaS"));
+        //        }
+        //        else
+        //        {
+        //            StartCoroutine(LoadAsynchronously(levelName));
+        //        }
+        //    }
 
-        }
+        //}
 
         if (run)
         {
