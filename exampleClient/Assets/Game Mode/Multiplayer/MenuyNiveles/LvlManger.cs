@@ -98,7 +98,20 @@ public class LvlManger : MonoBehaviour
         profileBackBtn.onClick.AddListener(delegate () {
             mainMenu.SetActive(true);
             profileMenu.SetActive(false);
+            profileMenu.transform.Find("FunMode").GetChild(0).gameObject.SetActive(false);
+            profileMenu.transform.Find("FitnessMode").GetChild(0).gameObject.SetActive(false);
         });
+
+        if(DataBridge.instance.GetMode() == "Fun")
+        {
+            var activated = profileMenu.transform.Find("FunMode").GetChild(0).gameObject;
+            activated.SetActive(true);
+        }
+        if (DataBridge.instance.GetMode() == "Fitness")
+        {
+            var activated = profileMenu.transform.Find("FitnessMode").GetChild(0).gameObject;
+            activated.SetActive(true);
+        }
 
     }
 
