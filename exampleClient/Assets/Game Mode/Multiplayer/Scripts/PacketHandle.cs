@@ -154,7 +154,7 @@ public class PacketHandle : MonoBehaviour
     {
         int playerId = _packet.ReadInt();
         int steps = _packet.ReadInt();
-        GameManager.players[playerId].steps = steps;
+        GameManager.players[playerId].steps++;
     }
 
     public static void UpdatePlayerLaps(Packet _packet)
@@ -171,7 +171,9 @@ public class PacketHandle : MonoBehaviour
                 case "500 metros": totalLaps = Constants.fiveHundredmeterLaps; break;
             }
         }
+
         GameManager.players[playerId].lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
+        GameManager.players[playerId].laps = laps;
     }
 
     public static void UpdatePlayerPoints(Packet _packet)
