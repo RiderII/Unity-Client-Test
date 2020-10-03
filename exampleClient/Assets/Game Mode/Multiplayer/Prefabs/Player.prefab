@@ -3082,6 +3082,7 @@ MonoBehaviour:
   UIpanel: {fileID: 5833834455136019454, guid: f1b00937be053454b9b99111fda66ba4, type: 3}
   playerCanvas: {fileID: 5416532546991301450}
   userNameText: {fileID: 6514610339820553420}
+  lapsFrame: {fileID: 0}
   playerPlacement: 
   one: {fileID: 21300000, guid: e4bdb283db041ba4ea3edd57c670e174, type: 3}
   two: {fileID: 21300000, guid: 558156d45a8417947a52331ca4e61fea, type: 3}
@@ -3091,14 +3092,19 @@ MonoBehaviour:
   placement: 0
   username: 
   email: test@test.com
+  points: 0
+  steps: 0
+  laps: 1
   collisions: 0
-  traveled_kilometers: 0
+  traveled_meters: 0
   burned_calories: 0
+  weight: 90
+  playerSpeed: 0
   totalGameTime: 0
-  totalScore: 0
   league: amateur
   finishedGame: 0
   reloadRequestSent: 0
+  finalTime: 0
   bikeBrake: {fileID: 0}
   bikeBrakecollision: {fileID: 0}
   raceResults: {fileID: 446121229414519418}
