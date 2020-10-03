@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
-    public static GameObject lapsFrame;
+    public GameObject lapsFrame;
     GameObject[] playerLayers = new GameObject[4];
     public List<int> playerPlacement = new List<int>();
     
@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     public string email = "test@test.com";
     public int points = 0;
     public int steps;
+    public int laps = 1;
     public int collisions;
     public float traveled_meters = 0f;
     public float burned_calories = 0f;
@@ -82,8 +83,8 @@ public class PlayerManager : MonoBehaviour
         {
             switch (Client.instance.levelSelected)
             {
-                case "200 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.twoHundredmeterLaps.ToString(); break;
-                case "500 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + 1 + " / " + Constants.fiveHundredmeterLaps.ToString(); break;
+                case "200 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps + " / " + Constants.twoHundredmeterLaps.ToString(); break;
+                case "500 metros": lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps + " / " + Constants.fiveHundredmeterLaps.ToString(); break;
             }
         }
         else
@@ -143,9 +144,9 @@ public class PlayerManager : MonoBehaviour
         {
             if (!playerPlacement.Contains(player.id))
             {
-                if (player.steps > bestPlacement)
-                {
-                    bestPlacement = player.steps;
+                if (player.steps * player.laps > bestPlacement)
+                { 
+                    bestPlacement = player.steps * player.laps;
                     playerId = player.id;
                 }
             }

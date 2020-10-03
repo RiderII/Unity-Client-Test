@@ -51,8 +51,8 @@ public class PacketHandle : MonoBehaviour
 
     public static void PlayerPosition(Packet _packet)
     {
-        Client.instance.timeStamp = System.DateTime.Now.ToString("hh.mm.ss.ffff");
-        Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
+        //Client.instance.timeStamp = System.DateTime.Now.ToString("hh.mm.ss.ffff");
+        //Debug.Log(System.DateTime.Now.ToString("hh.mm.ss.ffff"));
 
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
@@ -154,7 +154,7 @@ public class PacketHandle : MonoBehaviour
     {
         int playerId = _packet.ReadInt();
         int steps = _packet.ReadInt();
-        GameManager.players[playerId].steps = steps;
+        GameManager.players[playerId].steps++;
     }
 
     public static void UpdatePlayerLaps(Packet _packet)
@@ -172,7 +172,8 @@ public class PacketHandle : MonoBehaviour
             }
         }
 
-        PlayerManager.lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
+        GameManager.players[playerId].lapsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Vuelta " + laps.ToString() + " / " + totalLaps.ToString();
+        GameManager.players[playerId].laps = laps;
     }
 
     public static void UpdatePlayerPoints(Packet _packet)
