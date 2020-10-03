@@ -42,28 +42,23 @@ public class ProfileManager : MonoBehaviour
     {
         if (DataBridge.instance.GetMode() != mode) //ver playerrefs
         {
+            DataBridge.instance.SaveUserPreferences(mode);
             confirmationPanel.SetActive(true);
-            yesBtn = confirmationPanel.transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Button>();
-            noBtn = confirmationPanel.transform.GetChild(0).transform.GetChild(2).gameObject.GetComponent<Button>();
-
-            noBtn.onClick.RemoveAllListeners();
-            yesBtn.onClick.RemoveAllListeners();
-            noBtn.onClick.AddListener(delegate ()
+            this.gameObject.transform.Find("FunMode").GetChild(0).gameObject.SetActive(false);
+            this.gameObject.transform.Find("FitnessMode").GetChild(0).gameObject.SetActive(false);
+            if (mode == "Fun")
             {
-                confirmationPanel.SetActive(false);
-            });
-            yesBtn.onClick.AddListener(delegate ()
+                var activated = this.gameObject.transform.Find("FunMode").GetChild(0).gameObject;
+                activated.SetActive(true);
+            }
+            if (mode == "Fitness")
             {
-                ChangeAssigment(mode);
-            });
+                var activated = this.gameObject.transform.Find("FitnessMode").GetChild(0).gameObject;
+                activated.SetActive(true);
+            }
         }
     }
 
-    public void ChangeAssigment(string mode)
-    {
-        DataBridge.instance.SaveUserPreferences(mode);
-        confirmationPanel.SetActive(false);
-    }
 
     public void EditBtnClick()
     {
