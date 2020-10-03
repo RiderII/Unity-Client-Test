@@ -130,6 +130,7 @@ public class TrainingManager : MonoBehaviour
         {
             displayInfoFrame.SetActive(true);
             gameOverTimer -= Time.deltaTime;
+            displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "¡Partida \nfinalizada!";
 
             if (gameOverTimer <= 0f)
             {

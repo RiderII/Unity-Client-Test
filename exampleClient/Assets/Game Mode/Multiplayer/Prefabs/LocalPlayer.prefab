@@ -6806,6 +6806,7 @@ MonoBehaviour:
   UIpanel: {fileID: 5833834455136019454, guid: f1b00937be053454b9b99111fda66ba4, type: 3}
   playerCanvas: {fileID: 6715007468585653648}
   userNameText: {fileID: 4669515377282426345}
+  lapsFrame: {fileID: 0}
   playerPlacement: 
   one: {fileID: 21300000, guid: e4bdb283db041ba4ea3edd57c670e174, type: 3}
   two: {fileID: 21300000, guid: 558156d45a8417947a52331ca4e61fea, type: 3}
@@ -6817,6 +6818,7 @@ MonoBehaviour:
   email: test@test.com
   points: 0
   steps: 0
+  laps: 1
   collisions: 0
   traveled_meters: 0
   burned_calories: 0
@@ -6827,8 +6829,8 @@ MonoBehaviour:
   finishedGame: 0
   reloadRequestSent: 0
   finalTime: 0
-  bikeBrake: {fileID: 0}
-  bikeBrakecollision: {fileID: 0}
+  bikeBrake: {fileID: 8300000, guid: afaa4e32f7b11cb44a70add48ff5b6a3, type: 3}
+  bikeBrakecollision: {fileID: 8300000, guid: 5e8f25e348a8b774fa340fe2ae8fb1b5, type: 3}
   raceResults: {fileID: 828378992556356843}
 --- !u!114 &6980308209783151137
 MonoBehaviour:

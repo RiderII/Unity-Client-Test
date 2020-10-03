@@ -289,7 +289,7 @@ public class PlayerManager : MonoBehaviour
             if (tag != "otherPlayer")
             {
                 displayInfoFrame.SetActive(true);
-                displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Game over! \nTú tiempo: " + Mathf.FloorToInt(finalTime);
+                displayInfoFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "¡Partida \nfinalizada!";
                 gameOverTimer -= Time.deltaTime;
                 if (gameOverTimer <= 0f)
                 {
