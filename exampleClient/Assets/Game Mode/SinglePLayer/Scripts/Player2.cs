@@ -27,7 +27,10 @@ public class Player2 : MonoBehaviour
     Vector3 oldPos;
     Vector3 oldPos2;
     public string lastglass;
+    public GameObject lastGlassRef;
     public Vector3 lastPosition;
+    public GameObject ptArrow;
+    public bool arrowActive = false;
 
     private float yVelocity = 0;
     public float gravity = -9.81f;
@@ -45,6 +48,7 @@ public class Player2 : MonoBehaviour
     public AudioClip scrapeSound;
     public AudioClip hitTree;
     public AudioClip pedaleoFaster;
+    public AudioClip checkPoint;
     public AudioSource audioBikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
@@ -52,6 +56,7 @@ public class Player2 : MonoBehaviour
     public AudioSource audioSourceScrapeSound;
     public AudioSource audioSourceHitTree;
     public AudioSource audioSourcePedaleoFaster;
+    public AudioSource audioSourceCheckPoint;
 
     //public AudioSource pedaleo;
 
@@ -77,6 +82,7 @@ public class Player2 : MonoBehaviour
         audioSourceScrapeSound = AddAudio(false, false, 1.0f);
         audioSourceHitTree = AddAudio(false, false, 1.0f);
         audioSourcePedaleoFaster = AddAudio(true, false, 1.0f);
+        audioSourceCheckPoint = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)

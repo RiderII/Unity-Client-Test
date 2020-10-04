@@ -17,6 +17,6 @@ public class ArrowAnimation : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.up, itemRotationSpeed * Time.deltaTime, Space.World);
-        transform.position = new Vector3(0f, Mathf.Sin(Time.time * itemBobSpeed), 0.25f);
+        transform.position = new Vector3(transform.position.x, Mathf.Sin(Time.time * itemBobSpeed), transform.position.z);
     }
 }

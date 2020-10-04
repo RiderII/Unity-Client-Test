@@ -6,6 +6,7 @@ public class ElementCollision : MonoBehaviour
 {
     public Player2 player;
     public GameObject FloatingTextPrefab;
+    public GameObject pointingArrow;
     private bool isColliding = false;
 
     public void Awake()
@@ -24,17 +25,31 @@ public class ElementCollision : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (tag == "NotRoad" && !player.arrowActive)
+            {
+                player.arrowActive = true;
+                ShowPointingArrow();
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             if (isColliding) return;
             Debug.Log("HITT!");
+
             isColliding = true;
             StartCoroutine(Reset());
 
             if (tag == "Tires")
             {
+                player.transform.position = player.transform.position + new Vector3(Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f));
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
                 ShowFloatingText();
@@ -51,7 +66,7 @@ public class ElementCollision : MonoBehaviour
             else if (tag == "Tree")
             {
                 player.audioSourceHitTree.clip = player.hitTree;
-                player.audioSourceHitTree.Play();           
+                player.audioSourceHitTree.Play();       
             }
 
             else if (tag == "RampUp" && Client.instance.gameModeSelected != "Multiplayer" && !SystemInfo.supportsGyroscope)
@@ -64,7 +79,7 @@ public class ElementCollision : MonoBehaviour
                 player.audioSourcePedaleoFaster.Play();
             }
 
-            if (tag != "RampUp" && tag != "RampDown")
+            if (tag != "RampUp" && tag != "RampDown" && tag != "NotRoad")
             {
                 player.audioSourcePedalo.volume *= 0.20f;
                 player.speed *= 0.80f;
@@ -96,6 +111,16 @@ public class ElementCollision : MonoBehaviour
             player.transform.position.y, player.transform.position.z), 
             player.transform.rotation, player.transform);
     }
+
+    void ShowPointingArrow()
+    {
+        player.ptArrow = Instantiate(pointingArrow, new Vector3(player.lastPosition.x,
+        -4f, player.lastPosition.z),
+        Quaternion.identity);
+
+        player.lastGlassRef.GetComponent<MeshRenderer>().enabled = true;
+    }
+
 
     void DecreasePoints()
     {

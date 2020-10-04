@@ -14,6 +14,12 @@ TagManager:
   - firstStep
   - otherPlayer
   - Cow
+  - Rock
+  - Tree
+  - Road
+  - Obstacle
+  - Text
+  - NotRoad
   layers:
   - Default
   - TransparentFX
