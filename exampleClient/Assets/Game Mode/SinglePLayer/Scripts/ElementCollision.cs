@@ -49,7 +49,7 @@ public class ElementCollision : MonoBehaviour
 
             if (tag == "Tires")
             {
-                player.transform.position = player.transform.position + new Vector3(Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f));
+                //player.transform.position = player.transform.position + new Vector3(Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f), Mathf.Sin(Time.time * 2f));
                 player.audioSourceRubbleCrash.clip = player.rubbleCrash;
                 player.audioSourceRubbleCrash.Play();
                 ShowFloatingText();
