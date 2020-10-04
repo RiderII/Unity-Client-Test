@@ -238,7 +238,14 @@ public class PacketHandle : MonoBehaviour
         bool state = _packet.ReadBool();
 
         GameManager.players[Client.instance.myId].alert.SetActive(state);
-        GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        if (state)
+        {
+            GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        }
+        else
+        {
+            GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Estás avanzando en sentido contrario";
+        }
     }
 
     public static void DeletePointingArrow(Packet _packet)
@@ -246,6 +253,7 @@ public class PacketHandle : MonoBehaviour
         int id = _packet.ReadInt();
         GameManager.players[Client.instance.myId].DeletePoitingArrow();
     }
+
 
     public static void ActivateAlert(Packet _packet)
     {
