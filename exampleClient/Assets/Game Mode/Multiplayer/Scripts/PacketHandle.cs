@@ -218,4 +218,40 @@ public class PacketHandle : MonoBehaviour
         GameManager.players[_id].playBrake(_speed);
         GameManager.players[_id].finishedGame = true;
     }
+
+    public static void ActivatePointingArrowAndSendMessage(Packet _packet)
+    {
+        int id = _packet.ReadInt();
+        Vector3 lastGlassPosition = _packet.ReadVector3();
+        Quaternion lastGlassRotation = _packet.readQuaternion();
+        string message = _packet.ReadString();
+
+        GameManager.players[Client.instance.myId].InstantiatePoitingArrow(lastGlassPosition, lastGlassRotation);
+        GameManager.players[Client.instance.myId].alert.SetActive(true);
+        GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+    }
+
+    public static void ShowAlertWithMessage(Packet _packet)
+    {
+        int id = _packet.ReadInt();
+        string message = _packet.ReadString();
+        bool state = _packet.ReadBool();
+
+        GameManager.players[Client.instance.myId].alert.SetActive(state);
+        GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+    }
+
+    public static void DeletePointingArrow(Packet _packet)
+    {
+        int id = _packet.ReadInt();
+        GameManager.players[Client.instance.myId].DeletePoitingArrow();
+    }
+
+    public static void ActivateAlert(Packet _packet)
+    {
+        int id = _packet.ReadInt();
+        bool state = _packet.ReadBool();
+
+        GameManager.players[Client.instance.myId].alert.SetActive(state);
+    }
 }

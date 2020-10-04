@@ -26,9 +26,7 @@ public class Player2 : MonoBehaviour
     public float framesPerSecond = 0f;
     Vector3 oldPos;
     Vector3 oldPos2;
-    public string lastglass;
     public GameObject lastGlassRef;
-    public Vector3 lastPosition;
     public GameObject ptArrow;
     public bool arrowActive = false;
 
