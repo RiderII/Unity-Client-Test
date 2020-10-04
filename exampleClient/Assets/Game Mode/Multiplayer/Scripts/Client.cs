@@ -321,7 +321,11 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.updatePlayerLaps, PacketHandle.UpdatePlayerLaps },
             { (int)ServerPackets.updatePlayerPoints, PacketHandle.UpdatePlayerPoints },
             { (int)ServerPackets.assignMiddlewareToUser, PacketHandle.AssignMiddleware },
-            { (int)ServerPackets.playerHandleRotation, PacketHandle.HandleRotation }
+            { (int)ServerPackets.playerHandleRotation, PacketHandle.HandleRotation },
+            { (int)ServerPackets.activatePointingArrowAndSendMessage, PacketHandle.ActivatePointingArrowAndSendMessage },
+            { (int)ServerPackets.showAlertWithMessage, PacketHandle.ShowAlertWithMessage },
+            { (int)ServerPackets.deletePointingArrow, PacketHandle.DeletePointingArrow },
+            { (int)ServerPackets.activateAlert, PacketHandle.ActivateAlert }
         };
         Debug.Log("Initialized packets!");
     }

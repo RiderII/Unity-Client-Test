@@ -18,7 +18,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject lapsFrame;
     GameObject[] playerLayers = new GameObject[4];
     public List<int> playerPlacement = new List<int>();
-    
+    public GameObject pointingArrow;
+    public GameObject glass;
+    public GameObject alert;
 
     public Sprite one;
     public Sprite two;
@@ -48,6 +50,8 @@ public class PlayerManager : MonoBehaviour
     Vector3 oldPos;
     Vector3 initialPos;
     Vector3 previousPos;
+    public GameObject lastGlassRef;
+    public GameObject ptArrow;
 
     private float gameOverTimer = 3f;
 
@@ -57,8 +61,10 @@ public class PlayerManager : MonoBehaviour
 
     public AudioClip bikeBrake;
     public AudioClip bikeBrakecollision;
+    public AudioClip checkPoint;
     public static AudioSource audioBikeBrake;
     public static AudioSource audioBikeBrakeCollision;
+    public AudioSource audioSourceCheckPoint;
 
     [SerializeField] private GameObject raceResults;
 
@@ -104,6 +110,7 @@ public class PlayerManager : MonoBehaviour
 
         audioBikeBrake = AddAudio(false, false, 0f);
         audioBikeBrakeCollision = AddAudio(true, false, 1f);
+        audioSourceCheckPoint = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -366,5 +373,24 @@ public class PlayerManager : MonoBehaviour
         Time.timeScale = 1;
         raceResults.SetActive(true);
         //Disable scripts that still work while timescale is set to 0
+    }
+
+    public void InstantiatePoitingArrow(Vector3 lastGlassPosition, Quaternion lastGlassRotation)
+    {
+        ptArrow = Instantiate(pointingArrow, new Vector3(lastGlassPosition.x,
+        -8f, lastGlassPosition.z),
+        Quaternion.identity);
+
+        lastGlassRef = Instantiate(glass, new Vector3(lastGlassPosition.x,
+        lastGlassPosition.y, lastGlassPosition.z),
+        lastGlassRotation);
+    }
+
+    public void DeletePoitingArrow()
+    {
+        audioSourceCheckPoint.clip = checkPoint;
+        audioSourceCheckPoint.Play();
+        Destroy(ptArrow);
+        Destroy(lastGlassRef);
     }
 }

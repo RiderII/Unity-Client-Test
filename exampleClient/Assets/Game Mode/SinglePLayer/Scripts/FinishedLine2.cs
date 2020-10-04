@@ -40,40 +40,27 @@ public class FinishedLine2 : MonoBehaviour
         {
             if (player.steps.Contains(this.name))
             {
-                if (player.ptArrow && player.ptArrow.transform.position.x == transform.position.x &&
-                    player.ptArrow.transform.position.z == transform.position.z)
+                EraseArrou();
+                if (int.Parse(player.lastGlassRef.name) > int.Parse(this.name))
                 {
-                    player.arrowActive = false;
-                    this.gameObject.GetComponent<MeshRenderer>().enabled = false;
-                    player.audioSourceCheckPoint.clip = player.checkPoint;
-                    player.audioSourceCheckPoint.Play();
-                    Destroy(player.ptArrow);
-                }
-                if (int.Parse(player.lastglass) > int.Parse(this.name))
-                {
-                    player.lastglass = this.name;
                     player.lastGlassRef = gameObject;
-                    player.lastPosition = transform.position;
                     alert.SetActive(true);
                 }
                 else
                 {
-                    player.lastglass = this.name;
                     player.lastGlassRef = gameObject;
-                    player.lastPosition = transform.position;
                     alert.SetActive(false);
                 }
             }
             if (!player.steps.Contains(this.name))
             {
-                player.lastglass = this.name;
+                EraseArrou();
                 player.lastGlassRef = gameObject;
-                player.lastPosition = transform.position;
                 alert.SetActive(false);
             }
             if (!player.steps.Contains(this.name) && (player.steps.Count + 1).ToString() == this.name)
             {
-                player.lastPosition = transform.position;
+                player.lastGlassRef = gameObject;
                 player.steps.Add(this.name);
             }
             if (player.steps.Count == 86 && SceneManager.GetActiveScene().name == "200 metros")
@@ -109,6 +96,19 @@ public class FinishedLine2 : MonoBehaviour
                     player.steps.Clear();
                 }
             }
+        }
+    }
+
+    private void EraseArrou()
+    {
+        if (player.ptArrow && player.ptArrow.transform.position.x == transform.position.x &&
+                    player.ptArrow.transform.position.z == transform.position.z)
+        {
+            player.arrowActive = false;
+            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            player.audioSourceCheckPoint.clip = player.checkPoint;
+            player.audioSourceCheckPoint.Play();
+            Destroy(player.ptArrow);
         }
     }
 }

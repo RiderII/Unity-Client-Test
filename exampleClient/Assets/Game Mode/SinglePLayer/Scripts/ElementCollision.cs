@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ElementCollision : MonoBehaviour
@@ -7,11 +8,12 @@ public class ElementCollision : MonoBehaviour
     public Player2 player;
     public GameObject FloatingTextPrefab;
     public GameObject pointingArrow;
+    public static GameObject alert;
     private bool isColliding = false;
 
     public void Awake()
     {
-        if ((Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope) && tag != "RampUp" && tag != "RampDown")
+        if ((Client.instance.gameModeSelected == "Multiplayer" || SystemInfo.supportsGyroscope) && tag != "RampUp" && tag != "RampDown" && tag != "NotRoad")
         {
             gameObject.SetActive(false);
         }
@@ -27,14 +29,49 @@ public class ElementCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (Client.instance.gameModeSelected != "Multiplayer")
         {
-            if (tag == "NotRoad" && !player.arrowActive)
+            if (collision.gameObject.tag == "Player")
             {
-                player.arrowActive = true;
-                ShowPointingArrow();
+                if (tag == "NotRoad" && !player.arrowActive)
+                {
+                    alert.SetActive(true);
+                    alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Regresa a la pista";
+                    player.arrowActive = true;
+                    ShowPointingArrow();
+                }
             }
         }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (Client.instance.gameModeSelected != "Multiplayer")
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                if (tag == "NotRoad")
+                {
+                    alert.SetActive(true);
+                    alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Regresa a la pista";
+                }
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (Client.instance.gameModeSelected != "Multiplayer")
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                if (tag == "NotRoad")
+                {
+                    alert.SetActive(false);
+                    alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Estás avanzando en sentido contrario";
+                }
+            }
+        }  
     }
 
     private void OnTriggerEnter(Collider other)
@@ -114,8 +151,8 @@ public class ElementCollision : MonoBehaviour
 
     void ShowPointingArrow()
     {
-        player.ptArrow = Instantiate(pointingArrow, new Vector3(player.lastPosition.x,
-        -4f, player.lastPosition.z),
+        player.ptArrow = Instantiate(pointingArrow, new Vector3(player.lastGlassRef.transform.position.x,
+        -8f, player.lastGlassRef.transform.position.z),
         Quaternion.identity);
 
         player.lastGlassRef.GetComponent<MeshRenderer>().enabled = true;
