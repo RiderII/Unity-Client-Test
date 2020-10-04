@@ -120,9 +120,9 @@ public class ProfileManager : MonoBehaviour
             TextMeshProUGUI distance = row.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
 
             title.text = r.datetime;
-            calorias.text = $"{r.burned_calories}";
-            time.text = $"{r.totalGameTime} s";
-            distance.text = $"{r.traveled_kilometers} m";
+            calorias.text = r.burned_calories.ToString("f2");
+            time.text = r.totalGameTime.ToString("f2") + " s";
+            distance.text = r.traveled_kilometers.ToString("f2") +" m";
 
         }
     }
