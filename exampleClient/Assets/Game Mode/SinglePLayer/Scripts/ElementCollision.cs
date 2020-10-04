@@ -8,7 +8,7 @@ public class ElementCollision : MonoBehaviour
     public Player2 player;
     public GameObject FloatingTextPrefab;
     public GameObject pointingArrow;
-    public static GameObject alert;
+    public GameObject alert;
     private bool isColliding = false;
 
     public void Awake()
