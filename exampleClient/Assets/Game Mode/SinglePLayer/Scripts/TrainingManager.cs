@@ -21,6 +21,7 @@ public class TrainingManager : MonoBehaviour
     private GameObject lapsFrame;
     public GameObject finishLine;
     private GyroManager gyroInstance;
+    public GameObject alert;
 
     // for race results
     private GameObject playersFrameResult;
@@ -109,6 +110,7 @@ public class TrainingManager : MonoBehaviour
 
             if (player.transform.position.z - previousPos.z > 0f)
             {
+                alert.SetActive(false);
                 float distancePoints = (player.transform.position.z - initialPos.z);
                 previousPos = player.transform.position;
                 if (distancePoints >= 50f)
@@ -117,6 +119,12 @@ public class TrainingManager : MonoBehaviour
                     distanceTimer = 0f;
                     initialPos = player.transform.position;
                 }
+            }   
+
+            if (player.transform.position.z - previousPos.z < 0f)
+            {
+                alert.SetActive(true);
+                previousPos = player.transform.position;
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;

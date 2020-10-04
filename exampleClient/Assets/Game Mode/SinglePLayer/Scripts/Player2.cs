@@ -26,6 +26,8 @@ public class Player2 : MonoBehaviour
     public float framesPerSecond = 0f;
     Vector3 oldPos;
     Vector3 oldPos2;
+    public string lastglass;
+    public Vector3 lastPosition;
 
     private float yVelocity = 0;
     public float gravity = -9.81f;

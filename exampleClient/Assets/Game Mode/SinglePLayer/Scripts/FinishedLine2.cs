@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class FinishedLine2 : MonoBehaviour
 {
     public Player2 player;
     private int laps = 1;
     private int lapsDone = 0;
+    public GameObject alert;
 
     private void Awake()
     {
@@ -36,6 +38,27 @@ public class FinishedLine2 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if (player.steps.Contains(this.name))
+            {
+                if (int.Parse(player.lastglass) > int.Parse(this.name))
+                {
+                    player.lastglass = this.name;
+                    player.lastPosition = transform.position;
+                    alert.SetActive(true);
+                }
+                else
+                {
+                    player.lastglass = this.name;
+                    player.lastPosition = transform.position;
+                    alert.SetActive(false);
+                }
+            }
+            if (!player.steps.Contains(this.name))
+            {
+                player.lastglass = this.name;
+                player.lastPosition = transform.position;
+                alert.SetActive(false);
+            }
             if (!player.steps.Contains(this.name) && (player.steps.Count + 1).ToString() == this.name)
             {
                 player.steps.Add(this.name);
