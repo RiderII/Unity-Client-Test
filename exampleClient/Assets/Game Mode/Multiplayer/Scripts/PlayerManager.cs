@@ -254,17 +254,6 @@ public class PlayerManager : MonoBehaviour
             {
                 setPlayersPlacement(1, 0);
                 playerPlacement.Clear();
-                if (transform.position.z - previousPos.z > 0f)
-                {
-                    float distancePoints = (transform.position.z - initialPos.z);
-                    previousPos = transform.position;
-                    if (distancePoints >= 30f)
-                    {
-                        points += Utils.CalculatePoints(distanceTimer);
-                        distanceTimer = 0f;
-                        initialPos = transform.position;
-                    }
-                }
             }
             else
             {

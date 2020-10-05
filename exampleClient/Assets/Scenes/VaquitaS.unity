@@ -2222,8 +2222,10 @@ MonoBehaviour:
   playPedaleo: 0
   vaquitamu: {fileID: 8300000, guid: 6ec64567b245fcc41af83b296221885f, type: 3}
   pedaleo: {fileID: 8300000, guid: 863f0f83dcf850c45a016aeabcecb1ba, type: 3}
+  bikeBrake: {fileID: 8300000, guid: afaa4e32f7b11cb44a70add48ff5b6a3, type: 3}
   audioSourceVaquita: {fileID: 0}
   audioSourcePedalo: {fileID: 0}
+  audioBikeBrake: {fileID: 0}
   pausePanel: {fileID: 861166094}
 --- !u!1 &551302095
 GameObject:
