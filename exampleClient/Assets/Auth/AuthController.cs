@@ -24,6 +24,10 @@ public class AuthController : MonoBehaviour
     public TMP_InputField pwdLogin;
 
     public GameObject backdrop;
+    public GameObject register;
+    public GameObject fbButton;
+    public GameObject toLogButton;
+    public GameObject toregisterbutton;
 
     private Dictionary<string, int> intentosFallidos = new Dictionary<string, int>();
 
@@ -92,6 +96,11 @@ public class AuthController : MonoBehaviour
     }
     public void Update()
     {
+        if (isNewUser)
+        {
+            RegisteredSuccess();
+            isNewUser = false;
+        }
         if (logged)
         {
             LoggedSuccess();
@@ -134,9 +143,19 @@ public class AuthController : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     Firebase.Auth.FirebaseUser newUser = task.Result;
-                    Debug.LogFormat("User signed in successfully: {0} ({1})",
-                        newUser.DisplayName, newUser.UserId);
-                    logged = true;
+                    if (newUser.IsEmailVerified)
+                    {
+                        Debug.LogFormat("User signed in successfully: {0} ({1})",
+                         newUser.DisplayName, newUser.UserId);
+                        logged = true;
+                    }
+                    else
+                    {
+                        error = true;
+                        //usamos un error no recurrente para los usuarios no verificados
+                        errorType = AuthError.UserTokenExpired;
+                    }
+                   
                 }
             }));  
     }
@@ -172,7 +191,7 @@ public class AuthController : MonoBehaviour
 
     public void RegisterUser() {
         FirebaseAuth.DefaultInstance.CreateUserWithEmailAndPasswordAsync(emailRegister.text, pwdRegister.text)
-            .ContinueWith((task =>
+            .ContinueWith(async task =>
             {
                 if (task.IsCanceled)
                 {
@@ -195,12 +214,12 @@ public class AuthController : MonoBehaviour
                 if (task.IsCompleted)
                 {
                     Firebase.Auth.FirebaseUser newUser = task.Result;
+                    await newUser.SendEmailVerificationAsync();
                     Debug.LogFormat("Firebase user created successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
                     isNewUser = true;
-                    logged = true;
                 }
-            }));
+            });
     }
 
     void GetErrorMessage(AuthError errorCode)
@@ -258,6 +277,9 @@ public class AuthController : MonoBehaviour
             case AuthError.WeakPassword:
                 msg = "La contraseña debe tener 6 carácteres como mínimo.";
                 break;
+            case AuthError.UserTokenExpired:
+                msg = "No se ha verificado el usuario. Revise el correo de confirmación";
+                break;
         }
 
         backdrop.SetActive(true);
@@ -265,22 +287,25 @@ public class AuthController : MonoBehaviour
         message.text = msg;
 
     }
+    public void RegisteredSuccess()
+    {
+        string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+        User newuser = new User(userid, usernameField.text, emailRegister.text);
+        DataBridge.instance.SaveNewUser(newuser);
+        register.SetActive(false);
+        fbButton.SetActive(true);
+        toLogButton.SetActive(true);
+        backdrop.SetActive(true);
+        TextMeshProUGUI message = backdrop.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        message.text = "Usuario registrado correctamente. Revise su bandeja de correo y haga click en el correo de confirmación";
 
+        toregisterbutton.SetActive(true);
+    }
     public void LoggedSuccess()
     {
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
-        if (isNewUser)
-        {
-            User newuser = new User(userid, usernameField.text, emailRegister.text);
-            DataBridge.instance.SaveNewUser(newuser);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-        }
-        else
-        {
-            DataBridge.instance.LoadUser(userid);
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
-        }
-        print(userid);
+        DataBridge.instance.LoadUser(userid);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
     }
     private void FbLoggedSuccess()
     {

@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/200 metros.unity
     guid: 447962233a31b7744b3d99b27b0d9cba
   - enabled: 1
+    path: Assets/Scenes/Vaquita.unity
+    guid: 973e92629f62fa74ca9acfb22857c50c
+  - enabled: 1
     path: Assets/Scenes/Levels/500 metros.unity
     guid: ba8e4ae031f389e44bd2bd56125c81b3
   - enabled: 1
