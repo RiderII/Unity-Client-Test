@@ -599,7 +599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &329896395
 RectTransform:
   m_ObjectHideFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &402878045
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2830,7 +2830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1220122501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4669,7 +4669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1757032820
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4729,6 +4729,10 @@ MonoBehaviour:
   emailLogin: {fileID: 438133159}
   pwdLogin: {fileID: 1694498852}
   backdrop: {fileID: 7402171086363110004}
+  register: {fileID: 1757032819}
+  fbButton: {fileID: 402878044}
+  toLogButton: {fileID: 1220122500}
+  toregisterbutton: {fileID: 329896394}
 --- !u!4 &1791941862
 Transform:
   m_ObjectHideFlags: 0
