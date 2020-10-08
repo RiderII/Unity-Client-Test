@@ -33,8 +33,10 @@ public class Player : MonoBehaviour
     public bool playPedaleo = false;
     public AudioClip vaquitamu;
     public AudioClip pedaleo;
+    public AudioClip bikeBrake;
     public AudioSource audioSourceVaquita;
     public AudioSource audioSourcePedalo;
+    public AudioSource audioBikeBrake;
     //public AudioSource pedaleo;
 
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class Player : MonoBehaviour
         pausePanel.SetActive(false);
         audioSourceVaquita = AddAudio(false, false, 1.0f);
         audioSourcePedalo = AddAudio(true, false, 0.1f);
+        audioBikeBrake = AddAudio(false, false, 1.0f);
     }
 
     public AudioSource AddAudio(bool loop, bool playAwake, float vol)
@@ -153,8 +156,24 @@ public class Player : MonoBehaviour
 
         if (reachedFinishLine && acceleration > 0)
         {
-            acceleration *= -1;
+            if (speed > 7)
+            {
+                acceleration *= -5;
+            }
+            else if (speed > 5)
+            {
+                acceleration *= -3;
+            }
+            else
+            {
+                acceleration *= -1;
+
+            }
+
             playPedaleo = false;
+            audioBikeBrake.clip = bikeBrake;
+            audioBikeBrake.volume = speed;
+            audioBikeBrake.Play();
         }
 
         // Make player stay inside a certain area
