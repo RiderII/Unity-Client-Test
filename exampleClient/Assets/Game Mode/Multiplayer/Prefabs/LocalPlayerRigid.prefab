@@ -3431,6 +3431,7 @@ MonoBehaviour:
   weight: 90
   playerSpeed: 0
   totalGameTime: 0
+  lastYRotation: 0
   league: amateur
   finishedGame: 0
   reloadRequestSent: 0
