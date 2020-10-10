@@ -10,6 +10,7 @@ public class CameraMouse2 : MonoBehaviour
     public float clamAngle = 45f;
     private float verticalRotation;
     private float horizontalRotation;
+    private float rightSpan = 0f;
 
     private void Awake()
     {
@@ -49,7 +50,12 @@ public class CameraMouse2 : MonoBehaviour
 
                 verticalRotation = Mathf.Clamp(verticalRotation, -clamAngle, clamAngle);
 
-                transform.rotation = Quaternion.Euler(transform.rotation.x, horizontalRotation + 110f, transform.rotation.z);
+                if (GameManager.instance.sceneName == "4.6 kilómetros")
+                {
+                    rightSpan = 110f;
+                }
+
+                transform.rotation = Quaternion.Euler(transform.rotation.x, horizontalRotation + 110f - rightSpan, transform.rotation.z);
                 player.transform.localRotation = Quaternion.Euler(verticalRotation, transform.rotation.y, transform.rotation.z);
             }
         }
