@@ -33,7 +33,7 @@ public class ElementCollision : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
-                if (tag == "NotRoad" && !player.arrowActive)
+                if (tag == "NotRoad" && !player.arrowActive && !player.reachedFinishLine)
                 {
                     alert.SetActive(true);
                     alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Regresa a la pista";
@@ -50,7 +50,7 @@ public class ElementCollision : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
-                if (tag == "NotRoad")
+                if (tag == "NotRoad" && !player.reachedFinishLine)
                 {
                     alert.SetActive(true);
                     alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Regresa a la pista";
@@ -65,7 +65,7 @@ public class ElementCollision : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
-                if (tag == "NotRoad")
+                if (tag == "NotRoad" && !player.reachedFinishLine)
                 {
                     alert.SetActive(false);
                     alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Estás avanzando en sentido contrario";
