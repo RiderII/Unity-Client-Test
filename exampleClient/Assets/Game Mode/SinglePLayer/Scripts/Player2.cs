@@ -106,17 +106,17 @@ public class Player2 : MonoBehaviour
         //}
 
         //pause event
-        if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            if (!pausePanel.activeInHierarchy)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ContinueGame();
-            }
-        }
+        //if (Input.GetKeyUp(KeyCode.Escape))
+        //{
+        //    if (!pausePanel.activeInHierarchy)
+        //    {
+        //        PauseGame();
+        //    }
+        //    else
+        //    {
+        //        ContinueGame();
+        //    }
+        //}
 
         // Acceleration logic
 
