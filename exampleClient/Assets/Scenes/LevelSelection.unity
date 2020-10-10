@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 84281a357c68e5045b675191870fa22f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 920a2bc8abd0d5846b5531e44f9d027f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3514,7 +3514,7 @@ MonoBehaviour:
     mejorar tu marca.
 
 
-    vueltas: 3
+    vueltas: 2
 
     amplitud: 500 metros'
 --- !u!222 &1871179248
@@ -3685,8 +3685,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1624576077}
   m_HandleRect: {fileID: 1624576076}
   m_Direction: 0
-  m_Value: 0.49999997
-  m_Size: 0.3287851
+  m_Value: 0.50000006
+  m_Size: 0.32878512
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3918,13 +3918,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Recorre un circuito cerrado y aprovecha la velocidad de una rampa para
-    mejorar tu marca.
-
-
-    vueltas: 3
-
-    amplitud: 500 metros'
+  m_Text: "Recorre un circuito abierto con pendientes escarpadas. \xBFResistir\xE1s
+    este desaf\xEDo? \n\namplitud: 4.6 kil\xF3metros"
 --- !u!222 &2093400275
 CanvasRenderer:
   m_ObjectHideFlags: 0
