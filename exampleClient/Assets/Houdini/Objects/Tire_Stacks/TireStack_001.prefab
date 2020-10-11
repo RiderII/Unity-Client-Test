@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1905646937148573688}
   - component: {fileID: 3145485677583583391}
   - component: {fileID: 7004643870773987109}
+  - component: {fileID: 1638595415049161452}
   m_Layer: 0
   m_Name: TireStack_001
   m_TagString: Untagged
@@ -76,4 +77,18 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4630798663835790270}
+  m_Mesh: {fileID: 4300000, guid: 235b367bab0ef684cb5fd129e342a907, type: 2}
+--- !u!64 &1638595415049161452
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4630798663835790270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 235b367bab0ef684cb5fd129e342a907, type: 2}
