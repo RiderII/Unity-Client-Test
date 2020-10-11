@@ -210,6 +210,28 @@ public class PacketHandle : MonoBehaviour
         }
     }
 
+    public static void ObstacleSpawned2(Packet _packet)
+    {
+        int gameobjectId = _packet.ReadInt();
+        Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.readQuaternion();
+        string obstacleType = _packet.ReadString();
+
+        GameManager.instance.SpawnObstacle2(gameobjectId, _position, _rotation, obstacleType);
+    }
+
+    public static void ObstacleMovement(Packet _packet)
+    {
+        int gameobjectId = _packet.ReadInt();
+        Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.readQuaternion();
+
+        if (GameManager.instance)
+        {
+            GameManager.instance.SpawnObstacle2(gameobjectId, _position, _rotation);
+        }
+    }
+
     public static void PlayerFinishedGame(Packet _packet)
     {
         int _id = _packet.ReadInt();

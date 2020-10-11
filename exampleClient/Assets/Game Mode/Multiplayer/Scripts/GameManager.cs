@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     // store all players info in the client side.
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, GameObject> obstacleStack = new Dictionary<int, GameObject>();
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefabRigid;
     public GameObject obstaclePrefab;
     public GameObject floatingTextPrefab;
+    public GameObject conePrefab;
+    public GameObject rockPrefab;
+    public GameObject tirePrefab;
     public string sceneName;
 
     public void Awake()
@@ -73,6 +77,27 @@ public class GameManager : MonoBehaviour
         if (sceneName != "200 metros" && sceneName != "500 metros")
         {
             Instantiate(obstaclePrefab, _position, obstaclePrefab.transform.rotation);
+        }
+    }
+
+    public void SpawnObstacle2(int _id, Vector3 _position, Quaternion _rotation, string obstacleType = null)
+    {
+        if (!obstacleStack.ContainsKey(_id) && obstacleType != null)
+        {
+            GameObject stack = null;
+            switch (obstacleType)
+            {
+                case "cone": stack = Instantiate(conePrefab, _position, _rotation); break;
+                case "rock": stack = Instantiate(rockPrefab, _position, _rotation); break;
+                case "tire": stack = Instantiate(tirePrefab, _position, _rotation); break;
+            }
+
+            obstacleStack.Add(_id, stack);
+        }
+        else if (obstacleStack.ContainsKey(_id))
+        {
+            obstacleStack[_id].transform.position = _position;
+            obstacleStack[_id].transform.rotation = _rotation;
         }
     }
 

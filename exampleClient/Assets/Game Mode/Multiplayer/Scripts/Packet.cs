@@ -31,7 +31,9 @@ public enum ServerPackets
     activatePointingArrowAndSendMessage,
     showAlertWithMessage,
     deletePointingArrow,
-    activateAlert
+    activateAlert,
+    obstacleSpawned2,
+    obstacleMovement
 }
 
 

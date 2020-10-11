@@ -60,7 +60,17 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        for (int i = 1; i < GameManager.obstacleStack.Count; i++)
+        {
+            if (GameManager.obstacleStack.ContainsKey(i))
+            {
+                Destroy(GameManager.obstacleStack[i].gameObject);
+
+            }
+        }
+
         GameManager.players.Clear();
+        GameManager.obstacleStack.Clear();
 
         Client.instance.Disconnect();
 

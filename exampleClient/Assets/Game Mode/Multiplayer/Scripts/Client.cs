@@ -325,7 +325,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.activatePointingArrowAndSendMessage, PacketHandle.ActivatePointingArrowAndSendMessage },
             { (int)ServerPackets.showAlertWithMessage, PacketHandle.ShowAlertWithMessage },
             { (int)ServerPackets.deletePointingArrow, PacketHandle.DeletePointingArrow },
-            { (int)ServerPackets.activateAlert, PacketHandle.ActivateAlert }
+            { (int)ServerPackets.activateAlert, PacketHandle.ActivateAlert },
+            { (int)ServerPackets.obstacleSpawned2, PacketHandle.ObstacleSpawned2 },
+            { (int)ServerPackets.obstacleMovement, PacketHandle.ObstacleMovement }
         };
         Debug.Log("Initialized packets!");
     }
