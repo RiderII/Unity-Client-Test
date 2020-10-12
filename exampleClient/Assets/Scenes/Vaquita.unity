@@ -151,6 +151,9 @@ MonoBehaviour:
     type: 3}
   floatingTextPrefab: {fileID: 6350158981543189537, guid: 556594eab8146444b895c3362d3dab1d,
     type: 3}
+  conePrefab: {fileID: 0}
+  rockPrefab: {fileID: 0}
+  tirePrefab: {fileID: 0}
   sceneName: 
 --- !u!4 &10714616
 Transform:

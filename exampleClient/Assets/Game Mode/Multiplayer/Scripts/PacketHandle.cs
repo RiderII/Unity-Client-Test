@@ -154,7 +154,10 @@ public class PacketHandle : MonoBehaviour
     {
         int playerId = _packet.ReadInt();
         int steps = _packet.ReadInt();
-        GameManager.players[playerId].steps++;
+        if (GameManager.players.ContainsKey(playerId))
+        {
+            GameManager.players[playerId].steps++;
+        } 
     }
 
     public static void UpdatePlayerLaps(Packet _packet)
@@ -180,7 +183,10 @@ public class PacketHandle : MonoBehaviour
     {
         int playerId = _packet.ReadInt();
         int points = _packet.ReadInt();
-        GameManager.players[playerId].points = points;
+        if(GameManager.players.ContainsKey(playerId))
+        {
+            GameManager.players[playerId].points = points;
+        }
     }
 
     public static void PlayerCollidedWithOtherPlayer(Packet _packet)
