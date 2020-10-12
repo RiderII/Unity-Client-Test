@@ -19,12 +19,21 @@ public class PacketSend : MonoBehaviour
     #region Packets
     public static void RequestEnterLobbby()
     {
+        string levelSelected;
+        if (Client.instance.levelSelected == "4.6 kilómetros")
+        {
+            levelSelected = "4.6 kilometros";
+        }
+        else
+        {
+            levelSelected = Client.instance.levelSelected;
+        }
         using (Packet _packet = new Packet((int)ClientPackets.requestEnteredLobby))
         {
             _packet.Write(Client.instance.myId); //the server can confirm that the client claimed the correct Id.
             _packet.Write(Client.instance.userName);
             _packet.Write(Client.instance.league);
-            _packet.Write(Client.instance.levelSelected);
+            _packet.Write(levelSelected);
 
             SendTCPData(_packet);
         }

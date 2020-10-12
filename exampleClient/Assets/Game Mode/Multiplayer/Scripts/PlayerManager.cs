@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
     Vector3 oldPos;
     Vector3 initialPos;
     Vector3 previousPos;
+    Vector3 finishLinePos = new Vector3(478.05f, -4.65f, 430.3f);
     public GameObject lastGlassRef;
     public GameObject ptArrow;
 
@@ -141,6 +142,48 @@ public class PlayerManager : MonoBehaviour
         audioBikeBrakeCollision.volume = 1f;
         audioBikeBrakeCollision.clip = bikeBrakecollision;
         audioBikeBrakeCollision.Play();
+    }
+
+    private void setPlayerPlacement46(int placement, float bestPlacement, bool firstIt = false)
+    {
+        int playerId = 0;
+
+        foreach (PlayerManager player in GameManager.players.Values)
+        {
+            if (!playerPlacement.Contains(player.id))
+            {
+                Vector3 distanceVector = (finishLinePos - player.transform.position);
+                float distanceThisFrame = distanceVector.magnitude;
+
+                if (firstIt)
+                {
+                    bestPlacement = distanceVector.magnitude;
+                    firstIt = false;
+                } 
+
+                if (distanceVector.magnitude <= bestPlacement)
+                {
+                    bestPlacement = distanceVector.magnitude;
+                    playerId = player.id;
+                }
+            }
+        }
+
+        if (GameManager.players.ContainsKey(playerId))
+        {
+            GameManager.players[playerId].placement = placement;
+        }
+
+        playerPlacement.Add(playerId);
+
+        if (GameManager.players.Count == playerPlacement.Count)
+        {
+            return;
+        }
+        else
+        {
+            setPlayersPlacementHoudini(++placement, 0);
+        }
     }
 
     private void setPlayersPlacementHoudini(int placement, float bestPlacement)
@@ -253,14 +296,17 @@ public class PlayerManager : MonoBehaviour
             if (!finishedGame && SceneManager.GetActiveScene().name == "Vaquita")
             {
                 setPlayersPlacement(1, 0);
-                playerPlacement.Clear();
+            }
+            else if (!finishedGame && SceneManager.GetActiveScene().name == "4.6 kilómetros")
+            {
+                setPlayerPlacement46(1, 0, true);
             }
             else
             {
                 setPlayersPlacementHoudini(1, 0);
-                playerPlacement.Clear();
             }
 
+            playerPlacement.Clear();
             gameTimer += Time.deltaTime;
             distanceTimer += Time.deltaTime;
 
