@@ -142,12 +142,14 @@ public class PacketHandle : MonoBehaviour
         int points = _packet.ReadInt();
         float finalTime = _packet.ReadFloat();
         int placement = _packet.ReadInt();
+        string finishGameTime = _packet.ReadString();
 
         GameManager.players[playerId].burned_calories = burned_calories;
         GameManager.players[playerId].traveled_meters = traveled_meters;
         GameManager.players[playerId].points = points;
         GameManager.players[playerId].finalTime = finalTime;
         GameManager.players[playerId].placement = placement;
+        GameManager.players[playerId].finishGameTime = finishGameTime;
     }
 
     public static void UpdatePlayerSteps(Packet _packet)
@@ -288,6 +290,9 @@ public class PacketHandle : MonoBehaviour
         int id = _packet.ReadInt();
         bool state = _packet.ReadBool();
 
-        GameManager.players[Client.instance.myId].alert.SetActive(state);
+        if (GameManager.players[Client.instance.myId])
+        {
+            GameManager.players[Client.instance.myId].alert.SetActive(state);
+        }   
     }
 }

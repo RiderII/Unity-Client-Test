@@ -11,12 +11,12 @@ public class PlayerManager : MonoBehaviour
     public Image UIpanel;
     public Canvas playerCanvas;
     public TextMesh userNameText;
-    private GameObject playersFrame;
+    public GameObject playersFrame;
     private GameObject statisticsFrame;
     private GameObject displayInfoFrame;
     private GameObject raceRankFrame;
     public GameObject lapsFrame;
-    GameObject[] playerLayers = new GameObject[4];
+    public GameObject[] playerLayers = new GameObject[4];
     public List<int> playerPlacement = new List<int>();
     public GameObject pointingArrow;
     public GameObject glass;
@@ -40,6 +40,7 @@ public class PlayerManager : MonoBehaviour
     public float weight = 90f;
     public float playerSpeed = 0f;
     public float totalGameTime = 0f;
+    public string finishGameTime;
     public List<Medal> medals = new List<Medal>();
     public List<MapReport> mapReport;
     //public float totalScore = 0;
@@ -47,6 +48,7 @@ public class PlayerManager : MonoBehaviour
     public bool finishedGame = false;
     public bool reloadRequestSent = false;
     private bool isGameOver = false;
+    public bool seeDetail = false;
     Vector3 oldPos;
     Vector3 initialPos;
     Vector3 previousPos;
@@ -67,7 +69,7 @@ public class PlayerManager : MonoBehaviour
     public static AudioSource audioBikeBrakeCollision;
     public AudioSource audioSourceCheckPoint;
 
-    [SerializeField] private GameObject raceResults;
+    [SerializeField] public GameObject raceResults;
 
     public void Initialize(int _id, string _username)
     {
@@ -107,7 +109,7 @@ public class PlayerManager : MonoBehaviour
             pFrame.transform.GetChild(1).GetComponent<TextMeshProUGUI>().enabled = false;
         }
 
-        raceResults.SetActive(false);
+        if (raceResults != null) raceResults.SetActive(false);
 
         audioBikeBrake = AddAudio(false, false, 0f);
         audioBikeBrakeCollision = AddAudio(true, false, 1f);
@@ -262,6 +264,7 @@ public class PlayerManager : MonoBehaviour
                 isGameOver = true;
                 finalTime = gameTimer;
                 totalGameTime = finalTime;
+                finishGameTime = DateTime.Now.ToString();
                 PacketSend.SendPlayerStatistics(this);
             }
 
@@ -338,6 +341,7 @@ public class PlayerManager : MonoBehaviour
                     playerCanvas.gameObject.SetActive(false);
                     ShowFinishDashboard();
                     updatePlayersResults();
+                    
                     //if (!reloadRequestSent)
                     //{
                     //    PacketSend.RequestGameRestart();
@@ -385,20 +389,27 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (PlayerManager player in GameManager.players.Values)
         {
-            if (player.finishedGame)
+            if (player.finishedGame && !player.seeDetail)
             {
-
                 raceResults.transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject.SetActive(true);
                 playerLayers[player.placement - 1] = raceResults.transform.GetChild(0).transform.GetChild(0).transform.GetChild(player.placement - 1).gameObject;
-                // playerLayers[player.placement - 1].SetActive(true);
+
+                switch (player.placement)
+                {
+                    case 1: playerLayers[player.placement - 1].transform.GetChild(2).GetComponent<Image>().sprite = one; break;
+                    case 2: playerLayers[player.placement - 1].transform.GetChild(2).GetComponent<Image>().sprite = two; break;
+                    case 3: playerLayers[player.placement - 1].transform.GetChild(2).GetComponent<Image>().sprite = three; break;
+                    case 4: playerLayers[player.placement - 1].transform.GetChild(2).GetComponent<Image>().sprite = four; break;
+                }
+
+                //playerLayers[player.placement - 1].SetActive(true);
                 playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = player.username;
                 playerLayers[player.placement - 1].transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
                 //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
                 //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
                 //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
                 playerLayers[player.placement - 1].transform.GetChild(1).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
-                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE INICIO " + System.DateTime.Now;
-                
+                //playerLayers[player.placement - 1].transform.GetChild(0).transform.GetChild(2).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "HORA DE FINALIZACIÓN " + player.finishGameTime;
             }
         }
     }

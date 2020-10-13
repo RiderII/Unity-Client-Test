@@ -23,6 +23,73 @@ public class LvlManger : MonoBehaviour
         SceneManager.LoadScene(pNombreNivel); 
     }
 
+    public void playerDetail(int playerId)
+    {
+
+        PlayerManager player = null;
+        foreach (PlayerManager p in GameManager.players.Values)
+        {
+            if (p.placement == playerId)
+            {
+                player = p;
+            }
+        }
+
+        if (player.seeDetail)
+        {
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(1).gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(3).gameObject.SetActive(true);
+            foreach (PlayerManager p in GameManager.players.Values)
+            {
+                if (p.finishedGame && p.id != player.id)
+                {
+                    p.seeDetail = false;
+                }
+            }
+        }
+        else
+        {
+
+            GameManager.players[Client.instance.myId].playerLayers[0] = GameManager.players[Client.instance.myId].raceResults.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).gameObject;
+
+            switch (player.placement)
+            {
+                case 1: GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(2).GetComponent<Image>().sprite = GameManager.players[Client.instance.myId].one; break;
+                case 2: GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(2).GetComponent<Image>().sprite = GameManager.players[Client.instance.myId].two; break;
+                case 3: GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(2).GetComponent<Image>().sprite = GameManager.players[Client.instance.myId].three; break;
+                case 4: GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(2).GetComponent<Image>().sprite = GameManager.players[Client.instance.myId].four; break;
+            }
+
+            foreach (PlayerManager p in GameManager.players.Values)
+            {
+                if (p.finishedGame && p.id != player.id)
+                {
+                    p.seeDetail = true;
+                }
+            }
+            if (GameManager.players[Client.instance.myId].playerLayers[1] != null) GameManager.players[Client.instance.myId].playerLayers[1].gameObject.SetActive(false);
+            if (GameManager.players[Client.instance.myId].playerLayers[2] != null) GameManager.players[Client.instance.myId].playerLayers[2].gameObject.SetActive(false);
+            if (GameManager.players[Client.instance.myId].playerLayers[3] != null) GameManager.players[Client.instance.myId].playerLayers[3].gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(3).gameObject.SetActive(false);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = player.username;
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(0).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "HORA DE FINALIZACIÓN " + player.finishGameTime;
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "TIEMPO: " + Mathf.FloorToInt(player.finalTime) + " s";
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(1).gameObject.SetActive(true);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(2).gameObject.SetActive(true);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(3).gameObject.SetActive(true);
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "DISTANCIA RECORRIDA: " + System.Math.Round(player.traveled_meters, 2) + " m";
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "CALORIAS: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "COLISIONES: " + player.collisions;
+            GameManager.players[Client.instance.myId].playerLayers[0].transform.GetChild(1).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "PUNTAJE: " + player.points;
+        }
+
+        player.seeDetail = !player.seeDetail;
+    }
+
     public void loadGameLevel(string pNombreNivel) {
         Time.timeScale = 1;
         Client.instance.levelSelected = pNombreNivel;

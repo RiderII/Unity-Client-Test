@@ -101,6 +101,7 @@ public class PacketSend : MonoBehaviour
                 _packet.Write(player.points);
                 _packet.Write(player.finalTime);
                 _packet.Write(player.placement);
+                _packet.Write(player.finishGameTime);
             }
 
             SendTCPData(_packet);
