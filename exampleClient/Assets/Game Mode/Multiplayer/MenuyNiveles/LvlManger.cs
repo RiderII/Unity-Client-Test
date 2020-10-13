@@ -232,22 +232,30 @@ public static class MedalCollection
         sprites.Add("one", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "cup_gold"),
-            off = Resources.Load<Sprite>(path + "cup")
+            off = Resources.Load<Sprite>(path + "cup"),
+            onDescription = "Cumplidor! \n Terminaste una carrera en menos de 30 segundos",
+            offDescription = "Cumplidor! \n Termina una carrera en menos de 30 segundos"
         });
         sprites.Add("two", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "medal_gold"),
-            off = Resources.Load<Sprite>(path + "medal")
+            off = Resources.Load<Sprite>(path + "medal"),
+            onDescription = "Velocista! \n Terminaste una carrera en menos de 22 segundos",
+            offDescription = "Velocista! \n Termina una carrera en menos de 22 segundos"
         });
         sprites.Add("three", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "reward_gold"),
-            off = Resources.Load<Sprite>(path + "reward")
+            off = Resources.Load<Sprite>(path + "reward"),
+            onDescription = "Super Velocidad! \n Completaste 100m en 30 segundos",
+            offDescription = "Super Velocidad! \n Completa 100m en 30 segundos"
         });
         sprites.Add("four", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "trophy_gold"),
-            off = Resources.Load<Sprite>(path + "trophy")
+            off = Resources.Load<Sprite>(path + "trophy"),
+            onDescription = "Excelencia! \n Completaste 100m en 20 segundos",
+            offDescription = "Excelencia! \n Completa 100m en 20 segundos"
         });
 
         return sprites;
@@ -257,4 +265,6 @@ public class MedalSprites
 {
     public Sprite on { get; set; }
     public Sprite off { get; set; }
+    public string onDescription { get; set; }
+    public string offDescription { get; set; }
 }

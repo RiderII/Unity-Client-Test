@@ -22,6 +22,7 @@ public class ProfileManager : MonoBehaviour
     public GameObject medalOnPrefab;
 
     public GameObject recordPrefab;
+    public GameObject medalBackdrop;
 
     private string username;
     private float weight;
@@ -129,8 +130,8 @@ public class ProfileManager : MonoBehaviour
 
     public async void LoadMedals()
     {
-        var boardFitness = medalsPanel.transform.GetChild(0);
-        var boardFun = medalsPanel.transform.GetChild(1);
+        var boardFitness = medalsPanel.transform.Find("FitnessBoard");
+        var boardFun = medalsPanel.transform.Find("FunBoard");
         var listaFit = await DataBridge.instance.LoadUserMedalsFitness();
         foreach (KeyValuePair<string, MedalSprites> entry in MedalCollection.Sprites())
         {
@@ -138,11 +139,19 @@ public class ProfileManager : MonoBehaviour
             {
                 GameObject medal = Instantiate(medalOnPrefab, boardFitness.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.on;
+                medal.GetComponent<Button>().onClick.AddListener(delegate () {
+                    medalBackdrop.SetActive(true);
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescription;
+                });
             }
             else
             {
                 GameObject medal = Instantiate(medalOffPrefab, boardFitness.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.off;
+                medal.GetComponent<Button>().onClick.AddListener(delegate () {
+                    medalBackdrop.SetActive(true);
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescription;
+                });
             }
         }
         var listaFun = await DataBridge.instance.LoadUserMedalsFun();
@@ -152,11 +161,19 @@ public class ProfileManager : MonoBehaviour
             {
                 GameObject medal = Instantiate(medalOnPrefab, boardFun.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.on;
+                medal.GetComponent<Button>().onClick.AddListener(delegate () {
+                    medalBackdrop.SetActive(true);
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescription;
+                });
             }
             else
             {
                 GameObject medal = Instantiate(medalOffPrefab, boardFun.transform);
                 medal.GetComponent<Image>().sprite = entry.Value.off;
+                medal.GetComponent<Button>().onClick.AddListener(delegate () {
+                    medalBackdrop.SetActive(true);
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescription;
+                });
             }
         }
 
