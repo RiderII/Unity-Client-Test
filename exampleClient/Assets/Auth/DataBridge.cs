@@ -353,7 +353,7 @@ public class DataBridge : MonoBehaviour
             }
         }));
 
-        return $"{calorias},{tiempo} seg,{distancia} m";
+        return $"{System.Math.Round(calorias,2)} kcal,{System.Math.Round(tiempo, 2)} seg,{System.Math.Round(distancia, 2)} m";
     }
 
     public async Task<RecordResponse> LoadUserRecords(string userid)
@@ -387,7 +387,7 @@ public class DataBridge : MonoBehaviour
             }
         }));
 
-        string totals = $"{calorias},{tiempo} seg,{distancia} m";
+        string totals = $"{System.Math.Round(calorias, 2)} kcal,{System.Math.Round(tiempo, 2)} seg,{System.Math.Round(distancia, 2)} m";
 
         RecordResponse response = new RecordResponse(records, totals);
         return response;

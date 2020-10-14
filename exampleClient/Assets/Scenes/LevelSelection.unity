@@ -537,7 +537,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 200 metros
+  m_Text: 600 metros
 --- !u!222 &212716898
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1275,7 +1275,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Vaquita
+  m_Text: 200 metros
 --- !u!222 &480229434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1596,7 +1596,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 500 metros
+  m_Text: 1000 metros
 --- !u!222 &714156105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2129,7 +2129,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Recorre un circuito cerrado y evade una serie de obst\xE1culos.\n\nvueltas:
-    3\namplitud: 200 metros"
+    3\namplitud: 600 metros"
 --- !u!222 &1124711674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2443,7 +2443,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "4.6 kil\xF3metros"
+  m_Text: 4600 metros
 --- !u!222 &1345656714
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3516,7 +3516,7 @@ MonoBehaviour:
 
     vueltas: 2
 
-    amplitud: 500 metros'
+    amplitud: 1000 metros'
 --- !u!222 &1871179248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3685,8 +3685,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1624576077}
   m_HandleRect: {fileID: 1624576076}
   m_Direction: 0
-  m_Value: 0.50000006
-  m_Size: 0.32878512
+  m_Value: 0.49999997
+  m_Size: 0.3287851
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3919,7 +3919,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Recorre un circuito abierto con pendientes escarpadas. \xBFResistir\xE1s
-    este desaf\xEDo? \n\namplitud: 4.6 kil\xF3metros"
+    este desaf\xEDo? \n\namplitud: 4600 metros"
 --- !u!222 &2093400275
 CanvasRenderer:
   m_ObjectHideFlags: 0
