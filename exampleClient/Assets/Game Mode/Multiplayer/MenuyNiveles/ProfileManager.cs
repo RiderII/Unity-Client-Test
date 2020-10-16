@@ -12,7 +12,6 @@ public class ProfileManager : MonoBehaviour
     public GameObject confirmationPanel;
     public TMP_InputField usernameInput;
     public TMP_InputField weightInput;
-    public TMP_InputField diameterInput;
     public Button editBtn;
     public Button checkBtn;
     public Button cancelBtn;
@@ -26,7 +25,6 @@ public class ProfileManager : MonoBehaviour
 
     private string username;
     private float weight;
-    private float diameter;
 
     private Button yesBtn;
     private Button noBtn;
@@ -69,10 +67,8 @@ public class ProfileManager : MonoBehaviour
 
         username = usernameInput.text;
         weight = float.Parse(weightInput.text);
-        diameter = float.Parse(diameterInput.text);
         usernameInput.interactable = true;
         weightInput.interactable = true;
-        diameterInput.interactable = true;
     }
 
     public void CancelBtnClick()
@@ -82,22 +78,18 @@ public class ProfileManager : MonoBehaviour
         cancelBtn.gameObject.SetActive(false);
 
         usernameInput.text = username;
-        weightInput.text = weight.ToString(); ;
-        diameterInput.text = diameter.ToString();
+        weightInput.text = weight.ToString();
         usernameInput.interactable = false;
         weightInput.interactable = false;
-        diameterInput.interactable = false;
     }
 
     public void CheckBtnClick()
     {
         username = usernameInput.textComponent.text;
         weight = float.Parse(weightInput.text);
-        diameter = float.Parse(diameterInput.text); 
         User user = DataBridge.instance.userProfile;
         user.username = username;
         user.weight = weight;
-        user.bikeWheelDiameter = diameter;
         DataBridge.instance.SaveNewUser(user);
 
         editBtn.gameObject.SetActive(true);
@@ -106,7 +98,6 @@ public class ProfileManager : MonoBehaviour
 
         usernameInput.interactable = false;
         weightInput.interactable = false;
-        diameterInput.interactable = false;
     }
 
     public void LoadRecords()

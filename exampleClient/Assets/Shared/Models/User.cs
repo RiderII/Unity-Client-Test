@@ -14,7 +14,6 @@ public class User
     public string lobbyState = "Pendiente";
     public string mode;
     public float weight;
-    public float bikeWheelDiameter; 
 
     public User() { }
 
@@ -30,7 +29,6 @@ public class User
         this.email = email;
         mode = "";
         weight = 0;
-        bikeWheelDiameter = 0;
     }
     public User(string id, string username, string email, string mode)
     {

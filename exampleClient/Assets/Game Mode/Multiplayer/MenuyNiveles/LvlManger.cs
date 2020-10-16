@@ -158,16 +158,13 @@ public class LvlManger : MonoBehaviour
 
         GameObject Username = profileMenu.transform.GetChild(1).gameObject;
         GameObject Weight = profileMenu.transform.GetChild(2).gameObject;
-        GameObject Diameter = profileMenu.transform.GetChild(3).gameObject;
         TMP_InputField usernameInput = Username.transform.GetChild(0).GetComponent<TMP_InputField>();
         TMP_InputField weightInput = Weight.transform.GetChild(0).GetComponent<TMP_InputField>();
-        TMP_InputField diameterInput = Diameter.transform.GetChild(0).GetComponent<TMP_InputField>();
 
         
         User user = DataBridge.instance.userProfile;
         usernameInput.text = user.username;
         weightInput.text = Convert.ToString(user.weight);
-        diameterInput.text = Convert.ToString(user.bikeWheelDiameter);
 
 
         //RECORDS
