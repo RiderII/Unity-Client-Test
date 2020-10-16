@@ -156,8 +156,8 @@ public class LvlManger : MonoBehaviour
         mainMenu.SetActive(false);
         profileMenu.SetActive(true);
 
-        GameObject Username = profileMenu.transform.GetChild(1).gameObject;
-        GameObject Weight = profileMenu.transform.GetChild(2).gameObject;
+        GameObject Username = profileMenu.transform.GetChild(2).gameObject;
+        GameObject Weight = profileMenu.transform.GetChild(3).gameObject;
         TMP_InputField usernameInput = Username.transform.GetChild(0).GetComponent<TMP_InputField>();
         TMP_InputField weightInput = Weight.transform.GetChild(0).GetComponent<TMP_InputField>();
 
