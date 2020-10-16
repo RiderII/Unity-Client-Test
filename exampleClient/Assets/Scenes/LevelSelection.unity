@@ -2128,8 +2128,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Recorre un circuito cerrado y evade una serie de obst\xE1culos.\n\nvueltas:
-    3\namplitud: 600 metros"
+  m_Text: "Recorre un circuito cerrado y evade una serie de obst\xE1culos.\n\nVueltas:
+    3\nAmplitud: 600 metros"
 --- !u!222 &1124711674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3514,9 +3514,9 @@ MonoBehaviour:
     mejorar tu marca.
 
 
-    vueltas: 2
+    Vueltas: 2
 
-    amplitud: 1000 metros'
+    Amplitud: 1000 metros'
 --- !u!222 &1871179248
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3597,7 +3597,7 @@ MonoBehaviour:
     en cualquier momento.
 
 
-    amplitud: 200 metros'
+    Amplitud: 200 metros'
 --- !u!222 &1941224684
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3919,7 +3919,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Recorre un circuito abierto con pendientes escarpadas. \xBFResistir\xE1s
-    este desaf\xEDo? \n\namplitud: 4600 metros"
+    este desaf\xEDo? \n\nAmplitud: 4600 metros"
 --- !u!222 &2093400275
 CanvasRenderer:
   m_ObjectHideFlags: 0
