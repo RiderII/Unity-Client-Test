@@ -22,6 +22,7 @@ public class Client : MonoBehaviour
     public string levelSelected;
     public string gameModeSelected;
     public string timeStamp = "";
+    public float base_rotation = 0f;
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
