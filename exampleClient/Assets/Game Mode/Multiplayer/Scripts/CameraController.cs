@@ -129,7 +129,7 @@ public class CameraController : MonoBehaviour
                 //player.transform.rotation = Quaternion.Euler(0f, (gyroInstance.GetGyroRotation().y + 0.3f) * 60.5f, 0f);
                 //transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.5f) * 60.5f, 0f, 0f);
                 //player.transform.rotation = Quaternion.Euler(0f, player.transform.rotation.y, 0f);
-                transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.6f) * 180.5f, (gyroInstance.GetGyroRotation().y + 0.1f) * 180.5f, 0f);
+                transform.localRotation = Quaternion.Euler((gyroInstance.GetGyroRotation().x + 0.6f) * 180.5f, (gyroInstance.GetGyroRotation().y + 0.1f + Client.instance.base_rotation) * 180.5f, 0f);
             }
             else
             {

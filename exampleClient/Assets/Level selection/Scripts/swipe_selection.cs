@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 using UnityEngine.UI;
 
 public class swipe_selection : MonoBehaviour
 {
     public GameObject scrollbar;
+    public TMP_InputField base_rotation;
     float scroll_pos = 0;
     float[] pos;
     bool run;
@@ -79,6 +81,10 @@ public class swipe_selection : MonoBehaviour
         //    }
 
         //}
+
+        if (base_rotation != null) {
+            Client.instance.base_rotation = float.Parse(base_rotation.text);
+        }
 
         if (run)
         {
