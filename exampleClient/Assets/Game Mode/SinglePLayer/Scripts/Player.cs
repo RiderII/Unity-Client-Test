@@ -43,6 +43,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
+        weight = DataBridge.instance.userProfile.weight;
         Time.timeScale = 1;
         oldPos = transform.position;
         pausePanel.SetActive(false);

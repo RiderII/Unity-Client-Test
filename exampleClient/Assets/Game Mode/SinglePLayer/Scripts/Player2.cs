@@ -69,6 +69,7 @@ public class Player2 : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     void Start()
     {
+        weight = DataBridge.instance.userProfile.weight;
         Time.timeScale = 1;
         oldPos = transform.position;
         oldPos2 = transform.position;
