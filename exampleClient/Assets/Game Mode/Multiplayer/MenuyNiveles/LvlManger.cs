@@ -242,7 +242,7 @@ public static class MedalCollection
             onDescriptionFun = "Nivel 600m: Experto!\nTerminaste la carrera sin colisiones y en menos de 85 segundos",
             offDescriptionFun = "Nivel 600m: Experto!\nDebes terminar la carrera sin colisiones y en menos de 85 segundos",
             onDescriptionFit = "Nivel 600m: Experto!\nTerminaste la carrera en menos de 75 segundos",
-            offDescriptionFit = "Nivel 200m: Experto!\nDebes terminar la carrera en menos de 75 segundos",
+            offDescriptionFit = "Nivel 600m: Experto!\nDebes terminar la carrera en menos de 75 segundos",
         });
         sprites.Add("three", new MedalSprites
         {
