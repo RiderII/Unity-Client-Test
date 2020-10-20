@@ -230,29 +230,37 @@ public static class MedalCollection
         {
             on = Resources.Load<Sprite>(path + "cup_gold"),
             off = Resources.Load<Sprite>(path + "cup"),
-            onDescription = "Cumplidor! \n Terminaste una carrera en menos de 30 segundos",
-            offDescription = "Cumplidor! \n Termina una carrera en menos de 30 segundos"
+            onDescriptionFun = "Nivel 200m: Cumplidor!\nTerminaste la carrera sin colisionar con ningún obstáculo",
+            offDescriptionFun = "Nivel 200m: Cumplidor!\nDebes terminar la carrera sin colisionar con ningún obstáculo",
+            onDescriptionFit = "Nivel 200m: Cumplidor!\nTerminaste la carrera en menos de 22 segundos",
+            offDescriptionFit = "Nivel 200m: Cumplidor!\nDebes terminar la carrera en menos de 22 segundos",
         });
         sprites.Add("two", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "medal_gold"),
             off = Resources.Load<Sprite>(path + "medal"),
-            onDescription = "Velocista! \n Terminaste una carrera en menos de 22 segundos",
-            offDescription = "Velocista! \n Termina una carrera en menos de 22 segundos"
+            onDescriptionFun = "Nivel 600m: Experto!\nTerminaste la carrera sin colisiones y en menos de 1 minuto",
+            offDescriptionFun = "Nivel 600m: Experto!\nDebes terminar la carrera sin colisiones y en menos de 1 minuto",
+            onDescriptionFit = "Nivel 600m: Experto!\nTerminaste la carrera en menos de 50 segundos",
+            offDescriptionFit = "Nivel 200m: Experto!\nDebes terminar la carrera en menos de 50 segundos",
         });
         sprites.Add("three", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "reward_gold"),
             off = Resources.Load<Sprite>(path + "reward"),
-            onDescription = "Super Velocidad! \n Completaste 100m en 30 segundos",
-            offDescription = "Super Velocidad! \n Completa 100m en 30 segundos"
+            onDescriptionFun = "Nivel 1000m: Maestro!\nTerminaste la carrera en menos de 120 segundos",
+            offDescriptionFun = "Nivel 1000m: Maestro!\nDebes terminar la carrera en menos de 120 segundos",
+            onDescriptionFit = "Nivel 1000m: Maestro!\nTerminaste la carrera en menos de 100 segundos",
+            offDescriptionFit = "Nivel 1000m: Maestro!\nDebes terminar la carrera en menos de 100 segundos",
         });
         sprites.Add("four", new MedalSprites
         {
             on = Resources.Load<Sprite>(path + "trophy_gold"),
             off = Resources.Load<Sprite>(path + "trophy"),
-            onDescription = "Excelencia! \n Completaste 100m en 20 segundos",
-            offDescription = "Excelencia! \n Completa 100m en 20 segundos"
+            onDescriptionFun = "Nivel 4600m: Crack!\nTerminaste la carrera en menos de 600 segundos",
+            offDescriptionFun = "Nivel 4600m: Crack!\nDebes terminar la carrera en menos de 600 segundos",
+            onDescriptionFit = "Nivel 4600m: Crack!\nTerminaste la carrera en menos de 500 segundos",
+            offDescriptionFit = "Nivel 4600m: Crack!\nDebes terminar la carrera en menos de 500 segundos",
         });
 
         return sprites;
@@ -262,6 +270,8 @@ public class MedalSprites
 {
     public Sprite on { get; set; }
     public Sprite off { get; set; }
-    public string onDescription { get; set; }
-    public string offDescription { get; set; }
+    public string onDescriptionFun { get; set; }
+    public string offDescriptionFun { get; set; }
+    public string onDescriptionFit { get; set; }
+    public string offDescriptionFit { get; set; }
 }

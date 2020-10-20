@@ -132,7 +132,7 @@ public class ProfileManager : MonoBehaviour
                 medal.GetComponent<Image>().sprite = entry.Value.on;
                 medal.GetComponent<Button>().onClick.AddListener(delegate () {
                     medalBackdrop.SetActive(true);
-                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescription;
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescriptionFit;
                 });
             }
             else
@@ -141,7 +141,7 @@ public class ProfileManager : MonoBehaviour
                 medal.GetComponent<Image>().sprite = entry.Value.off;
                 medal.GetComponent<Button>().onClick.AddListener(delegate () {
                     medalBackdrop.SetActive(true);
-                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescription;
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescriptionFit;
                 });
             }
         }
@@ -154,7 +154,7 @@ public class ProfileManager : MonoBehaviour
                 medal.GetComponent<Image>().sprite = entry.Value.on;
                 medal.GetComponent<Button>().onClick.AddListener(delegate () {
                     medalBackdrop.SetActive(true);
-                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescription;
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.onDescriptionFun;
                 });
             }
             else
@@ -163,7 +163,7 @@ public class ProfileManager : MonoBehaviour
                 medal.GetComponent<Image>().sprite = entry.Value.off;
                 medal.GetComponent<Button>().onClick.AddListener(delegate () {
                     medalBackdrop.SetActive(true);
-                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescription;
+                    medalBackdrop.transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = entry.Value.offDescriptionFun;
                 });
             }
         }

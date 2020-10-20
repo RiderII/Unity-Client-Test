@@ -44,10 +44,10 @@ public class DataBridge : MonoBehaviour
     }
 
     public void SaveData() {
-        data = new Challenge("Termina una carrera!", 100);
+        data = new Challenge("Nivel 1000m: Termina el nivel en menos de 3 minutos", 100);
         string jsonData = JsonUtility.ToJson(data);
 
-        dbReference.Child("Challenges2").Child("Challenge" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
+        dbReference.Child("Challenges").Child("Fitness").Child("Challenge" + Random.Range(0, 100000)).SetRawJsonValueAsync(jsonData);
         //en vez de usar un range, se debe usar un id unico usando firebase.Auth
     }
 
@@ -113,6 +113,7 @@ public class DataBridge : MonoBehaviour
 
     public void LoadUser(string userid)
     {
+        ///
         FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).GetValueAsync()
             .ContinueWith((task =>
             {
@@ -131,7 +132,6 @@ public class DataBridge : MonoBehaviour
                     userProfile = JsonUtility.FromJson<User>(userstring);
                 }
             }));
-        print("mode loaded");
     }
     public void LoadData()
     {
@@ -195,6 +195,7 @@ public class DataBridge : MonoBehaviour
     {
         List<string> lista = new List<string>();
         string userid = FirebaseAuth.DefaultInstance.CurrentUser.UserId;
+//        FirebaseDatabase.DefaultInstance.GetReference("Users").Child(userid).
         await FirebaseDatabase.DefaultInstance.GetReference("UserMedals").Child(userid).Child("Fitness").GetValueAsync()
             .ContinueWith((task => {
                 if (task.IsCanceled)
