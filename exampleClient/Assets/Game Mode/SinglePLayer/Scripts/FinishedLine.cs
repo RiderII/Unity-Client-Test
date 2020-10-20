@@ -5,12 +5,17 @@ using UnityEngine;
 public class FinishedLine : MonoBehaviour
 {
     public Player player;
+    public Player2 player2;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            player.reachedFinishLine = true;
+            if (player) {
+                player.reachedFinishLine = true;
+            } else {
+                player2.reachedFinishLine = true;
+            }
         }
     }
 }

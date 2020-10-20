@@ -82,9 +82,9 @@ public class swipe_selection : MonoBehaviour
 
         //}
 
-        if (base_rotation != null) {
-            Client.instance.base_rotation = float.Parse(base_rotation.text);
-        }
+        //if (base_rotation != null) {
+        //    Client.instance.base_rotation = float.Parse(base_rotation.text);
+        //}
 
         if (run)
         {
