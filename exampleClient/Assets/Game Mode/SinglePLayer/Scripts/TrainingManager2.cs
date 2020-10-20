@@ -174,32 +174,33 @@ public class TrainingManager2 : MonoBehaviour
     {
         if (DataBridge.instance.GetMode() == "Fun")
         {
-            if (mapReport.totalGameTime < 30)
-            {
-                DataBridge.instance.SaveUserMedal("one");
-            }
-            if (mapReport.collisions == 0)
+            if (mapReport.collisions == 0 && mapReport.totalGameTime <= 60 
+                && mapReport.traveled_kilometers < 700)
             {
                 DataBridge.instance.SaveUserMedal("two");
             }
-            if (mapReport.totalGameTime <= 24)
+            else if (mapReport.totalGameTime <= 120 && mapReport.traveled_kilometers > 700
+               && mapReport.traveled_kilometers < 1100)
             {
                 DataBridge.instance.SaveUserMedal("three");
+            }
+            else if (mapReport.totalGameTime <= 600 && mapReport.traveled_kilometers > 2000)
+            {
+                DataBridge.instance.SaveUserMedal("four");
             }
         }
         if (DataBridge.instance.GetMode() == "Fitness")
         {
-            if (mapReport.totalGameTime < 27)
-            {
-                DataBridge.instance.SaveUserMedal("one");
-            }
-            if (mapReport.totalGameTime <= 24)
+            if (mapReport.totalGameTime <= 50 && mapReport.traveled_kilometers < 700)
             {
                 DataBridge.instance.SaveUserMedal("two");
-            }
-            if (mapReport.totalGameTime <= 21)
+            }else if(mapReport.totalGameTime <= 100 && mapReport.traveled_kilometers > 700 
+                && mapReport.traveled_kilometers < 1100)
             {
                 DataBridge.instance.SaveUserMedal("three");
+            }else if(mapReport.totalGameTime <= 500 && mapReport.traveled_kilometers > 2000)
+            {
+                DataBridge.instance.SaveUserMedal("four");
             }
         }
     }

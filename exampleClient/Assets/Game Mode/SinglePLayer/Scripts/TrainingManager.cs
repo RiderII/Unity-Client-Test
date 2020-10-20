@@ -154,32 +154,16 @@ public class TrainingManager : MonoBehaviour
     {
         if(DataBridge.instance.GetMode() == "Fun")
         {
-            if (mapReport.totalGameTime < 30)
-            {
-                DataBridge.instance.SaveUserMedal("one");
-            }
             if (mapReport.collisions == 0)
             {
-                DataBridge.instance.SaveUserMedal("two");
-            }
-            if (mapReport.totalGameTime <= 24)
-            {
-                DataBridge.instance.SaveUserMedal("three");
+                DataBridge.instance.SaveUserMedal("one");
             }
         }
         if (DataBridge.instance.GetMode() == "Fitness")
         {
-            if (mapReport.totalGameTime < 27)
+            if (mapReport.totalGameTime < 22)
             {
                 DataBridge.instance.SaveUserMedal("one");
-            }
-            if (mapReport.totalGameTime <= 24)
-            {
-                DataBridge.instance.SaveUserMedal("two");
-            }
-            if (mapReport.totalGameTime <= 21)
-            {
-                DataBridge.instance.SaveUserMedal("three");
             }
         }
     }
