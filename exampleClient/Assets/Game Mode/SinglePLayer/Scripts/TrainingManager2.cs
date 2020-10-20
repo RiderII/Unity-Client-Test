@@ -175,30 +175,29 @@ public class TrainingManager2 : MonoBehaviour
         if (DataBridge.instance.GetMode() == "Fun")
         {
             if (mapReport.collisions == 0 && mapReport.totalGameTime <= 60 
-                && mapReport.traveled_kilometers < 700)
+                && Client.instance.levelSelected == "200 metros")
             {
                 DataBridge.instance.SaveUserMedal("two");
             }
-            else if (mapReport.totalGameTime <= 120 && mapReport.traveled_kilometers > 700
-               && mapReport.traveled_kilometers < 1100)
+            else if (mapReport.totalGameTime <= 120 && mapReport.collisions == 0
+               && Client.instance.levelSelected == "500 metros")
             {
                 DataBridge.instance.SaveUserMedal("three");
             }
-            else if (mapReport.totalGameTime <= 600 && mapReport.traveled_kilometers > 2000)
+            else if (mapReport.totalGameTime <= 600 && Client.instance.levelSelected == "4.6 kilómetros")
             {
                 DataBridge.instance.SaveUserMedal("four");
             }
         }
         if (DataBridge.instance.GetMode() == "Fitness")
         {
-            if (mapReport.totalGameTime <= 50 && mapReport.traveled_kilometers < 700)
+            if (mapReport.totalGameTime <= 50 && Client.instance.levelSelected == "200 metros")
             {
                 DataBridge.instance.SaveUserMedal("two");
-            }else if(mapReport.totalGameTime <= 100 && mapReport.traveled_kilometers > 700 
-                && mapReport.traveled_kilometers < 1100)
+            }else if(mapReport.totalGameTime <= 100 && Client.instance.levelSelected == "500 metros")
             {
                 DataBridge.instance.SaveUserMedal("three");
-            }else if(mapReport.totalGameTime <= 500 && mapReport.traveled_kilometers > 2000)
+            }else if(mapReport.totalGameTime <= 500 && Client.instance.levelSelected == "4.6 kilómetros")
             {
                 DataBridge.instance.SaveUserMedal("four");
             }

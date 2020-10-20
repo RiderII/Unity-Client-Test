@@ -248,8 +248,8 @@ public static class MedalCollection
         {
             on = Resources.Load<Sprite>(path + "reward_gold"),
             off = Resources.Load<Sprite>(path + "reward"),
-            onDescriptionFun = "Nivel 1000m: Maestro!\nTerminaste la carrera en menos de 120 segundos",
-            offDescriptionFun = "Nivel 1000m: Maestro!\nDebes terminar la carrera en menos de 120 segundos",
+            onDescriptionFun = "Nivel 1000m: Maestro!\nTerminaste la carrera sin colisiones en menos de 120 segundos",
+            offDescriptionFun = "Nivel 1000m: Maestro!\nDebes terminar la carrera sin colisiones en menos de 120 segundos",
             onDescriptionFit = "Nivel 1000m: Maestro!\nTerminaste la carrera en menos de 100 segundos",
             offDescriptionFit = "Nivel 1000m: Maestro!\nDebes terminar la carrera en menos de 100 segundos",
         });
