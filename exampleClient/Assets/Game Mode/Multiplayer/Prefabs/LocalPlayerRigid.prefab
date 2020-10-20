@@ -3411,6 +3411,7 @@ MonoBehaviour:
   UIpanel: {fileID: 5833834455136019454, guid: f1b00937be053454b9b99111fda66ba4, type: 3}
   playerCanvas: {fileID: 5630399483243961344}
   userNameText: {fileID: 6043336703048723577}
+  playersFrame: {fileID: 0}
   lapsFrame: {fileID: 0}
   playerLayers:
   - {fileID: 0}
@@ -3439,6 +3440,7 @@ MonoBehaviour:
   weight: 90
   playerSpeed: 0
   totalGameTime: 0
+  finishGameTime: 
   league: amateur
   finishedGame: 0
   reloadRequestSent: 0

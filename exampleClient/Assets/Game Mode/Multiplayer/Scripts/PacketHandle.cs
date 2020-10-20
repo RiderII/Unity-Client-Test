@@ -256,9 +256,12 @@ public class PacketHandle : MonoBehaviour
         Quaternion lastGlassRotation = _packet.readQuaternion();
         string message = _packet.ReadString();
 
-        GameManager.players[Client.instance.myId].InstantiatePoitingArrow(lastGlassPosition, lastGlassRotation);
-        GameManager.players[Client.instance.myId].alert.SetActive(true);
-        GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        if (!GameManager.players[Client.instance.myId].finishedGame)
+        {
+            GameManager.players[Client.instance.myId].InstantiatePoitingArrow(lastGlassPosition, lastGlassRotation);
+            GameManager.players[Client.instance.myId].alert.SetActive(true);
+            GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+        }
     }
 
     public static void ShowAlertWithMessage(Packet _packet)
@@ -267,14 +270,17 @@ public class PacketHandle : MonoBehaviour
         string message = _packet.ReadString();
         bool state = _packet.ReadBool();
 
-        GameManager.players[Client.instance.myId].alert.SetActive(state);
-        if (state)
+        if (!GameManager.players[Client.instance.myId].finishedGame)
         {
-            GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
-        }
-        else
-        {
-            GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Estás avanzando en sentido contrario";
+            GameManager.players[Client.instance.myId].alert.SetActive(state);
+            if (state)
+            {
+                GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = message;
+            }
+            else
+            {
+                GameManager.players[Client.instance.myId].alert.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Estás avanzando en sentido contrario";
+            }
         }
     }
 
@@ -290,9 +296,12 @@ public class PacketHandle : MonoBehaviour
         int id = _packet.ReadInt();
         bool state = _packet.ReadBool();
 
-        if (GameManager.players[Client.instance.myId])
+        if (!GameManager.players[Client.instance.myId].finishedGame)
         {
-            GameManager.players[Client.instance.myId].alert.SetActive(state);
-        }   
+            if (GameManager.players[Client.instance.myId])
+            {
+                GameManager.players[Client.instance.myId].alert.SetActive(state);
+            }
+        }
     }
 }
