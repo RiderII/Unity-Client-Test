@@ -174,7 +174,7 @@ public class TrainingManager2 : MonoBehaviour
     {
         if (DataBridge.instance.GetMode() == "Fun")
         {
-            if (mapReport.collisions == 0 && mapReport.totalGameTime <= 60 
+            if (mapReport.collisions == 0 && mapReport.totalGameTime <= 85 
                 && Client.instance.levelSelected == "200 metros")
             {
                 DataBridge.instance.SaveUserMedal("two");
@@ -184,20 +184,20 @@ public class TrainingManager2 : MonoBehaviour
             {
                 DataBridge.instance.SaveUserMedal("three");
             }
-            else if (mapReport.totalGameTime <= 600 && Client.instance.levelSelected == "4.6 kilómetros")
+            else if (mapReport.totalGameTime <= 500 && Client.instance.levelSelected == "4.6 kilómetros")
             {
                 DataBridge.instance.SaveUserMedal("four");
             }
         }
         if (DataBridge.instance.GetMode() == "Fitness")
         {
-            if (mapReport.totalGameTime <= 50 && Client.instance.levelSelected == "200 metros")
+            if (mapReport.totalGameTime <= 75 && Client.instance.levelSelected == "200 metros")
             {
                 DataBridge.instance.SaveUserMedal("two");
-            }else if(mapReport.totalGameTime <= 100 && Client.instance.levelSelected == "500 metros")
+            }else if(mapReport.totalGameTime <= 110 && Client.instance.levelSelected == "500 metros")
             {
                 DataBridge.instance.SaveUserMedal("three");
-            }else if(mapReport.totalGameTime <= 500 && Client.instance.levelSelected == "4.6 kilómetros")
+            }else if(mapReport.totalGameTime <= 420 && Client.instance.levelSelected == "4.6 kilómetros")
             {
                 DataBridge.instance.SaveUserMedal("four");
             }
