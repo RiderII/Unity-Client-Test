@@ -22,6 +22,8 @@ public class TrainingManager2 : MonoBehaviour
     private GyroManager gyroInstance;
     private int previouSteps = 0;
     private int lapsNum;
+    private float currentDis;
+    private float lastDis;
 
     // for race results
     private GameObject playersFrameResult;
@@ -71,6 +73,9 @@ public class TrainingManager2 : MonoBehaviour
         playersFrame.SetActive(false);
         raceResults.SetActive(false);
 
+        Vector3 distanceVector = (finishLine.transform.position - player.transform.position);
+        lastDis = distanceVector.magnitude;
+        
         sceneName = SceneManager.GetActiveScene().name;
 
         if (sceneName != "4.6 kilómetros")
@@ -113,12 +118,32 @@ public class TrainingManager2 : MonoBehaviour
                 CheckRecords(mapReport);
             }
 
+            if (sceneName == "4.6 kilómetros")
+            {
+                Vector3 distanceVector = (finishLine.transform.position - player.transform.position);
+                currentDis = distanceVector.magnitude;
+            }
+                
             if (distanceTimer >= 5f)
             {
-                int stepsPassed = player.steps.Count - previouSteps;
-                CalculatePoints(stepsPassed);
-                previouSteps = player.steps.Count;
-                distanceTimer = 0f;
+                if (sceneName == "4.6 kilómetros")
+                {
+
+                    if (lastDis > currentDis)
+                    {
+                        //Debug.Log(lastDis - currentDis);
+                        CalculatePointsLastMap(lastDis - currentDis);
+                        lastDis = currentDis;
+                        distanceTimer = 0f;
+                    }
+                }
+                else
+                {
+                    int stepsPassed = player.steps.Count - previouSteps;
+                    CalculatePoints(stepsPassed);
+                    previouSteps = player.steps.Count;
+                    distanceTimer = 0f;
+                }
             }
 
             statisticsFrame.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Puntos: " + player.points;
@@ -190,6 +215,18 @@ public class TrainingManager2 : MonoBehaviour
         }
     }
 
+    private void CalculatePointsLastMap(float distance)
+    {
+        switch (distance)
+        {
+            case var _ when distance >= 59: player.points += 250; break;
+            case var _ when distance >= 40: player.points += 200; break;
+            case var _ when distance >= 36: player.points += 150; break;
+            case var _ when distance >= 24: player.points += 100; break;
+            case var _ when distance >= 14: player.points += 50; break;
+        }
+    }
+
     private void CalculateScore()
     {
         //double distance = System.Math.Round(player.traveled_meters, 2);
@@ -215,7 +252,7 @@ public class TrainingManager2 : MonoBehaviour
         playersFrameResult.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Distancia recorrida: " + System.Math.Round(player.traveled_meters, 2) + " m";
         playersFrameResult.transform.GetChild(1).GetChild(2).GetComponent<TextMeshProUGUI>().text = "Calorías: " + System.Math.Round(player.burned_calories, 2) + " Kcal";
         playersFrameResult.transform.GetChild(1).GetChild(3).GetComponent<TextMeshProUGUI>().text = "Colisiones: " + player.collisions;
-        playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Puntaje: " + player.points;
+        playersFrameResult.transform.GetChild(1).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Puntaje: " + player.points + " p";
         playersFrameResult.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "Hora de inicio " + System.DateTime.Now;
     }
 
